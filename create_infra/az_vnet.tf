@@ -114,6 +114,20 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     destination_address_prefix = "*"
   }
 
+
+    # Open jaeger port 8089
+  security_rule {
+    name                       = "jaeger"
+    priority                   = 1007
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "16686"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
 }
 
 # Create network interface

@@ -1,0 +1,42 @@
+---
+- name: Ensure Docker is installed
+  package:
+    name: docker.io
+    state: present
+
+- name: Start Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Pull Jaeger all-in-one image
+  docker_image:
+    name: jaegertracing/all-in-one
+    tag: "1.66.0"
+    source: pull
+  when: ansible_facts.docker.images['jaegertracing/all-in-one:1.66.0'] is not defined
+
+- name: Run Jaeger all-in-one container with custom config
+  docker_container:
+    name: jaeger
+    image: jaegertracing/all-in-one:1.66.0
+    state: started
+    restart_policy: always
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14250:14251"  # Changed the port from 14250 to 14251
+      - "14268:14268"
+      - "9091:9090"
+    environment:
+      JAEGER_AGENT_HTTP_PORT: "5778"
+      JAEGER_COLLECTOR_ZIPKIN_HTTP_PORT: "9411"
+      JAEGER_QUERY_DEFAULT_LIMIT: "100"
+      JAEGER_SAMPLER_TYPE: "const"
+      JAEGER_SAMPLER_PARAM: "1"
+      JAEGER_REPORTER_LOG_SPANS: "true"
+  when: ansible_facts.docker.containers['jaeger'] is not defined or ansible_facts.docker.containers['jaeger'].state != 'running'

@@ -3727,3 +3727,2594 @@ information.
       ^ here
 2025-02-24 18:30:59,947 p=76135 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
 2025-02-24 18:30:59,947 p=76135 u=snrj n=ansible INFO| 168.63.20.95               : ok=5    changed=4    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:31:44,352 p=76547 u=snrj n=ansible INFO| PLAY [Setup Flask App with OpenTelemetry] *******************************************************************************************************************
+2025-02-24 18:31:44,362 p=76547 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:31:45,778 p=76547 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:31:45,778 p=76547 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:31:45,784 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Update apt package index] *****************************************************************************************************************
+2025-02-24 18:31:48,385 p=76547 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:31:48,395 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Ensure the 'universe' repository is enabled] **********************************************************************************************
+2025-02-24 18:31:49,003 p=76547 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:31:49,013 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Install python3-pip] **********************************************************************************************************************
+2025-02-24 18:31:50,234 p=76547 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:31:50,243 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Install required Python packages] *********************************************************************************************************
+2025-02-24 18:31:51,999 p=76547 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:31:52,008 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Set APPLICATION_INSIGHTS_CONNECTION_STRING in .bashrc] ************************************************************************************
+2025-02-24 18:31:52,375 p=76547 u=snrj n=ansible WARNING| [WARNING]: Module remote_tmp /home/azureadmin/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when running as another
+user. To avoid this, create the remote_tmp dir with the correct permissions manually
+
+2025-02-24 18:31:52,376 p=76547 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:31:52,401 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Copy the sample FastAPI application] ******************************************************************************************************
+2025-02-24 18:31:53,826 p=76547 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:31:53,835 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Create FastAPI service] *******************************************************************************************************************
+2025-02-24 18:31:55,090 p=76547 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:31:55,113 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Reload systemd daemon] ********************************************************************************************************************
+2025-02-24 18:31:55,869 p=76547 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:31:55,892 p=76547 u=snrj n=ansible INFO| TASK [flask-app : Restart FastAPI service] ******************************************************************************************************************
+2025-02-24 18:31:56,687 p=76547 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:31:56,697 p=76547 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:31:56,697 p=76547 u=snrj n=ansible INFO| 168.63.20.95               : ok=10   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:32:40,253 p=76664 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 18:32:40,263 p=76664 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:32:41,650 p=76664 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:32:41,650 p=76664 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:32:41,656 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 18:32:42,985 p=76664 u=snrj n=ansible INFO| ok: [168.63.20.95] => (item=wget)
+2025-02-24 18:32:44,181 p=76664 u=snrj n=ansible INFO| ok: [168.63.20.95] => (item=tar)
+2025-02-24 18:32:44,193 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-24 18:32:44,558 p=76664 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:32:44,571 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 18:32:46,966 p=76664 u=snrj n=ansible WARNING| [WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when running as another user. To
+avoid this, create the remote_tmp dir with the correct permissions manually
+
+2025-02-24 18:32:46,967 p=76664 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:32:46,976 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-24 18:32:47,286 p=76664 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:32:47,297 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-24 18:32:49,731 p=76664 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:32:49,760 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 18:32:51,315 p=76664 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:32:51,319 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 18:32:52,531 p=76664 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:32:52,540 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-24 18:32:52,880 p=76664 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  cmd:
+  - systemctl
+  - is-active
+  - prometheus
+  delta: '0:00:00.014711'
+  end: '2025-02-24 17:32:52.891347'
+  msg: non-zero return code
+  rc: 3
+  start: '2025-02-24 17:32:52.876636'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: inactive
+  stdout_lines: <omitted>
+2025-02-24 18:32:52,880 p=76664 u=snrj n=ansible INFO| ...ignoring
+2025-02-24 18:32:52,890 p=76664 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-24 18:32:53,943 p=76664 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:32:53,964 p=76664 u=snrj n=ansible INFO| RUNNING HANDLER [prometheus : Restart Prometheus] ***********************************************************************************************************
+2025-02-24 18:32:54,576 p=76664 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:32:54,577 p=76664 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:32:54,577 p=76664 u=snrj n=ansible INFO| 168.63.20.95               : ok=11   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+2025-02-24 18:33:06,475 p=76768 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 18:33:06,485 p=76768 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:33:07,872 p=76768 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:33:07,872 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:33:07,879 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 18:33:09,186 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95] => (item=wget)
+2025-02-24 18:33:10,354 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95] => (item=tar)
+2025-02-24 18:33:10,366 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-24 18:33:10,874 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:33:10,885 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 18:33:10,898 p=76768 u=snrj n=ansible INFO| skipping: [168.63.20.95]
+2025-02-24 18:33:10,904 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-24 18:33:11,222 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:33:11,233 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-24 18:33:11,246 p=76768 u=snrj n=ansible INFO| skipping: [168.63.20.95]
+2025-02-24 18:33:11,255 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 18:33:12,296 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:33:12,306 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 18:33:13,274 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:33:13,285 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-24 18:33:13,651 p=76768 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:33:13,662 p=76768 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-24 18:33:13,675 p=76768 u=snrj n=ansible INFO| skipping: [168.63.20.95]
+2025-02-24 18:33:13,682 p=76768 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:33:13,682 p=76768 u=snrj n=ansible INFO| 168.63.20.95               : ok=7    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2025-02-24 18:34:13,461 p=76915 u=snrj n=ansible INFO| Starting galaxy role install process
+2025-02-24 18:34:13,729 p=76915 u=snrj n=ansible INFO| - downloading role 'jaeger', owned by geerlingguy
+2025-02-24 18:34:14,312 p=76915 u=snrj n=ansible WARNING| [WARNING]: - geerlingguy.jaeger was NOT installed successfully: - sorry, geerlingguy.jaeger was not found on https://galaxy.ansible.com/api/.
+
+2025-02-24 18:34:14,314 p=76915 u=snrj n=ansible ERROR| ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+2025-02-24 18:35:56,605 p=77078 u=snrj n=ansible INFO| Starting galaxy role install process
+2025-02-24 18:35:56,817 p=77078 u=snrj n=ansible INFO| - downloading role 'jaeger', owned by andrewrothstein
+2025-02-24 18:35:57,530 p=77078 u=snrj n=ansible INFO| - downloading role from https://github.com/andrewrothstein/ansible-jaeger/archive/v1.2.2.tar.gz
+2025-02-24 18:35:58,023 p=77078 u=snrj n=ansible INFO| - extracting andrewrothstein.jaeger to /Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/andrewrothstein.jaeger
+2025-02-24 18:35:58,043 p=77078 u=snrj n=ansible INFO| - andrewrothstein.jaeger (v1.2.2) was installed successfully
+2025-02-24 18:35:58,050 p=77078 u=snrj n=ansible INFO| - adding dependency: andrewrothstein.unarchivedeps (3.0.3)
+2025-02-24 18:35:58,050 p=77078 u=snrj n=ansible INFO| - downloading role 'unarchivedeps', owned by andrewrothstein
+2025-02-24 18:35:58,553 p=77078 u=snrj n=ansible INFO| - downloading role from https://github.com/andrewrothstein/ansible-unarchivedeps/archive/3.0.3.tar.gz
+2025-02-24 18:35:59,037 p=77078 u=snrj n=ansible INFO| - extracting andrewrothstein.unarchivedeps to /Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/andrewrothstein.unarchivedeps
+2025-02-24 18:35:59,068 p=77078 u=snrj n=ansible INFO| - andrewrothstein.unarchivedeps (3.0.3) was installed successfully
+2025-02-24 18:39:45,587 p=77577 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 18:39:45,597 p=77577 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:39:48,298 p=77577 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:39:48,298 p=77577 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:39:48,304 p=77577 u=snrj n=ansible INFO| TASK [jaeger : Install Jaeger dependencies] *****************************************************************************************************************
+2025-02-24 18:39:54,494 p=77577 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:39:54,503 p=77577 u=snrj n=ansible INFO| TASK [jaeger : Add Jaeger repository] ***********************************************************************************************************************
+2025-02-24 18:41:03,210 p=77577 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 1 due to  retry, retrying
+
+2025-02-24 18:41:03,211 p=77577 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 1 seconds, before attempting to update the cache again
+
+2025-02-24 18:41:03,211 p=77577 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 2 due to  retry, retrying
+
+2025-02-24 18:41:03,211 p=77577 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 2 seconds, before attempting to update the cache again
+
+2025-02-24 18:41:03,211 p=77577 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 3 due to  retry, retrying
+
+2025-02-24 18:41:03,211 p=77577 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 4 seconds, before attempting to update the cache again
+
+2025-02-24 18:41:03,211 p=77577 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 4 due to  retry, retrying
+
+2025-02-24 18:41:03,212 p=77577 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 8 seconds, before attempting to update the cache again
+
+2025-02-24 18:41:03,212 p=77577 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 5 due to  retry, retrying
+
+2025-02-24 18:41:03,212 p=77577 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 12 seconds, before attempting to update the cache again
+
+2025-02-24 18:41:03,213 p=77577 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Failed to update apt cache after 5 retries: '
+2025-02-24 18:41:03,214 p=77577 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:41:03,214 p=77577 u=snrj n=ansible INFO| 168.63.20.95               : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:45:06,767 p=78232 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 18:45:07,081 p=78232 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 18:45:07,091 p=78232 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:45:11,573 p=78232 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:45:11,573 p=78232 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:45:11,581 p=78232 u=snrj n=ansible INFO| TASK [jaeger : Install Jaeger dependencies] *****************************************************************************************************************
+2025-02-24 18:46:21,609 p=78232 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 1 retries due to , retrying
+
+2025-02-24 18:46:21,610 p=78232 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 1 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:46:21,610 p=78232 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 2 retries due to , retrying
+
+2025-02-24 18:46:21,610 p=78232 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 2 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:46:21,611 p=78232 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 3 retries due to , retrying
+
+2025-02-24 18:46:21,611 p=78232 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 4 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:46:21,611 p=78232 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 4 retries due to , retrying
+
+2025-02-24 18:46:21,611 p=78232 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 8 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:46:21,611 p=78232 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 5 retries due to , retrying
+
+2025-02-24 18:46:21,611 p=78232 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 12 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:46:21,614 p=78232 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Failed to update apt cache after 5 retries: '
+2025-02-24 18:46:21,618 p=78232 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:46:21,618 p=78232 u=snrj n=ansible INFO| 168.63.20.95               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:46:42,504 p=78428 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 18:46:42,820 p=78428 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 18:46:42,831 p=78428 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:46:44,259 p=78428 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:46:44,260 p=78428 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:46:44,266 p=78428 u=snrj n=ansible INFO| TASK [jaeger : Install Jaeger dependencies] *****************************************************************************************************************
+2025-02-24 18:47:52,438 p=78428 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 1 retries due to , retrying
+
+2025-02-24 18:47:52,439 p=78428 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 2 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:47:52,439 p=78428 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 2 retries due to , retrying
+
+2025-02-24 18:47:52,439 p=78428 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 3 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:47:52,439 p=78428 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 3 retries due to , retrying
+
+2025-02-24 18:47:52,439 p=78428 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 5 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:47:52,440 p=78428 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 4 retries due to , retrying
+
+2025-02-24 18:47:52,440 p=78428 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 9 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:47:52,440 p=78428 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 5 retries due to , retrying
+
+2025-02-24 18:47:52,440 p=78428 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 13 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:47:52,442 p=78428 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Failed to update apt cache after 5 retries: '
+2025-02-24 18:47:52,445 p=78428 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:47:52,445 p=78428 u=snrj n=ansible INFO| 168.63.20.95               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:48:22,554 p=78617 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 18:48:22,857 p=78617 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 18:48:22,868 p=78617 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:48:24,304 p=78617 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:48:24,304 p=78617 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:48:24,310 p=78617 u=snrj n=ansible INFO| TASK [jaeger : Install Jaeger dependencies] *****************************************************************************************************************
+2025-02-24 18:48:24,814 p=78617 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Unsupported parameters for (apt) module: delay, retries. Supported parameters include: allow_change_held_packages, allow_downgrade, allow_unauthenticated, autoclean, autoremove, cache_valid_time, clean, deb, default_release, dpkg_options, fail_on_autoremove, force, force_apt_get, install_recommends, lock_timeout, only_upgrade, package, policy_rc_d, purge, state, update_cache, update_cache_retries, update_cache_retry_max_delay, upgrade (allow-downgrade, allow-downgrades, allow-unauthenticated, allow_downgrades, default-release, install-recommends, name, pkg, update-cache).'
+2025-02-24 18:48:24,816 p=78617 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:48:24,816 p=78617 u=snrj n=ansible INFO| 168.63.20.95               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:48:58,681 p=78717 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 18:48:58,989 p=78717 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 18:48:58,999 p=78717 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:49:00,417 p=78717 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:49:00,417 p=78717 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:49:00,423 p=78717 u=snrj n=ansible INFO| TASK [jaeger : Install Jaeger dependencies] *****************************************************************************************************************
+2025-02-24 18:50:09,039 p=78717 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 1 retries due to , retrying
+
+2025-02-24 18:50:09,039 p=78717 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 2 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 2 retries due to , retrying
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 3 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 3 retries due to , retrying
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 5 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 4 retries due to , retrying
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 9 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Failed to update cache after 5 retries due to , retrying
+
+2025-02-24 18:50:09,040 p=78717 u=snrj n=ansible WARNING| [WARNING]: Sleeping for 13 seconds, before attempting to refresh the cache again
+
+2025-02-24 18:50:09,041 p=78717 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Failed to update apt cache after 5 retries: '
+2025-02-24 18:50:09,043 p=78717 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:50:09,043 p=78717 u=snrj n=ansible INFO| 168.63.20.95               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:55:15,983 p=79325 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 18:55:17,418 p=79325 u=snrj n=ansible ERROR| ERROR! conflicting action statements: hosts, tasks
+
+The error appears to be in '/Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/jaeger/tasks/main.yml': line 2, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+---
+- name: Install Jaeger from .tar.gz
+  ^ here
+
+2025-02-24 18:55:40,316 p=79386 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 18:55:41,144 p=79386 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 18:55:41,226 p=79386 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:55:46,403 p=79386 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:55:46,403 p=79386 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:55:46,410 p=79386 u=snrj n=ansible INFO| TASK [jaeger : Ensure the required directory exists for Jaeger] *********************************************************************************************
+2025-02-24 18:55:46,831 p=79386 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /opt/jaeger
+  size: 4096
+  state: directory
+  uid: 0
+2025-02-24 18:55:46,853 p=79386 u=snrj n=ansible INFO| TASK [jaeger : Copy Jaeger .tar.gz to the remote host] ******************************************************************************************************
+2025-02-24 18:55:47,142 p=79386 u=snrj n=ansible INFO| An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2025-02-24 18:55:47,143 p=79386 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: |-
+    Could not find or access '/path/to/jaeger-1.66.0-linux-amd64.tar.gz' on the Ansible Controller.
+    If you are using a module and expect the file to exist on the remote, see the remote_src option
+2025-02-24 18:55:47,144 p=79386 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:55:47,144 p=79386 u=snrj n=ansible INFO| 168.63.20.95               : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 18:57:44,162 p=79606 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 18:57:44,480 p=79606 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 18:57:44,492 p=79606 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:57:48,879 p=79606 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:57:48,880 p=79606 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:57:48,886 p=79606 u=snrj n=ansible INFO| TASK [jaeger : Ensure the required directory exists for Jaeger] *********************************************************************************************
+2025-02-24 18:57:49,281 p=79606 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /opt/jaeger
+  size: 4096
+  state: directory
+  uid: 0
+2025-02-24 18:57:49,290 p=79606 u=snrj n=ansible INFO| TASK [jaeger : Download Jaeger .tar.gz from GitHub release] *************************************************************************************************
+2025-02-24 18:57:55,058 p=79606 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  checksum_dest: null
+  checksum_src: c382a089c91d3e4c0d457197c33121610638fedc
+  dest: /opt/jaeger/jaeger-1.66.0-linux-amd64.tar.gz
+  elapsed: 4
+  gid: 0
+  group: root
+  md5sum: f9720162ff4e211676473888e21cd4bf
+  mode: '0644'
+  msg: OK (129728803 bytes)
+  owner: root
+  size: 129728803
+  src: /root/.ansible/tmp/ansible-moduletmp-1740419869.7616014-0t10ykrz/tmpdq46gakx
+  state: file
+  status_code: 200
+  uid: 0
+  url: https://github.com/jaegertracing/jaeger/releases/download/v1.66.0/jaeger-1.66.0-linux-amd64.tar.gz
+2025-02-24 18:57:55,094 p=79606 u=snrj n=ansible INFO| TASK [jaeger : Extract Jaeger tar.gz] ***********************************************************************************************************************
+2025-02-24 18:58:04,166 p=79606 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  dest: /opt/jaeger/
+  extract_results:
+    cmd:
+    - /usr/bin/tar
+    - --extract
+    - -C
+    - /opt/jaeger
+    - -z
+    - -f
+    - /opt/jaeger/jaeger-1.66.0-linux-amd64.tar.gz
+    err: ''
+    out: ''
+    rc: 0
+  gid: 0
+  group: root
+  handler: TgzArchive
+  mode: '0755'
+  owner: root
+  size: 4096
+  src: /opt/jaeger/jaeger-1.66.0-linux-amd64.tar.gz
+  state: directory
+  uid: 0
+2025-02-24 18:58:04,184 p=79606 u=snrj n=ansible INFO| TASK [jaeger : Move Jaeger binaries to /usr/local/bin] ******************************************************************************************************
+2025-02-24 18:58:04,575 p=79606 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=true 
+  cmd:
+  - mv
+  - /opt/jaeger/jaeger-1.66.0-linux-amd64/jaeger-*
+  - /usr/local/bin/
+  delta: '0:00:00.005944'
+  end: '2025-02-24 17:58:04.554713'
+  msg: non-zero return code
+  rc: 1
+  start: '2025-02-24 17:58:04.548769'
+  stderr: 'mv: cannot stat ''/opt/jaeger/jaeger-1.66.0-linux-amd64/jaeger-*'': No such file or directory'
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+2025-02-24 18:58:04,577 p=79606 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:58:04,577 p=79606 u=snrj n=ansible INFO| 168.63.20.95               : ok=4    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:00:23,480 p=79914 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:00:23,782 p=79914 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:00:23,793 p=79914 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:00:28,322 p=79914 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:00:28,322 p=79914 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:00:28,328 p=79914 u=snrj n=ansible INFO| TASK [jaeger : Ensure the required directory exists for Jaeger] *********************************************************************************************
+2025-02-24 19:00:28,702 p=79914 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /opt/jaeger
+  size: 4096
+  state: directory
+  uid: 0
+2025-02-24 19:00:28,711 p=79914 u=snrj n=ansible INFO| TASK [jaeger : Download Jaeger .tar.gz from GitHub release] *************************************************************************************************
+2025-02-24 19:00:29,805 p=79914 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  dest: /opt/jaeger/jaeger-1.66.0-linux-amd64.tar.gz
+  elapsed: 0
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: 'HTTP Error 304: Not Modified'
+  owner: root
+  size: 129728803
+  state: file
+  status_code: 304
+  uid: 0
+  url: https://github.com/jaegertracing/jaeger/releases/download/v1.66.0/jaeger-1.66.0-linux-amd64.tar.gz
+2025-02-24 19:00:29,826 p=79914 u=snrj n=ansible INFO| TASK [jaeger : Extract Jaeger tar.gz] ***********************************************************************************************************************
+2025-02-24 19:00:30,161 p=79914 u=snrj n=ansible INFO| skipping: [168.63.20.95] => changed=false 
+  msg: skipped, since /opt/jaeger/jaeger-1.66.0-linux-amd64 exists
+2025-02-24 19:00:30,173 p=79914 u=snrj n=ansible INFO| TASK [jaeger : Move Jaeger binaries to /usr/local/bin] ******************************************************************************************************
+2025-02-24 19:00:30,679 p=79914 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=true 
+  cmd:
+  - mv
+  - /opt/jaeger/jaeger-1.66.0-linux-amd64/*
+  - /usr/local/bin/
+  delta: '0:00:00.005351'
+  end: '2025-02-24 18:00:30.657168'
+  msg: non-zero return code
+  rc: 1
+  start: '2025-02-24 18:00:30.651817'
+  stderr: 'mv: cannot stat ''/opt/jaeger/jaeger-1.66.0-linux-amd64/*'': No such file or directory'
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+2025-02-24 19:00:30,681 p=79914 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:00:30,681 p=79914 u=snrj n=ansible INFO| 168.63.20.95               : ok=3    changed=0    unreachable=0    failed=1    skipped=1    rescued=0    ignored=0   
+2025-02-24 19:01:37,385 p=80077 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:01:37,678 p=80077 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:01:37,688 p=80077 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:01:42,154 p=80077 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:01:42,154 p=80077 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:01:42,161 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Ensure the required directory exists for Jaeger] *********************************************************************************************
+2025-02-24 19:01:42,546 p=80077 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /opt/jaeger
+  size: 4096
+  state: directory
+  uid: 0
+2025-02-24 19:01:42,554 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Download Jaeger .tar.gz from GitHub release] *************************************************************************************************
+2025-02-24 19:01:43,426 p=80077 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  dest: /opt/jaeger/jaeger-1.66.0-linux-amd64.tar.gz
+  elapsed: 0
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: 'HTTP Error 304: Not Modified'
+  owner: root
+  size: 129728803
+  state: file
+  status_code: 304
+  uid: 0
+  url: https://github.com/jaegertracing/jaeger/releases/download/v1.66.0/jaeger-1.66.0-linux-amd64.tar.gz
+2025-02-24 19:01:43,437 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Extract Jaeger tar.gz] ***********************************************************************************************************************
+2025-02-24 19:01:43,769 p=80077 u=snrj n=ansible INFO| skipping: [168.63.20.95] => changed=false 
+  msg: skipped, since /opt/jaeger/jaeger-1.66.0-linux-amd64 exists
+2025-02-24 19:01:43,781 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Move Jaeger binaries to /usr/local/bin] ******************************************************************************************************
+2025-02-24 19:01:44,148 p=80077 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  cmd:
+  - find
+  - /opt/jaeger/jaeger-1.66.0-linux-amd64/
+  - -type
+  - f
+  - -exec
+  - mv
+  - '{}'
+  - /usr/local/bin/
+  - ;
+  delta: '0:00:00.012314'
+  end: '2025-02-24 18:01:44.128756'
+  msg: ''
+  rc: 0
+  start: '2025-02-24 18:01:44.116442'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+2025-02-24 19:01:44,157 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Verify Jaeger Agent version] *****************************************************************************************************************
+2025-02-24 19:01:44,487 p=80077 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  cmd: jaeger-agent --version
+  failed_when_result: false
+  msg: '[Errno 2] No such file or directory: b''jaeger-agent'''
+  rc: 2
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+2025-02-24 19:01:44,502 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Display Jaeger version] **********************************************************************************************************************
+2025-02-24 19:01:44,520 p=80077 u=snrj n=ansible INFO| ok: [168.63.20.95] => 
+  msg: 'Jaeger version is '
+2025-02-24 19:01:44,527 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Start Jaeger Agent] **************************************************************************************************************************
+2025-02-24 19:01:46,241 p=80077 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  ansible_job_id: j196601818628.13791
+  finished: 0
+  results_file: /root/.ansible_async/j196601818628.13791
+  started: 1
+2025-02-24 19:01:46,249 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Start Jaeger Collector (optional, based on your setup)] **************************************************************************************
+2025-02-24 19:01:47,683 p=80077 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  ansible_job_id: j540942657591.13825
+  finished: 0
+  results_file: /root/.ansible_async/j540942657591.13825
+  started: 1
+2025-02-24 19:01:47,692 p=80077 u=snrj n=ansible INFO| TASK [jaeger : Start Jaeger Query (optional, based on your setup)] ******************************************************************************************
+2025-02-24 19:01:49,000 p=80077 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  ansible_job_id: j231101098657.13862
+  finished: 0
+  results_file: /root/.ansible_async/j231101098657.13862
+  started: 1
+2025-02-24 19:01:49,010 p=80077 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:01:49,011 p=80077 u=snrj n=ansible INFO| 168.63.20.95               : ok=9    changed=4    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2025-02-24 19:09:16,099 p=80985 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:09:18,235 p=80985 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:09:18,312 p=80985 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:09:23,412 p=80985 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:09:23,413 p=80985 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:09:23,430 p=80985 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:09:39,067 p=80985 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  cache_update_time: 1740419444
+  cache_updated: false
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: |-
+    Reading package lists...
+    Building dependency tree...
+    Reading state information...
+    The following additional packages will be installed:
+      bridge-utils containerd dns-root-data dnsmasq-base pigz runc ubuntu-fan
+    Suggested packages:
+      ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-buildx
+      docker-compose-v2 docker-doc rinse zfs-fuse | zfsutils
+    The following NEW packages will be installed:
+      bridge-utils containerd dns-root-data dnsmasq-base docker.io pigz runc
+      ubuntu-fan
+    0 upgraded, 8 newly installed, 0 to remove and 3 not upgraded.
+    Need to get 78.7 MB of archives.
+    After this operation, 301 MB of additional disk space will be used.
+    Get:1 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 pigz amd64 2.6-1 [63.6 kB]
+    Get:2 http://azure.archive.ubuntu.com/ubuntu jammy/main amd64 bridge-utils amd64 1.7-1ubuntu3 [34.4 kB]
+    Get:3 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 runc amd64 1.1.12-0ubuntu2~22.04.1 [8405 kB]
+    Get:4 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 containerd amd64 1.7.24-0ubuntu1~22.04.1 [37.3 MB]
+    Get:5 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 dns-root-data all 2023112702~ubuntu0.22.04.1 [5136 B]
+    Get:6 http://azure.archive.ubuntu.com/ubuntu jammy-updates/main amd64 dnsmasq-base amd64 2.90-0ubuntu0.22.04.1 [374 kB]
+    Get:7 http://azure.archive.ubuntu.com/ubuntu jammy-updates/universe amd64 docker.io amd64 26.1.3-0ubuntu1~22.04.1 [32.5 MB]
+    Get:8 http://azure.archive.ubuntu.com/ubuntu jammy/universe amd64 ubuntu-fan all 0.12.16 [35.2 kB]
+    Preconfiguring packages ...
+    Fetched 78.7 MB in 2s (49.0 MB/s)
+    Selecting previously unselected package pigz.
+    (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 69464 files and directories currently installed.)
+    Preparing to unpack .../0-pigz_2.6-1_amd64.deb ...
+    Unpacking pigz (2.6-1) ...
+    Selecting previously unselected package bridge-utils.
+    Preparing to unpack .../1-bridge-utils_1.7-1ubuntu3_amd64.deb ...
+    Unpacking bridge-utils (1.7-1ubuntu3) ...
+    Selecting previously unselected package runc.
+    Preparing to unpack .../2-runc_1.1.12-0ubuntu2~22.04.1_amd64.deb ...
+    Unpacking runc (1.1.12-0ubuntu2~22.04.1) ...
+    Selecting previously unselected package containerd.
+    Preparing to unpack .../3-containerd_1.7.24-0ubuntu1~22.04.1_amd64.deb ...
+    Unpacking containerd (1.7.24-0ubuntu1~22.04.1) ...
+    Selecting previously unselected package dns-root-data.
+    Preparing to unpack .../4-dns-root-data_2023112702~ubuntu0.22.04.1_all.deb ...
+    Unpacking dns-root-data (2023112702~ubuntu0.22.04.1) ...
+    Selecting previously unselected package dnsmasq-base.
+    Preparing to unpack .../5-dnsmasq-base_2.90-0ubuntu0.22.04.1_amd64.deb ...
+    Unpacking dnsmasq-base (2.90-0ubuntu0.22.04.1) ...
+    Selecting previously unselected package docker.io.
+    Preparing to unpack .../6-docker.io_26.1.3-0ubuntu1~22.04.1_amd64.deb ...
+    Unpacking docker.io (26.1.3-0ubuntu1~22.04.1) ...
+    Selecting previously unselected package ubuntu-fan.
+    Preparing to unpack .../7-ubuntu-fan_0.12.16_all.deb ...
+    Unpacking ubuntu-fan (0.12.16) ...
+    Setting up dnsmasq-base (2.90-0ubuntu0.22.04.1) ...
+    Setting up runc (1.1.12-0ubuntu2~22.04.1) ...
+    Setting up dns-root-data (2023112702~ubuntu0.22.04.1) ...
+    Setting up bridge-utils (1.7-1ubuntu3) ...
+    Setting up pigz (2.6-1) ...
+    Setting up containerd (1.7.24-0ubuntu1~22.04.1) ...
+    Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+    Setting up ubuntu-fan (0.12.16) ...
+    Created symlink /etc/systemd/system/multi-user.target.wants/ubuntu-fan.service → /lib/systemd/system/ubuntu-fan.service.
+    Setting up docker.io (26.1.3-0ubuntu1~22.04.1) ...
+    Adding group `docker' (GID 123) ...
+    Done.
+    Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+    Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+    Processing triggers for dbus (1.12.20-2ubuntu4.1) ...
+    Processing triggers for man-db (2.10.2-1) ...
+    NEEDRESTART-VER: 3.5
+    NEEDRESTART-KCUR: 6.8.0-1021-azure
+    NEEDRESTART-KEXP: 6.8.0-1021-azure
+    NEEDRESTART-KSTA: 1
+  stdout_lines: <omitted>
+2025-02-24 19:09:39,088 p=80985 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:09:39,825 p=80985 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  enabled: true
+  name: docker
+  state: started
+  status:
+    ActiveEnterTimestamp: Mon 2025-02-24 18:09:36 UTC
+    ActiveEnterTimestampMonotonic: '4009584174'
+    ActiveExitTimestamp: n/a
+    ActiveExitTimestampMonotonic: '0'
+    ActiveState: active
+    After: systemd-journald.socket sysinit.target firewalld.service basic.target network-online.target system.slice containerd.service docker.socket
+    AllowIsolate: 'no'
+    AssertResult: 'yes'
+    AssertTimestamp: Mon 2025-02-24 18:09:35 UTC
+    AssertTimestampMonotonic: '4008953599'
+    Before: multi-user.target shutdown.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'yes'
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '281743000'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore
+    CleanResult: success
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ConditionTimestampMonotonic: '4008953596'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: shutdown.target
+    ControlGroup: /system.slice/docker.service
+    ControlPID: '0'
+    CoredumpFilter: '0x33'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'yes'
+    DelegateControllers: cpu cpuacct cpuset io blkio memory devices pids bpf-firewall bpf-devices bpf-foreign bpf-socket-bind
+    Description: Docker Application Container Engine
+    DevicePolicy: auto
+    Documentation: https://docs.docker.com
+    DynamicUser: 'no'
+    EffectiveCPUs: '0'
+    EffectiveMemoryNodes: '0'
+    ExecMainCode: '0'
+    ExecMainExitTimestamp: n/a
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '14599'
+    ExecMainStartTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ExecMainStartTimestampMonotonic: '4008955126'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecReloadEx: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; ignore_errors=no ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    ExecStartEx: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; flags= ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FinalKillSignal: '9'
+    FragmentPath: /lib/systemd/system/docker.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOReadBytes: '18446744073709551615'
+    IOReadOperations: '18446744073709551615'
+    IOSchedulingClass: '2'
+    IOSchedulingPriority: '4'
+    IOWeight: '[not set]'
+    IOWriteBytes: '18446744073709551615'
+    IOWriteOperations: '18446744073709551615'
+    IPAccounting: 'no'
+    IPEgressBytes: '[no data]'
+    IPEgressPackets: '[no data]'
+    IPIngressBytes: '[no data]'
+    IPIngressPackets: '[no data]'
+    Id: docker.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestamp: n/a
+    InactiveEnterTimestampMonotonic: '0'
+    InactiveExitTimestamp: Mon 2025-02-24 18:09:35 UTC
+    InactiveExitTimestampMonotonic: '4008956175'
+    InvocationID: 00435af9704b463d84eba5ab203b3900
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: process
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '8388608'
+    LimitMEMLOCKSoft: '8388608'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: infinity
+    LimitNOFILESoft: infinity
+    LimitNPROC: infinity
+    LimitNPROCSoft: infinity
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '13611'
+    LimitSIGPENDINGSoft: '13611'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '14599'
+    ManagedOOMMemoryPressure: auto
+    ManagedOOMMemoryPressureLimit: '0'
+    ManagedOOMPreference: none
+    ManagedOOMSwap: auto
+    MemoryAccounting: 'yes'
+    MemoryAvailable: infinity
+    MemoryCurrent: '29704192'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAPolicy: n/a
+    Names: docker.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: main
+    OOMPolicy: continue
+    OOMScoreAdjust: '-500'
+    OnFailureJobMode: replace
+    OnSuccessJobMode: fail
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateIPC: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProcSubset: all
+    ProtectClock: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectHostname: 'no'
+    ProtectKernelLogs: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectProc: default
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    ReloadResult: success
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: sysinit.target docker.socket system.slice
+    Restart: always
+    RestartKillSignal: '15'
+    RestartUSec: 2s
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '3'
+    StartLimitIntervalUSec: 1min
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Mon 2025-02-24 18:09:36 UTC
+    StateChangeTimestampMonotonic: '4009584174'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '2147483646'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '7'
+    TasksMax: infinity
+    TimeoutAbortUSec: infinity
+    TimeoutCleanUSec: infinity
+    TimeoutStartFailureMode: terminate
+    TimeoutStartUSec: infinity
+    TimeoutStopFailureMode: terminate
+    TimeoutStopUSec: infinity
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    TriggeredBy: docker.socket
+    Type: notify
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: enabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: network-online.target containerd.service
+    WatchdogSignal: '6'
+    WatchdogTimestamp: n/a
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+2025-02-24 19:09:39,835 p=80985 u=snrj n=ansible INFO| TASK [jaeger : Pull Jaeger all-in-one image] ****************************************************************************************************************
+2025-02-24 19:09:45,345 p=80985 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  actions:
+  - Pulled image jaegertracing/all-in-one:1.66.0
+  image:
+    Architecture: amd64
+    Author: ''
+    Comment: buildkit.dockerfile.v0
+    Config:
+      AttachStderr: false
+      AttachStdin: false
+      AttachStdout: false
+      Cmd: null
+      Domainname: ''
+      Entrypoint:
+      - /go/bin/all-in-one-linux
+      Env:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json
+      ExposedPorts:
+        14250/tcp: {}
+        14268/tcp: {}
+        16686/tcp: {}
+        4317/tcp: {}
+        4318/tcp: {}
+        9411/tcp: {}
+      Hostname: ''
+      Image: ''
+      Labels: null
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: '10001'
+      Volumes:
+        /tmp: {}
+      WorkingDir: /
+    Created: '2025-02-06T19:25:57.072533044Z'
+    DockerVersion: ''
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/86606ef8507dd80cfc90e5d78d3de8f1e52e12c45cdc99ba5b1f8045af618f53/diff:/var/lib/docker/overlay2/0e864799a6c3e3dbe4d3d35e1df57c40f0e81fcba261eec1123d56ea833ca018/diff:/var/lib/docker/overlay2/d0f422d2e1777b29df83732bf5a4db15e9b0c227d32ca255bbafc84e38a12b48/diff:/var/lib/docker/overlay2/e2627d6592bec5b8a40af6f4fd72939d559a457928c20970e8c2d9fa8cf4653e/diff
+        MergedDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/merged
+        UpperDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/diff
+        WorkDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/work
+      Name: overlay2
+    Id: sha256:eff470813457f0076ef6c282060efcc554f26b8ac2d62522f4f2e0474a03d7e7
+    Metadata:
+      LastTagTime: '0001-01-01T00:00:00Z'
+    Os: linux
+    Parent: ''
+    RepoDigests:
+    - jaegertracing/all-in-one@sha256:9864182b4e01350fcc64631bdba5f4085f87daae9d477a04c25d9cb362e787a9
+    RepoTags:
+    - jaegertracing/all-in-one:1.66.0
+    RootFS:
+      Layers:
+      - sha256:a0904247e36a7726c03c71ee48f3e64462021c88dafeb13f37fdaf613b27f11c
+      - sha256:521b47c1fae36fae4a8f0689796c609a336afb2fa1a513473bce98b5ea45827b
+      - sha256:d512bcfa199685630351874903ed3aec3ab684a6685e142274cdc611b10d962b
+      - sha256:0a6a53760fe1e937e11ff34d30516268d776e837feb73207d926d3befa670b1d
+      - sha256:4f3a6c35093412224ae0c9305490714241545cdf3525786f73b324ba9d8ea3c8
+      Type: layers
+    Size: 80288489
+2025-02-24 19:09:45,353 p=80985 u=snrj n=ansible INFO| TASK [jaeger : Run Jaeger all-in-one container] *************************************************************************************************************
+2025-02-24 19:09:46,508 p=80985 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Error starting container 6b9564f292271cc1c7de2e5e873533c7650c9a2499bf7ec5e1dd37eab852d26e: 500 Server Error for http+docker://localhost/v1.45/containers/6b9564f292271cc1c7de2e5e873533c7650c9a2499bf7ec5e1dd37eab852d26e/start: Internal Server Error ("driver failed programming external connectivity on endpoint jaeger (71077382d1a52b1653028ac43b940c4555162b325d3b92763651f5b6c93adb0a): Bind for 0.0.0.0:14250 failed: port is already allocated")'
+2025-02-24 19:09:46,509 p=80985 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:09:46,509 p=80985 u=snrj n=ansible INFO| 168.63.20.95               : ok=4    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:10:38,773 p=81162 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:10:39,082 p=81162 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:10:39,092 p=81162 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:10:40,587 p=81162 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:10:40,588 p=81162 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:10:40,595 p=81162 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:10:41,917 p=81162 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  cache_update_time: 1740419444
+  cache_updated: false
+2025-02-24 19:10:41,929 p=81162 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:10:42,592 p=81162 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  enabled: true
+  name: docker
+  state: started
+  status:
+    ActiveEnterTimestamp: Mon 2025-02-24 18:09:36 UTC
+    ActiveEnterTimestampMonotonic: '4009584174'
+    ActiveExitTimestamp: n/a
+    ActiveExitTimestampMonotonic: '0'
+    ActiveState: active
+    After: systemd-journald.socket sysinit.target firewalld.service basic.target network-online.target system.slice containerd.service docker.socket
+    AllowIsolate: 'no'
+    AssertResult: 'yes'
+    AssertTimestamp: Mon 2025-02-24 18:09:35 UTC
+    AssertTimestampMonotonic: '4008953599'
+    Before: multi-user.target shutdown.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'yes'
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '1838372000'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore
+    CleanResult: success
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ConditionTimestampMonotonic: '4008953596'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: shutdown.target
+    ControlGroup: /system.slice/docker.service
+    ControlPID: '0'
+    CoredumpFilter: '0x33'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'yes'
+    DelegateControllers: cpu cpuacct cpuset io blkio memory devices pids bpf-firewall bpf-devices bpf-foreign bpf-socket-bind
+    Description: Docker Application Container Engine
+    DevicePolicy: auto
+    Documentation: https://docs.docker.com
+    DynamicUser: 'no'
+    EffectiveCPUs: '0'
+    EffectiveMemoryNodes: '0'
+    ExecMainCode: '0'
+    ExecMainExitTimestamp: n/a
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '14599'
+    ExecMainStartTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ExecMainStartTimestampMonotonic: '4008955126'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecReloadEx: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; ignore_errors=no ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    ExecStartEx: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; flags= ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FinalKillSignal: '9'
+    FragmentPath: /lib/systemd/system/docker.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOReadBytes: '18446744073709551615'
+    IOReadOperations: '18446744073709551615'
+    IOSchedulingClass: '2'
+    IOSchedulingPriority: '4'
+    IOWeight: '[not set]'
+    IOWriteBytes: '18446744073709551615'
+    IOWriteOperations: '18446744073709551615'
+    IPAccounting: 'no'
+    IPEgressBytes: '[no data]'
+    IPEgressPackets: '[no data]'
+    IPIngressBytes: '[no data]'
+    IPIngressPackets: '[no data]'
+    Id: docker.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestamp: n/a
+    InactiveEnterTimestampMonotonic: '0'
+    InactiveExitTimestamp: Mon 2025-02-24 18:09:35 UTC
+    InactiveExitTimestampMonotonic: '4008956175'
+    InvocationID: 00435af9704b463d84eba5ab203b3900
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: process
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '8388608'
+    LimitMEMLOCKSoft: '8388608'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: infinity
+    LimitNOFILESoft: infinity
+    LimitNPROC: infinity
+    LimitNPROCSoft: infinity
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '13611'
+    LimitSIGPENDINGSoft: '13611'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '14599'
+    ManagedOOMMemoryPressure: auto
+    ManagedOOMMemoryPressureLimit: '0'
+    ManagedOOMPreference: none
+    ManagedOOMSwap: auto
+    MemoryAccounting: 'yes'
+    MemoryAvailable: infinity
+    MemoryCurrent: '130613248'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAPolicy: n/a
+    Names: docker.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: main
+    OOMPolicy: continue
+    OOMScoreAdjust: '-500'
+    OnFailureJobMode: replace
+    OnSuccessJobMode: fail
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateIPC: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProcSubset: all
+    ProtectClock: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectHostname: 'no'
+    ProtectKernelLogs: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectProc: default
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    ReloadResult: success
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: sysinit.target docker.socket system.slice
+    Restart: always
+    RestartKillSignal: '15'
+    RestartUSec: 2s
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '3'
+    StartLimitIntervalUSec: 1min
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Mon 2025-02-24 18:09:36 UTC
+    StateChangeTimestampMonotonic: '4009584174'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '2147483646'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '10'
+    TasksMax: infinity
+    TimeoutAbortUSec: infinity
+    TimeoutCleanUSec: infinity
+    TimeoutStartFailureMode: terminate
+    TimeoutStartUSec: infinity
+    TimeoutStopFailureMode: terminate
+    TimeoutStopUSec: infinity
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    TriggeredBy: docker.socket
+    Type: notify
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: enabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: network-online.target containerd.service
+    WatchdogSignal: '6'
+    WatchdogTimestamp: n/a
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+2025-02-24 19:10:42,599 p=81162 u=snrj n=ansible INFO| TASK [jaeger : Pull Jaeger all-in-one image] ****************************************************************************************************************
+2025-02-24 19:10:43,479 p=81162 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  actions: []
+  image:
+    Architecture: amd64
+    Author: ''
+    Comment: buildkit.dockerfile.v0
+    Config:
+      AttachStderr: false
+      AttachStdin: false
+      AttachStdout: false
+      Cmd: null
+      Domainname: ''
+      Entrypoint:
+      - /go/bin/all-in-one-linux
+      Env:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json
+      ExposedPorts:
+        14250/tcp: {}
+        14268/tcp: {}
+        16686/tcp: {}
+        4317/tcp: {}
+        4318/tcp: {}
+        9411/tcp: {}
+      Hostname: ''
+      Image: ''
+      Labels: null
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: '10001'
+      Volumes:
+        /tmp: {}
+      WorkingDir: /
+    Created: '2025-02-06T19:25:57.072533044Z'
+    DockerVersion: ''
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/86606ef8507dd80cfc90e5d78d3de8f1e52e12c45cdc99ba5b1f8045af618f53/diff:/var/lib/docker/overlay2/0e864799a6c3e3dbe4d3d35e1df57c40f0e81fcba261eec1123d56ea833ca018/diff:/var/lib/docker/overlay2/d0f422d2e1777b29df83732bf5a4db15e9b0c227d32ca255bbafc84e38a12b48/diff:/var/lib/docker/overlay2/e2627d6592bec5b8a40af6f4fd72939d559a457928c20970e8c2d9fa8cf4653e/diff
+        MergedDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/merged
+        UpperDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/diff
+        WorkDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/work
+      Name: overlay2
+    Id: sha256:eff470813457f0076ef6c282060efcc554f26b8ac2d62522f4f2e0474a03d7e7
+    Metadata:
+      LastTagTime: '0001-01-01T00:00:00Z'
+    Os: linux
+    Parent: ''
+    RepoDigests:
+    - jaegertracing/all-in-one@sha256:9864182b4e01350fcc64631bdba5f4085f87daae9d477a04c25d9cb362e787a9
+    RepoTags:
+    - jaegertracing/all-in-one:1.66.0
+    RootFS:
+      Layers:
+      - sha256:a0904247e36a7726c03c71ee48f3e64462021c88dafeb13f37fdaf613b27f11c
+      - sha256:521b47c1fae36fae4a8f0689796c609a336afb2fa1a513473bce98b5ea45827b
+      - sha256:d512bcfa199685630351874903ed3aec3ab684a6685e142274cdc611b10d962b
+      - sha256:0a6a53760fe1e937e11ff34d30516268d776e837feb73207d926d3befa670b1d
+      - sha256:4f3a6c35093412224ae0c9305490714241545cdf3525786f73b324ba9d8ea3c8
+      Type: layers
+    Size: 80288489
+2025-02-24 19:10:43,488 p=81162 u=snrj n=ansible INFO| TASK [jaeger : Run Jaeger all-in-one container] *************************************************************************************************************
+2025-02-24 19:10:44,747 p=81162 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Error starting container 11e745c0d096ae638870efca7a94b96e9c33c058688226305d9abfcbce9ee8d2: 500 Server Error for http+docker://localhost/v1.45/containers/11e745c0d096ae638870efca7a94b96e9c33c058688226305d9abfcbce9ee8d2/start: Internal Server Error ("driver failed programming external connectivity on endpoint jaeger (927232d7b1015bfd666b45d96581170e38c3d825d2d1efe3ac38176bf5165311): Error starting userland proxy: listen tcp4 0.0.0.0:9090: bind: address already in use")'
+2025-02-24 19:10:44,748 p=81162 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:10:44,748 p=81162 u=snrj n=ansible INFO| 168.63.20.95               : ok=4    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:11:26,126 p=81265 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:11:26,442 p=81265 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:11:26,452 p=81265 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:11:28,097 p=81265 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:11:28,097 p=81265 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:11:28,105 p=81265 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:11:29,412 p=81265 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  cache_update_time: 1740419444
+  cache_updated: false
+2025-02-24 19:11:29,424 p=81265 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:11:30,108 p=81265 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  enabled: true
+  name: docker
+  state: started
+  status:
+    ActiveEnterTimestamp: Mon 2025-02-24 18:09:36 UTC
+    ActiveEnterTimestampMonotonic: '4009584174'
+    ActiveExitTimestamp: n/a
+    ActiveExitTimestampMonotonic: '0'
+    ActiveState: active
+    After: systemd-journald.socket sysinit.target firewalld.service basic.target network-online.target system.slice containerd.service docker.socket
+    AllowIsolate: 'no'
+    AssertResult: 'yes'
+    AssertTimestamp: Mon 2025-02-24 18:09:35 UTC
+    AssertTimestampMonotonic: '4008953599'
+    Before: multi-user.target shutdown.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'yes'
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '2000616000'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore
+    CleanResult: success
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ConditionTimestampMonotonic: '4008953596'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: shutdown.target
+    ControlGroup: /system.slice/docker.service
+    ControlPID: '0'
+    CoredumpFilter: '0x33'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'yes'
+    DelegateControllers: cpu cpuacct cpuset io blkio memory devices pids bpf-firewall bpf-devices bpf-foreign bpf-socket-bind
+    Description: Docker Application Container Engine
+    DevicePolicy: auto
+    Documentation: https://docs.docker.com
+    DynamicUser: 'no'
+    EffectiveCPUs: '0'
+    EffectiveMemoryNodes: '0'
+    ExecMainCode: '0'
+    ExecMainExitTimestamp: n/a
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '14599'
+    ExecMainStartTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ExecMainStartTimestampMonotonic: '4008955126'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecReloadEx: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; ignore_errors=no ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    ExecStartEx: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; flags= ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FinalKillSignal: '9'
+    FragmentPath: /lib/systemd/system/docker.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOReadBytes: '18446744073709551615'
+    IOReadOperations: '18446744073709551615'
+    IOSchedulingClass: '2'
+    IOSchedulingPriority: '4'
+    IOWeight: '[not set]'
+    IOWriteBytes: '18446744073709551615'
+    IOWriteOperations: '18446744073709551615'
+    IPAccounting: 'no'
+    IPEgressBytes: '[no data]'
+    IPEgressPackets: '[no data]'
+    IPIngressBytes: '[no data]'
+    IPIngressPackets: '[no data]'
+    Id: docker.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestamp: n/a
+    InactiveEnterTimestampMonotonic: '0'
+    InactiveExitTimestamp: Mon 2025-02-24 18:09:35 UTC
+    InactiveExitTimestampMonotonic: '4008956175'
+    InvocationID: 00435af9704b463d84eba5ab203b3900
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: process
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '8388608'
+    LimitMEMLOCKSoft: '8388608'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: infinity
+    LimitNOFILESoft: infinity
+    LimitNPROC: infinity
+    LimitNPROCSoft: infinity
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '13611'
+    LimitSIGPENDINGSoft: '13611'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '14599'
+    ManagedOOMMemoryPressure: auto
+    ManagedOOMMemoryPressureLimit: '0'
+    ManagedOOMPreference: none
+    ManagedOOMSwap: auto
+    MemoryAccounting: 'yes'
+    MemoryAvailable: infinity
+    MemoryCurrent: '130682880'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAPolicy: n/a
+    Names: docker.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: main
+    OOMPolicy: continue
+    OOMScoreAdjust: '-500'
+    OnFailureJobMode: replace
+    OnSuccessJobMode: fail
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateIPC: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProcSubset: all
+    ProtectClock: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectHostname: 'no'
+    ProtectKernelLogs: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectProc: default
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    ReloadResult: success
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: sysinit.target docker.socket system.slice
+    Restart: always
+    RestartKillSignal: '15'
+    RestartUSec: 2s
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '3'
+    StartLimitIntervalUSec: 1min
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Mon 2025-02-24 18:09:36 UTC
+    StateChangeTimestampMonotonic: '4009584174'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '2147483646'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '11'
+    TasksMax: infinity
+    TimeoutAbortUSec: infinity
+    TimeoutCleanUSec: infinity
+    TimeoutStartFailureMode: terminate
+    TimeoutStartUSec: infinity
+    TimeoutStopFailureMode: terminate
+    TimeoutStopUSec: infinity
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    TriggeredBy: docker.socket
+    Type: notify
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: enabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: network-online.target containerd.service
+    WatchdogSignal: '6'
+    WatchdogTimestamp: n/a
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+2025-02-24 19:11:30,115 p=81265 u=snrj n=ansible INFO| TASK [jaeger : Pull Jaeger all-in-one image] ****************************************************************************************************************
+2025-02-24 19:11:30,752 p=81265 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  actions: []
+  image:
+    Architecture: amd64
+    Author: ''
+    Comment: buildkit.dockerfile.v0
+    Config:
+      AttachStderr: false
+      AttachStdin: false
+      AttachStdout: false
+      Cmd: null
+      Domainname: ''
+      Entrypoint:
+      - /go/bin/all-in-one-linux
+      Env:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json
+      ExposedPorts:
+        14250/tcp: {}
+        14268/tcp: {}
+        16686/tcp: {}
+        4317/tcp: {}
+        4318/tcp: {}
+        9411/tcp: {}
+      Hostname: ''
+      Image: ''
+      Labels: null
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: '10001'
+      Volumes:
+        /tmp: {}
+      WorkingDir: /
+    Created: '2025-02-06T19:25:57.072533044Z'
+    DockerVersion: ''
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/86606ef8507dd80cfc90e5d78d3de8f1e52e12c45cdc99ba5b1f8045af618f53/diff:/var/lib/docker/overlay2/0e864799a6c3e3dbe4d3d35e1df57c40f0e81fcba261eec1123d56ea833ca018/diff:/var/lib/docker/overlay2/d0f422d2e1777b29df83732bf5a4db15e9b0c227d32ca255bbafc84e38a12b48/diff:/var/lib/docker/overlay2/e2627d6592bec5b8a40af6f4fd72939d559a457928c20970e8c2d9fa8cf4653e/diff
+        MergedDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/merged
+        UpperDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/diff
+        WorkDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/work
+      Name: overlay2
+    Id: sha256:eff470813457f0076ef6c282060efcc554f26b8ac2d62522f4f2e0474a03d7e7
+    Metadata:
+      LastTagTime: '0001-01-01T00:00:00Z'
+    Os: linux
+    Parent: ''
+    RepoDigests:
+    - jaegertracing/all-in-one@sha256:9864182b4e01350fcc64631bdba5f4085f87daae9d477a04c25d9cb362e787a9
+    RepoTags:
+    - jaegertracing/all-in-one:1.66.0
+    RootFS:
+      Layers:
+      - sha256:a0904247e36a7726c03c71ee48f3e64462021c88dafeb13f37fdaf613b27f11c
+      - sha256:521b47c1fae36fae4a8f0689796c609a336afb2fa1a513473bce98b5ea45827b
+      - sha256:d512bcfa199685630351874903ed3aec3ab684a6685e142274cdc611b10d962b
+      - sha256:0a6a53760fe1e937e11ff34d30516268d776e837feb73207d926d3befa670b1d
+      - sha256:4f3a6c35093412224ae0c9305490714241545cdf3525786f73b324ba9d8ea3c8
+      Type: layers
+    Size: 80288489
+2025-02-24 19:11:30,758 p=81265 u=snrj n=ansible INFO| TASK [jaeger : Run Jaeger all-in-one container] *************************************************************************************************************
+2025-02-24 19:11:32,090 p=81265 u=snrj n=ansible INFO| changed: [168.63.20.95] => changed=true 
+  container:
+    AppArmorProfile: docker-default
+    Args: []
+    Config:
+      AttachStderr: true
+      AttachStdin: false
+      AttachStdout: true
+      Cmd: null
+      Domainname: ''
+      Entrypoint:
+      - /go/bin/all-in-one-linux
+      Env:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json
+      ExposedPorts:
+        14250/tcp: {}
+        14251/tcp: {}
+        14268/tcp: {}
+        16686/tcp: {}
+        4317/tcp: {}
+        4318/tcp: {}
+        5775/udp: {}
+        5778/tcp: {}
+        6831/udp: {}
+        6832/udp: {}
+        9090/tcp: {}
+        9411/tcp: {}
+      Hostname: b81432b677dc
+      Image: jaegertracing/all-in-one:1.66.0
+      Labels: {}
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: '10001'
+      Volumes:
+        /tmp: {}
+      WorkingDir: /
+    Created: '2025-02-24T18:11:31.427834709Z'
+    Driver: overlay2
+    ExecIDs: null
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18-init/diff:/var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/diff:/var/lib/docker/overlay2/86606ef8507dd80cfc90e5d78d3de8f1e52e12c45cdc99ba5b1f8045af618f53/diff:/var/lib/docker/overlay2/0e864799a6c3e3dbe4d3d35e1df57c40f0e81fcba261eec1123d56ea833ca018/diff:/var/lib/docker/overlay2/d0f422d2e1777b29df83732bf5a4db15e9b0c227d32ca255bbafc84e38a12b48/diff:/var/lib/docker/overlay2/e2627d6592bec5b8a40af6f4fd72939d559a457928c20970e8c2d9fa8cf4653e/diff
+        MergedDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18/merged
+        UpperDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18/diff
+        WorkDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18/work
+      Name: overlay2
+    HostConfig:
+      AutoRemove: false
+      Binds: null
+      BlkioDeviceReadBps: null
+      BlkioDeviceReadIOps: null
+      BlkioDeviceWriteBps: null
+      BlkioDeviceWriteIOps: null
+      BlkioWeight: 0
+      BlkioWeightDevice: null
+      CapAdd: null
+      CapDrop: null
+      Cgroup: ''
+      CgroupParent: ''
+      CgroupnsMode: private
+      ConsoleSize:
+      - 0
+      - 0
+      ContainerIDFile: ''
+      CpuCount: 0
+      CpuPercent: 0
+      CpuPeriod: 0
+      CpuQuota: 0
+      CpuRealtimePeriod: 0
+      CpuRealtimeRuntime: 0
+      CpuShares: 0
+      CpusetCpus: ''
+      CpusetMems: ''
+      DeviceCgroupRules: null
+      DeviceRequests: null
+      Devices: null
+      Dns: null
+      DnsOptions: null
+      DnsSearch: null
+      ExtraHosts: null
+      GroupAdd: null
+      IOMaximumBandwidth: 0
+      IOMaximumIOps: 0
+      IpcMode: private
+      Isolation: ''
+      Links: null
+      LogConfig:
+        Config: {}
+        Type: json-file
+      MaskedPaths:
+      - /proc/asound
+      - /proc/acpi
+      - /proc/kcore
+      - /proc/keys
+      - /proc/latency_stats
+      - /proc/timer_list
+      - /proc/timer_stats
+      - /proc/sched_debug
+      - /proc/scsi
+      - /sys/firmware
+      - /sys/devices/virtual/powercap
+      Memory: 0
+      MemoryReservation: 0
+      MemorySwap: 0
+      MemorySwappiness: null
+      NanoCpus: 0
+      NetworkMode: bridge
+      OomKillDisable: null
+      OomScoreAdj: 0
+      PidMode: ''
+      PidsLimit: null
+      PortBindings:
+        14251/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14250'
+        14268/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14268'
+        16686/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '16686'
+        5775/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '5775'
+        5778/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '5778'
+        6831/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6831'
+        6832/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6832'
+        9090/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '9091'
+      Privileged: false
+      PublishAllPorts: false
+      ReadonlyPaths:
+      - /proc/bus
+      - /proc/fs
+      - /proc/irq
+      - /proc/sys
+      - /proc/sysrq-trigger
+      ReadonlyRootfs: false
+      RestartPolicy:
+        MaximumRetryCount: 0
+        Name: always
+      Runtime: runc
+      SecurityOpt: null
+      ShmSize: 67108864
+      UTSMode: ''
+      Ulimits: null
+      UsernsMode: ''
+      VolumeDriver: ''
+      VolumesFrom: null
+    HostnamePath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/hostname
+    HostsPath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/hosts
+    Id: b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd
+    Image: sha256:eff470813457f0076ef6c282060efcc554f26b8ac2d62522f4f2e0474a03d7e7
+    LogPath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd-json.log
+    MountLabel: ''
+    Mounts:
+    - Destination: /tmp
+      Driver: local
+      Mode: ''
+      Name: d388da025a00f602a31d30234fd0deed3d8f81293df44562f07eb8a24eedb213
+      Propagation: ''
+      RW: true
+      Source: /var/lib/docker/volumes/d388da025a00f602a31d30234fd0deed3d8f81293df44562f07eb8a24eedb213/_data
+      Type: volume
+    Name: /jaeger
+    NetworkSettings:
+      Bridge: ''
+      EndpointID: 732704145ee0a7bd5476749c8bc016e2d0ecd77d862a6b17cfad99fb81e4b174
+      Gateway: 172.17.0.1
+      GlobalIPv6Address: ''
+      GlobalIPv6PrefixLen: 0
+      HairpinMode: false
+      IPAddress: 172.17.0.2
+      IPPrefixLen: 16
+      IPv6Gateway: ''
+      LinkLocalIPv6Address: ''
+      LinkLocalIPv6PrefixLen: 0
+      MacAddress: 02:42:ac:11:00:02
+      Networks:
+        bridge:
+          Aliases: null
+          DNSNames: null
+          DriverOpts: null
+          EndpointID: 732704145ee0a7bd5476749c8bc016e2d0ecd77d862a6b17cfad99fb81e4b174
+          Gateway: 172.17.0.1
+          GlobalIPv6Address: ''
+          GlobalIPv6PrefixLen: 0
+          IPAMConfig: null
+          IPAddress: 172.17.0.2
+          IPPrefixLen: 16
+          IPv6Gateway: ''
+          Links: null
+          MacAddress: 02:42:ac:11:00:02
+          NetworkID: 50868589e4ae716d5886f92053e95654f5753aa7299e7e81b3cbf1a882f3d4b8
+      Ports:
+        14250/tcp: null
+        14251/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14250'
+        14268/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14268'
+        16686/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '16686'
+        4317/tcp: null
+        4318/tcp: null
+        5775/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '5775'
+        5778/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '5778'
+        6831/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6831'
+        6832/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6832'
+        9090/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '9091'
+        9411/tcp: null
+      SandboxID: 5bb9b8ecce777581f1ac77cfa62679ccc6e2a83cf52df645cec01b32a05a184e
+      SandboxKey: /var/run/docker/netns/5bb9b8ecce77
+      SecondaryIPAddresses: null
+      SecondaryIPv6Addresses: null
+    Path: /go/bin/all-in-one-linux
+    Platform: linux
+    ProcessLabel: ''
+    ResolvConfPath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/resolv.conf
+    RestartCount: 0
+    State:
+      Dead: false
+      Error: ''
+      ExitCode: 0
+      FinishedAt: '0001-01-01T00:00:00Z'
+      OOMKilled: false
+      Paused: false
+      Pid: 15352
+      Restarting: false
+      Running: true
+      StartedAt: '2025-02-24T18:11:31.989805406Z'
+      Status: running
+2025-02-24 19:11:32,095 p=81265 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:11:32,096 p=81265 u=snrj n=ansible INFO| 168.63.20.95               : ok=5    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:16:22,417 p=81871 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:16:22,727 p=81871 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:16:22,738 p=81871 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:16:27,323 p=81871 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:16:27,323 p=81871 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:16:27,332 p=81871 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:16:28,548 p=81871 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  cache_update_time: 1740419444
+  cache_updated: false
+2025-02-24 19:16:28,560 p=81871 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:16:28,576 p=81871 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => 
+  msg: |-
+    The conditional check 'ansible_facts.services.docker.state != 'started'' failed. The error was: error while evaluating conditional (ansible_facts.services.docker.state != 'started'): 'dict object' has no attribute 'services'
+  
+    The error appears to be in '/Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/jaeger/tasks/main.yml': line 7, column 3, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+    - name: Start Docker service
+      ^ here
+2025-02-24 19:16:28,577 p=81871 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:16:28,577 p=81871 u=snrj n=ansible INFO| 168.63.20.95               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:17:14,052 p=81985 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:17:14,364 p=81985 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:17:14,373 p=81985 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:17:15,859 p=81985 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:17:15,860 p=81985 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:17:15,866 p=81985 u=snrj n=ansible INFO| TASK [jaeger : Gather facts] ********************************************************************************************************************************
+2025-02-24 19:17:16,421 p=81985 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Bad subset ''services'' given to Ansible. gather_subset options allowed: all, all_ipv4_addresses, all_ipv6_addresses, apparmor, architecture, caps, chroot, cmdline, date_time, default_ipv4, default_ipv6, devices, distribution, distribution_major_version, distribution_release, distribution_version, dns, effective_group_ids, effective_user_id, env, facter, fibre_channel_wwn, fips, hardware, interfaces, is_chroot, iscsi, kernel, kernel_version, loadavg, local, lsb, machine, machine_id, mounts, network, nvme, ohai, os_family, pkg_mgr, platform, processor, processor_cores, processor_count, python, python_version, real_user_id, selinux, service_mgr, ssh_host_key_dsa_public, ssh_host_key_ecdsa_public, ssh_host_key_ed25519_public, ssh_host_key_rsa_public, ssh_host_pub_keys, ssh_pub_keys, system, system_capabilities, system_capabilities_enforced, systemd, user, user_dir, user_gecos, user_gid, user_id, user_shell, user_uid, virtual, virtualization_role, virtualization_tech_guest, virtualization_tech_host,
+    virtualization_type'
+2025-02-24 19:17:16,422 p=81985 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:17:16,422 p=81985 u=snrj n=ansible INFO| 168.63.20.95               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:17:32,096 p=82039 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:17:32,390 p=82039 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:17:32,401 p=82039 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:17:33,930 p=82039 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:17:33,930 p=82039 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:17:33,936 p=82039 u=snrj n=ansible INFO| TASK [jaeger : Gather facts] ********************************************************************************************************************************
+2025-02-24 19:17:34,444 p=82039 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => changed=false 
+  msg: 'Bad subset ''services'' given to Ansible. gather_subset options allowed: all, all_ipv4_addresses, all_ipv6_addresses, apparmor, architecture, caps, chroot, cmdline, date_time, default_ipv4, default_ipv6, devices, distribution, distribution_major_version, distribution_release, distribution_version, dns, effective_group_ids, effective_user_id, env, facter, fibre_channel_wwn, fips, hardware, interfaces, is_chroot, iscsi, kernel, kernel_version, loadavg, local, lsb, machine, machine_id, mounts, network, nvme, ohai, os_family, pkg_mgr, platform, processor, processor_cores, processor_count, python, python_version, real_user_id, selinux, service_mgr, ssh_host_key_dsa_public, ssh_host_key_ecdsa_public, ssh_host_key_ed25519_public, ssh_host_key_rsa_public, ssh_host_pub_keys, ssh_pub_keys, system, system_capabilities, system_capabilities_enforced, systemd, user, user_dir, user_gecos, user_gid, user_id, user_shell, user_uid, virtual, virtualization_role, virtualization_tech_guest, virtualization_tech_host,
+    virtualization_type'
+2025-02-24 19:17:34,446 p=82039 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:17:34,446 p=82039 u=snrj n=ansible INFO| 168.63.20.95               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:17:41,147 p=82068 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:17:41,439 p=82068 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:17:41,448 p=82068 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:17:43,038 p=82068 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:17:43,038 p=82068 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:17:43,046 p=82068 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:17:44,290 p=82068 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  cache_update_time: 1740419444
+  cache_updated: false
+2025-02-24 19:17:44,302 p=82068 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:17:44,316 p=82068 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => 
+  msg: |-
+    The conditional check 'ansible_facts.services['docker'].state != 'started'' failed. The error was: error while evaluating conditional (ansible_facts.services['docker'].state != 'started'): 'dict object' has no attribute 'services'
+  
+    The error appears to be in '/Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/jaeger/tasks/main.yml': line 6, column 3, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+    - name: Start Docker service
+      ^ here
+2025-02-24 19:17:44,317 p=82068 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:17:44,317 p=82068 u=snrj n=ansible INFO| 168.63.20.95               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:18:05,419 p=82127 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:18:05,714 p=82127 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:18:05,724 p=82127 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:18:07,271 p=82127 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:18:07,271 p=82127 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:18:07,279 p=82127 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:18:08,513 p=82127 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  cache_update_time: 1740419444
+  cache_updated: false
+2025-02-24 19:18:08,522 p=82127 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:18:08,539 p=82127 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => 
+  msg: |-
+    The conditional check 'ansible_facts.services['docker'].state != 'started'' failed. The error was: error while evaluating conditional (ansible_facts.services['docker'].state != 'started'): 'dict object' has no attribute 'services'
+  
+    The error appears to be in '/Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/jaeger/tasks/main.yml': line 6, column 3, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+    - name: Start Docker service
+      ^ here
+2025-02-24 19:18:08,539 p=82127 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:18:08,540 p=82127 u=snrj n=ansible INFO| 168.63.20.95               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:18:20,217 p=82169 u=snrj n=ansible INFO| Using /Users/snrj/Desktop/terraform-azure-demo/configure_vm/ansible.cfg as config file
+2025-02-24 19:18:20,511 p=82169 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:18:20,522 p=82169 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:18:22,118 p=82169 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:18:22,118 p=82169 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:18:22,125 p=82169 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:18:23,297 p=82169 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  cache_update_time: 1740419444
+  cache_updated: false
+2025-02-24 19:18:23,305 p=82169 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:18:23,925 p=82169 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  enabled: true
+  name: docker
+  state: started
+  status:
+    ActiveEnterTimestamp: Mon 2025-02-24 18:09:36 UTC
+    ActiveEnterTimestampMonotonic: '4009584174'
+    ActiveExitTimestamp: n/a
+    ActiveExitTimestampMonotonic: '0'
+    ActiveState: active
+    After: systemd-journald.socket sysinit.target firewalld.service basic.target network-online.target system.slice containerd.service docker.socket
+    AllowIsolate: 'no'
+    AssertResult: 'yes'
+    AssertTimestamp: Mon 2025-02-24 18:09:35 UTC
+    AssertTimestampMonotonic: '4008953599'
+    Before: multi-user.target shutdown.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'yes'
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '2283390000'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore
+    CleanResult: success
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ConditionTimestampMonotonic: '4008953596'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: shutdown.target
+    ControlGroup: /system.slice/docker.service
+    ControlPID: '0'
+    CoredumpFilter: '0x33'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'yes'
+    DelegateControllers: cpu cpuacct cpuset io blkio memory devices pids bpf-firewall bpf-devices bpf-foreign bpf-socket-bind
+    Description: Docker Application Container Engine
+    DevicePolicy: auto
+    Documentation: https://docs.docker.com
+    DynamicUser: 'no'
+    EffectiveCPUs: '0'
+    EffectiveMemoryNodes: '0'
+    ExecMainCode: '0'
+    ExecMainExitTimestamp: n/a
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '14599'
+    ExecMainStartTimestamp: Mon 2025-02-24 18:09:35 UTC
+    ExecMainStartTimestampMonotonic: '4008955126'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecReloadEx: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; ignore_errors=no ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    ExecStartEx: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; flags= ; start_time=[Mon 2025-02-24 18:09:35 UTC] ; stop_time=[n/a] ; pid=14599 ; code=(null) ; status=0/0 }'
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FinalKillSignal: '9'
+    FragmentPath: /lib/systemd/system/docker.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOReadBytes: '18446744073709551615'
+    IOReadOperations: '18446744073709551615'
+    IOSchedulingClass: '2'
+    IOSchedulingPriority: '4'
+    IOWeight: '[not set]'
+    IOWriteBytes: '18446744073709551615'
+    IOWriteOperations: '18446744073709551615'
+    IPAccounting: 'no'
+    IPEgressBytes: '[no data]'
+    IPEgressPackets: '[no data]'
+    IPIngressBytes: '[no data]'
+    IPIngressPackets: '[no data]'
+    Id: docker.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestamp: n/a
+    InactiveEnterTimestampMonotonic: '0'
+    InactiveExitTimestamp: Mon 2025-02-24 18:09:35 UTC
+    InactiveExitTimestampMonotonic: '4008956175'
+    InvocationID: 00435af9704b463d84eba5ab203b3900
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: process
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '8388608'
+    LimitMEMLOCKSoft: '8388608'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: infinity
+    LimitNOFILESoft: infinity
+    LimitNPROC: infinity
+    LimitNPROCSoft: infinity
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '13611'
+    LimitSIGPENDINGSoft: '13611'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '14599'
+    ManagedOOMMemoryPressure: auto
+    ManagedOOMMemoryPressureLimit: '0'
+    ManagedOOMPreference: none
+    ManagedOOMSwap: auto
+    MemoryAccounting: 'yes'
+    MemoryAvailable: infinity
+    MemoryCurrent: '151576576'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAPolicy: n/a
+    Names: docker.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: main
+    OOMPolicy: continue
+    OOMScoreAdjust: '-500'
+    OnFailureJobMode: replace
+    OnSuccessJobMode: fail
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateIPC: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProcSubset: all
+    ProtectClock: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectHostname: 'no'
+    ProtectKernelLogs: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectProc: default
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    ReloadResult: success
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: sysinit.target docker.socket system.slice
+    Restart: always
+    RestartKillSignal: '15'
+    RestartUSec: 2s
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '3'
+    StartLimitIntervalUSec: 1min
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Mon 2025-02-24 18:09:36 UTC
+    StateChangeTimestampMonotonic: '4009584174'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '2147483646'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '62'
+    TasksMax: infinity
+    TimeoutAbortUSec: infinity
+    TimeoutCleanUSec: infinity
+    TimeoutStartFailureMode: terminate
+    TimeoutStartUSec: infinity
+    TimeoutStopFailureMode: terminate
+    TimeoutStopUSec: infinity
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    TriggeredBy: docker.socket
+    Type: notify
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: enabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: network-online.target containerd.service
+    WatchdogSignal: '6'
+    WatchdogTimestamp: n/a
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+2025-02-24 19:18:23,932 p=82169 u=snrj n=ansible INFO| TASK [jaeger : Pull Jaeger all-in-one image] ****************************************************************************************************************
+2025-02-24 19:18:24,626 p=82169 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  actions: []
+  image:
+    Architecture: amd64
+    Author: ''
+    Comment: buildkit.dockerfile.v0
+    Config:
+      AttachStderr: false
+      AttachStdin: false
+      AttachStdout: false
+      Cmd: null
+      Domainname: ''
+      Entrypoint:
+      - /go/bin/all-in-one-linux
+      Env:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json
+      ExposedPorts:
+        14250/tcp: {}
+        14268/tcp: {}
+        16686/tcp: {}
+        4317/tcp: {}
+        4318/tcp: {}
+        9411/tcp: {}
+      Hostname: ''
+      Image: ''
+      Labels: null
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: '10001'
+      Volumes:
+        /tmp: {}
+      WorkingDir: /
+    Created: '2025-02-06T19:25:57.072533044Z'
+    DockerVersion: ''
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/86606ef8507dd80cfc90e5d78d3de8f1e52e12c45cdc99ba5b1f8045af618f53/diff:/var/lib/docker/overlay2/0e864799a6c3e3dbe4d3d35e1df57c40f0e81fcba261eec1123d56ea833ca018/diff:/var/lib/docker/overlay2/d0f422d2e1777b29df83732bf5a4db15e9b0c227d32ca255bbafc84e38a12b48/diff:/var/lib/docker/overlay2/e2627d6592bec5b8a40af6f4fd72939d559a457928c20970e8c2d9fa8cf4653e/diff
+        MergedDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/merged
+        UpperDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/diff
+        WorkDir: /var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/work
+      Name: overlay2
+    Id: sha256:eff470813457f0076ef6c282060efcc554f26b8ac2d62522f4f2e0474a03d7e7
+    Metadata:
+      LastTagTime: '0001-01-01T00:00:00Z'
+    Os: linux
+    Parent: ''
+    RepoDigests:
+    - jaegertracing/all-in-one@sha256:9864182b4e01350fcc64631bdba5f4085f87daae9d477a04c25d9cb362e787a9
+    RepoTags:
+    - jaegertracing/all-in-one:1.66.0
+    RootFS:
+      Layers:
+      - sha256:a0904247e36a7726c03c71ee48f3e64462021c88dafeb13f37fdaf613b27f11c
+      - sha256:521b47c1fae36fae4a8f0689796c609a336afb2fa1a513473bce98b5ea45827b
+      - sha256:d512bcfa199685630351874903ed3aec3ab684a6685e142274cdc611b10d962b
+      - sha256:0a6a53760fe1e937e11ff34d30516268d776e837feb73207d926d3befa670b1d
+      - sha256:4f3a6c35093412224ae0c9305490714241545cdf3525786f73b324ba9d8ea3c8
+      Type: layers
+    Size: 80288489
+2025-02-24 19:18:24,635 p=82169 u=snrj n=ansible INFO| TASK [jaeger : Run Jaeger all-in-one container] *************************************************************************************************************
+2025-02-24 19:18:25,493 p=82169 u=snrj n=ansible INFO| ok: [168.63.20.95] => changed=false 
+  container:
+    AppArmorProfile: docker-default
+    Args: []
+    Config:
+      AttachStderr: true
+      AttachStdin: false
+      AttachStdout: true
+      Cmd: null
+      Domainname: ''
+      Entrypoint:
+      - /go/bin/all-in-one-linux
+      Env:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json
+      ExposedPorts:
+        14250/tcp: {}
+        14251/tcp: {}
+        14268/tcp: {}
+        16686/tcp: {}
+        4317/tcp: {}
+        4318/tcp: {}
+        5775/udp: {}
+        5778/tcp: {}
+        6831/udp: {}
+        6832/udp: {}
+        9090/tcp: {}
+        9411/tcp: {}
+      Hostname: b81432b677dc
+      Image: jaegertracing/all-in-one:1.66.0
+      Labels: {}
+      OnBuild: null
+      OpenStdin: false
+      StdinOnce: false
+      Tty: false
+      User: '10001'
+      Volumes:
+        /tmp: {}
+      WorkingDir: /
+    Created: '2025-02-24T18:11:31.427834709Z'
+    Driver: overlay2
+    ExecIDs: null
+    GraphDriver:
+      Data:
+        LowerDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18-init/diff:/var/lib/docker/overlay2/1533e88f7a09e6ba5918db48c5e0dfb40f15626e1ee95517850ab2a6ae4f3401/diff:/var/lib/docker/overlay2/86606ef8507dd80cfc90e5d78d3de8f1e52e12c45cdc99ba5b1f8045af618f53/diff:/var/lib/docker/overlay2/0e864799a6c3e3dbe4d3d35e1df57c40f0e81fcba261eec1123d56ea833ca018/diff:/var/lib/docker/overlay2/d0f422d2e1777b29df83732bf5a4db15e9b0c227d32ca255bbafc84e38a12b48/diff:/var/lib/docker/overlay2/e2627d6592bec5b8a40af6f4fd72939d559a457928c20970e8c2d9fa8cf4653e/diff
+        MergedDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18/merged
+        UpperDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18/diff
+        WorkDir: /var/lib/docker/overlay2/51211d33cf44cb3172b813e6a4ffc1289b7a16e9738a86a40aa465cb0e19bd18/work
+      Name: overlay2
+    HostConfig:
+      AutoRemove: false
+      Binds: null
+      BlkioDeviceReadBps: null
+      BlkioDeviceReadIOps: null
+      BlkioDeviceWriteBps: null
+      BlkioDeviceWriteIOps: null
+      BlkioWeight: 0
+      BlkioWeightDevice: null
+      CapAdd: null
+      CapDrop: null
+      Cgroup: ''
+      CgroupParent: ''
+      CgroupnsMode: private
+      ConsoleSize:
+      - 0
+      - 0
+      ContainerIDFile: ''
+      CpuCount: 0
+      CpuPercent: 0
+      CpuPeriod: 0
+      CpuQuota: 0
+      CpuRealtimePeriod: 0
+      CpuRealtimeRuntime: 0
+      CpuShares: 0
+      CpusetCpus: ''
+      CpusetMems: ''
+      DeviceCgroupRules: null
+      DeviceRequests: null
+      Devices: null
+      Dns: null
+      DnsOptions: null
+      DnsSearch: null
+      ExtraHosts: null
+      GroupAdd: null
+      IOMaximumBandwidth: 0
+      IOMaximumIOps: 0
+      IpcMode: private
+      Isolation: ''
+      Links: null
+      LogConfig:
+        Config: {}
+        Type: json-file
+      MaskedPaths:
+      - /proc/asound
+      - /proc/acpi
+      - /proc/kcore
+      - /proc/keys
+      - /proc/latency_stats
+      - /proc/timer_list
+      - /proc/timer_stats
+      - /proc/sched_debug
+      - /proc/scsi
+      - /sys/firmware
+      - /sys/devices/virtual/powercap
+      Memory: 0
+      MemoryReservation: 0
+      MemorySwap: 0
+      MemorySwappiness: null
+      NanoCpus: 0
+      NetworkMode: bridge
+      OomKillDisable: null
+      OomScoreAdj: 0
+      PidMode: ''
+      PidsLimit: null
+      PortBindings:
+        14251/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14250'
+        14268/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14268'
+        16686/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '16686'
+        5775/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '5775'
+        5778/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '5778'
+        6831/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6831'
+        6832/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6832'
+        9090/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '9091'
+      Privileged: false
+      PublishAllPorts: false
+      ReadonlyPaths:
+      - /proc/bus
+      - /proc/fs
+      - /proc/irq
+      - /proc/sys
+      - /proc/sysrq-trigger
+      ReadonlyRootfs: false
+      RestartPolicy:
+        MaximumRetryCount: 0
+        Name: always
+      Runtime: runc
+      SecurityOpt: null
+      ShmSize: 67108864
+      UTSMode: ''
+      Ulimits: null
+      UsernsMode: ''
+      VolumeDriver: ''
+      VolumesFrom: null
+    HostnamePath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/hostname
+    HostsPath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/hosts
+    Id: b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd
+    Image: sha256:eff470813457f0076ef6c282060efcc554f26b8ac2d62522f4f2e0474a03d7e7
+    LogPath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd-json.log
+    MountLabel: ''
+    Mounts:
+    - Destination: /tmp
+      Driver: local
+      Mode: ''
+      Name: d388da025a00f602a31d30234fd0deed3d8f81293df44562f07eb8a24eedb213
+      Propagation: ''
+      RW: true
+      Source: /var/lib/docker/volumes/d388da025a00f602a31d30234fd0deed3d8f81293df44562f07eb8a24eedb213/_data
+      Type: volume
+    Name: /jaeger
+    NetworkSettings:
+      Bridge: ''
+      EndpointID: 732704145ee0a7bd5476749c8bc016e2d0ecd77d862a6b17cfad99fb81e4b174
+      Gateway: 172.17.0.1
+      GlobalIPv6Address: ''
+      GlobalIPv6PrefixLen: 0
+      HairpinMode: false
+      IPAddress: 172.17.0.2
+      IPPrefixLen: 16
+      IPv6Gateway: ''
+      LinkLocalIPv6Address: ''
+      LinkLocalIPv6PrefixLen: 0
+      MacAddress: 02:42:ac:11:00:02
+      Networks:
+        bridge:
+          Aliases: null
+          DNSNames: null
+          DriverOpts: null
+          EndpointID: 732704145ee0a7bd5476749c8bc016e2d0ecd77d862a6b17cfad99fb81e4b174
+          Gateway: 172.17.0.1
+          GlobalIPv6Address: ''
+          GlobalIPv6PrefixLen: 0
+          IPAMConfig: null
+          IPAddress: 172.17.0.2
+          IPPrefixLen: 16
+          IPv6Gateway: ''
+          Links: null
+          MacAddress: 02:42:ac:11:00:02
+          NetworkID: 50868589e4ae716d5886f92053e95654f5753aa7299e7e81b3cbf1a882f3d4b8
+      Ports:
+        14250/tcp: null
+        14251/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14250'
+        14268/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '14268'
+        16686/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '16686'
+        4317/tcp: null
+        4318/tcp: null
+        5775/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '5775'
+        5778/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '5778'
+        6831/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6831'
+        6832/udp:
+        - HostIp: 0.0.0.0
+          HostPort: '6832'
+        9090/tcp:
+        - HostIp: 0.0.0.0
+          HostPort: '9091'
+        9411/tcp: null
+      SandboxID: 5bb9b8ecce777581f1ac77cfa62679ccc6e2a83cf52df645cec01b32a05a184e
+      SandboxKey: /var/run/docker/netns/5bb9b8ecce77
+      SecondaryIPAddresses: null
+      SecondaryIPv6Addresses: null
+    Path: /go/bin/all-in-one-linux
+    Platform: linux
+    ProcessLabel: ''
+    ResolvConfPath: /var/lib/docker/containers/b81432b677dc1b77b39414e2a334681f46ab6b581dc27c025dcc396116127fcd/resolv.conf
+    RestartCount: 0
+    State:
+      Dead: false
+      Error: ''
+      ExitCode: 0
+      FinishedAt: '0001-01-01T00:00:00Z'
+      OOMKilled: false
+      Paused: false
+      Pid: 15352
+      Restarting: false
+      Running: true
+      StartedAt: '2025-02-24T18:11:31.989805406Z'
+      Status: running
+2025-02-24 19:18:25,497 p=82169 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:18:25,497 p=82169 u=snrj n=ansible INFO| 168.63.20.95               : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:18:44,162 p=82249 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:18:44,172 p=82249 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:18:45,701 p=82249 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:18:45,702 p=82249 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:18:45,709 p=82249 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:18:47,151 p=82249 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:18:47,161 p=82249 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:18:47,872 p=82249 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:18:47,880 p=82249 u=snrj n=ansible INFO| TASK [jaeger : Pull Jaeger all-in-one image] ****************************************************************************************************************
+2025-02-24 19:18:48,473 p=82249 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:18:48,484 p=82249 u=snrj n=ansible INFO| TASK [jaeger : Run Jaeger all-in-one container] *************************************************************************************************************
+2025-02-24 19:18:49,243 p=82249 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:18:49,248 p=82249 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:18:49,248 p=82249 u=snrj n=ansible INFO| 168.63.20.95               : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 19:19:07,740 p=82316 u=snrj n=ansible INFO| PLAY [Install and Configure Jaeger] *************************************************************************************************************************
+2025-02-24 19:19:07,750 p=82316 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 19:19:09,420 p=82316 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 19:19:09,420 p=82316 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:19:09,427 p=82316 u=snrj n=ansible INFO| TASK [jaeger : Ensure Docker is installed] ******************************************************************************************************************
+2025-02-24 19:19:10,692 p=82316 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:19:10,702 p=82316 u=snrj n=ansible INFO| TASK [jaeger : Start Docker service] ************************************************************************************************************************
+2025-02-24 19:19:11,423 p=82316 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:19:11,431 p=82316 u=snrj n=ansible INFO| TASK [jaeger : Pull Jaeger all-in-one image] ****************************************************************************************************************
+2025-02-24 19:19:12,037 p=82316 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:19:12,046 p=82316 u=snrj n=ansible INFO| TASK [jaeger : Run Jaeger all-in-one container] *************************************************************************************************************
+2025-02-24 19:19:12,804 p=82316 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 19:19:12,809 p=82316 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 19:19:12,809 p=82316 u=snrj n=ansible INFO| 168.63.20.95               : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

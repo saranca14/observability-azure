@@ -3,8 +3,8 @@
   hosts: all
   become: yes
   vars_files:
-    - ../roles/flask_app/vars/app_vars.yml
-    - ../roles/flask_app/vars/vars.yml
+    - ../roles/flask-app/vars/app_vars.yml
+    - ../roles/flask-app/vars/vars.yml
 
   roles:
     - flask-app

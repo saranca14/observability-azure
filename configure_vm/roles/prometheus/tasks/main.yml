@@ -7,26 +7,51 @@
     - wget
     - tar
 
-- name: Download Prometheus
+- name: Check if Prometheus tarball already exists
+  stat:
+    path: /opt/prometheus-2.42.0.linux-amd64.tar.gz
+  register: prometheus_tarball
+
+- name: Download Prometheus if not already downloaded
   get_url:
     url: "https://github.com/prometheus/prometheus/releases/download/v2.42.0/prometheus-2.42.0.linux-amd64.tar.gz"
     dest: /opt/prometheus-2.42.0.linux-amd64.tar.gz
+  when: not prometheus_tarball.stat.exists
 
-- name: Extract Prometheus tarball
+
+
+- name: Check if Prometheus is already extracted
+  stat:
+    path: /opt/prometheus-2.42.0.linux-amd64
+  register: prometheus_extracted
+
+- name: Extract Prometheus tarball if not extracted
   command: tar -xvf /opt/prometheus-2.42.0.linux-amd64.tar.gz -C /opt/
+  when: not prometheus_extracted.stat.exists
+
 
 - name: Template Prometheus config
   template:
     src: prometheus_config.j2
     dest: /opt/prometheus-2.42.0.linux-amd64/prometheus.yml
+  notify: Restart Prometheus
 
 - name: Create Prometheus systemd service
   template:
     src: prometheus_service.j2
     dest: /etc/systemd/system/prometheus.service
+  notify: Restart Prometheus
 
-- name: Enable and start Prometheus service
+- name: Check Prometheus service status
+  command: systemctl is-active prometheus
+  register: prometheus_status
+  ignore_errors: yes
+  changed_when: false
+
+- name: Start Prometheus if not running
   systemd:
     name: prometheus
     state: started
     enabled: yes
+  when: prometheus_status.stdout != "active"
+

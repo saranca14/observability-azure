@@ -7,4 +7,4 @@
     - ../roles/flask_app/vars/vars.yml
 
   roles:
-    - flask_app
+    - flask-app

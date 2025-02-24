@@ -3273,3 +3273,439 @@ Alternatives: none. This feature will be removed in version 2.19. Deprecation wa
 2025-02-21 13:56:20,640 p=27338 u=snrj n=ansible WARNING| [WARNING]: - grafana.grafana was NOT installed successfully: - sorry, grafana.grafana was not found on https://galaxy.ansible.com/api/.
 
 2025-02-21 13:56:20,642 p=27338 u=snrj n=ansible ERROR| ERROR! - you can use --ignore-errors to skip failed roles and finish processing the list.
+2025-02-24 12:55:46,337 p=47254 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 12:55:50,046 p=47254 u=snrj n=ansible INFO| PLAY [Check status of OpenTelemetry Collector service] ******************************************************************************************************
+2025-02-24 12:55:50,113 p=47254 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 12:55:55,794 p=47254 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 12:55:55,795 p=47254 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 12:55:55,798 p=47254 u=snrj n=ansible INFO| TASK [Get otelcol service status] ***************************************************************************************************************************
+2025-02-24 12:55:56,465 p=47254 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 12:55:56,485 p=47254 u=snrj n=ansible INFO| TASK [Display otelcol service status] ***********************************************************************************************************************
+2025-02-24 12:55:56,503 p=47254 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "otelcol service is inactive"
+}
+2025-02-24 12:55:56,509 p=47254 u=snrj n=ansible INFO| TASK [Get Prometheus service status] ************************************************************************************************************************
+2025-02-24 12:55:57,052 p=47254 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 12:55:57,063 p=47254 u=snrj n=ansible INFO| TASK [Display prometheus service status] ********************************************************************************************************************
+2025-02-24 12:55:57,078 p=47254 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "prometheus service is inactive"
+}
+2025-02-24 12:55:57,079 p=47254 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 12:55:57,079 p=47254 u=snrj n=ansible INFO| 20.73.47.46                : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 12:56:13,180 p=47315 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 12:56:13,305 p=47315 u=snrj n=ansible ERROR| ERROR! the playbook: playbooks/ does not appear to be a file
+2025-02-24 12:56:20,988 p=47328 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 12:56:21,383 p=47328 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 12:56:21,390 p=47328 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 12:56:22,667 p=47328 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 12:56:22,668 p=47328 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 12:56:22,673 p=47328 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 12:56:23,459 p=47328 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 12:56:24,112 p=47328 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 12:56:24,123 p=47328 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus] *********************************************************************************************************************
+2025-02-24 12:56:27,765 p=47328 u=snrj n=ansible WARNING| [WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when running as another user. To
+avoid this, create the remote_tmp dir with the correct permissions manually
+
+2025-02-24 12:56:27,765 p=47328 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 12:56:27,797 p=47328 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball] **************************************************************************************************************
+2025-02-24 12:56:30,013 p=47328 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 12:56:30,033 p=47328 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 12:56:32,171 p=47328 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 12:56:32,180 p=47328 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 12:56:33,382 p=47328 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 12:56:33,391 p=47328 u=snrj n=ansible INFO| TASK [prometheus : Enable and start Prometheus service] *****************************************************************************************************
+2025-02-24 12:56:34,322 p=47328 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 12:56:34,336 p=47328 u=snrj n=ansible INFO| TASK [grafana : Install Grafana] ****************************************************************************************************************************
+2025-02-24 12:56:45,214 p=47328 u=snrj n=ansible INFO| fatal: [20.73.47.46]: FAILED! => {"changed": false, "msg": "No package matching 'grafana' is available"}
+2025-02-24 12:56:45,217 p=47328 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 12:56:45,217 p=47328 u=snrj n=ansible INFO| 20.73.47.46                : ok=7    changed=5    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 12:57:08,567 p=47456 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 12:57:08,953 p=47456 u=snrj n=ansible INFO| PLAY [Check status of OpenTelemetry Collector service] ******************************************************************************************************
+2025-02-24 12:57:08,962 p=47456 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 12:57:10,266 p=47456 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 12:57:10,267 p=47456 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 12:57:10,271 p=47456 u=snrj n=ansible INFO| TASK [Get otelcol service status] ***************************************************************************************************************************
+2025-02-24 12:57:10,819 p=47456 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 12:57:10,827 p=47456 u=snrj n=ansible INFO| TASK [Display otelcol service status] ***********************************************************************************************************************
+2025-02-24 12:57:10,844 p=47456 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "otelcol service is inactive"
+}
+2025-02-24 12:57:10,849 p=47456 u=snrj n=ansible INFO| TASK [Get Prometheus service status] ************************************************************************************************************************
+2025-02-24 12:57:11,395 p=47456 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 12:57:11,406 p=47456 u=snrj n=ansible INFO| TASK [Display prometheus service status] ********************************************************************************************************************
+2025-02-24 12:57:11,421 p=47456 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "prometheus service is active"
+}
+2025-02-24 12:57:11,422 p=47456 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 12:57:11,422 p=47456 u=snrj n=ansible INFO| 20.73.47.46                : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 13:02:59,559 p=48075 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 13:03:00,035 p=48075 u=snrj n=ansible INFO| PLAY [Setup Flask App with OpenTelemetry] *******************************************************************************************************************
+2025-02-24 13:03:00,047 p=48075 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 13:03:02,436 p=48075 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 13:03:02,437 p=48075 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:03:02,443 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Update apt package index] *****************************************************************************************************************
+2025-02-24 13:03:04,365 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:03:04,374 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Ensure the 'universe' repository is enabled] **********************************************************************************************
+2025-02-24 13:03:14,031 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:03:14,044 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Install python3-pip] **********************************************************************************************************************
+2025-02-24 13:03:48,683 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:03:48,696 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Install required Python packages] *********************************************************************************************************
+2025-02-24 13:03:58,148 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:03:58,160 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Set APPLICATION_INSIGHTS_CONNECTION_STRING in .bashrc] ************************************************************************************
+2025-02-24 13:03:58,494 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:03:58,511 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Copy the sample FastAPI application] ******************************************************************************************************
+2025-02-24 13:03:59,920 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:03:59,934 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Create FastAPI service] *******************************************************************************************************************
+2025-02-24 13:04:01,192 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:04:01,208 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Reload systemd daemon] ********************************************************************************************************************
+2025-02-24 13:04:01,878 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:04:01,902 p=48075 u=snrj n=ansible INFO| TASK [flask_app : Restart FastAPI service] ******************************************************************************************************************
+2025-02-24 13:04:02,536 p=48075 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:04:02,546 p=48075 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 13:04:02,546 p=48075 u=snrj n=ansible INFO| 20.73.47.46                : ok=10   changed=9    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 13:05:32,761 p=48344 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 13:05:33,163 p=48344 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 13:05:33,171 p=48344 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 13:05:35,489 p=48344 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 13:05:35,490 p=48344 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:05:35,495 p=48344 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 13:05:36,529 p=48344 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 13:05:37,654 p=48344 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 13:05:37,665 p=48344 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus] *********************************************************************************************************************
+2025-02-24 13:05:38,679 p=48344 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:05:38,694 p=48344 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball] **************************************************************************************************************
+2025-02-24 13:05:40,904 p=48344 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:05:40,916 p=48344 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 13:05:42,259 p=48344 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 13:05:42,268 p=48344 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 13:05:43,242 p=48344 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:05:43,251 p=48344 u=snrj n=ansible INFO| TASK [prometheus : Enable and start Prometheus service] *****************************************************************************************************
+2025-02-24 13:05:43,844 p=48344 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:05:43,858 p=48344 u=snrj n=ansible INFO| TASK [grafana : Install Grafana] ****************************************************************************************************************************
+2025-02-24 13:05:45,861 p=48344 u=snrj n=ansible INFO| fatal: [20.73.47.46]: FAILED! => {"changed": false, "msg": "No package matching 'grafana' is available"}
+2025-02-24 13:05:45,862 p=48344 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 13:05:45,862 p=48344 u=snrj n=ansible INFO| 20.73.47.46                : ok=7    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 13:05:49,637 p=48404 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 13:05:50,044 p=48404 u=snrj n=ansible INFO| PLAY [Check status of OpenTelemetry Collector service] ******************************************************************************************************
+2025-02-24 13:05:50,052 p=48404 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 13:05:51,544 p=48404 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 13:05:51,544 p=48404 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:05:51,547 p=48404 u=snrj n=ansible INFO| TASK [Get otelcol service status] ***************************************************************************************************************************
+2025-02-24 13:05:52,114 p=48404 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:05:52,123 p=48404 u=snrj n=ansible INFO| TASK [Display otelcol service status] ***********************************************************************************************************************
+2025-02-24 13:05:52,140 p=48404 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "otelcol service is inactive"
+}
+2025-02-24 13:05:52,145 p=48404 u=snrj n=ansible INFO| TASK [Get Prometheus service status] ************************************************************************************************************************
+2025-02-24 13:05:52,614 p=48404 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 13:05:52,625 p=48404 u=snrj n=ansible INFO| TASK [Display prometheus service status] ********************************************************************************************************************
+2025-02-24 13:05:52,640 p=48404 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "prometheus service is active"
+}
+2025-02-24 13:05:52,641 p=48404 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 13:05:52,641 p=48404 u=snrj n=ansible INFO| 20.73.47.46                : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 17:42:38,353 p=69462 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 17:42:41,726 p=69462 u=snrj n=ansible INFO| PLAY [Check status of OpenTelemetry Collector service] ******************************************************************************************************
+2025-02-24 17:42:41,785 p=69462 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 17:42:44,810 p=69462 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 17:42:44,811 p=69462 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:42:44,815 p=69462 u=snrj n=ansible INFO| TASK [Get otelcol service status] ***************************************************************************************************************************
+2025-02-24 17:42:45,441 p=69462 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:42:45,463 p=69462 u=snrj n=ansible INFO| TASK [Display otelcol service status] ***********************************************************************************************************************
+2025-02-24 17:42:45,482 p=69462 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "otelcol service is inactive"
+}
+2025-02-24 17:42:45,487 p=69462 u=snrj n=ansible INFO| TASK [Get Prometheus service status] ************************************************************************************************************************
+2025-02-24 17:42:45,919 p=69462 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:42:45,929 p=69462 u=snrj n=ansible INFO| TASK [Display prometheus service status] ********************************************************************************************************************
+2025-02-24 17:42:45,944 p=69462 u=snrj n=ansible INFO| ok: [20.73.47.46] => {
+    "msg": "prometheus service is active"
+}
+2025-02-24 17:42:45,945 p=69462 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 17:42:45,945 p=69462 u=snrj n=ansible INFO| 20.73.47.46                : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-24 17:43:53,628 p=69606 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 17:43:54,064 p=69606 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 17:43:54,072 p=69606 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 17:43:56,254 p=69606 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 17:43:56,254 p=69606 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:43:56,267 p=69606 u=snrj n=ansible INFO| TASK [otel_collector : Template OpenTelemetry Collector config] *********************************************************************************************
+2025-02-24 17:43:57,624 p=69606 u=snrj n=ansible INFO| fatal: [20.73.47.46]: FAILED! => {"changed": false, "checksum": "1dce44aa41fdb5141c44aeb10ef8caa143d3b7c9", "msg": "Destination directory /etc/otelcol does not exist"}
+2025-02-24 17:43:57,625 p=69606 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 17:43:57,625 p=69606 u=snrj n=ansible INFO| 20.73.47.46                : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 17:55:50,221 p=70910 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 17:55:50,690 p=70910 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 17:55:50,700 p=70910 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 17:55:52,960 p=70910 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 17:55:52,960 p=70910 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:55:52,969 p=70910 u=snrj n=ansible INFO| TASK [otel_collector : Template OpenTelemetry Collector config] *********************************************************************************************
+2025-02-24 17:55:54,242 p=70910 u=snrj n=ansible INFO| fatal: [20.73.47.46]: FAILED! => {"changed": false, "checksum": "84c4f4d8901502d79c9de361a0bf99d4f5ef45b7", "msg": "Destination directory /etc/otelcol does not exist"}
+2025-02-24 17:55:54,243 p=70910 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 17:55:54,243 p=70910 u=snrj n=ansible INFO| 20.73.47.46                : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 17:56:12,348 p=70971 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 17:56:12,800 p=70971 u=snrj n=ansible ERROR| ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  mapping values are not allowed in this context. mapping values are not allowed in this context
+  in "<unicode string>", line 2, column 12
+
+The error appears to be in '/Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/prometheus/handlers/main.yml': line 2, column 12, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+- name: Restart Prometheus
+    systemd:
+           ^ here
+
+2025-02-24 17:56:28,268 p=71005 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 17:56:28,677 p=71005 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 17:56:28,687 p=71005 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 17:56:30,053 p=71005 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 17:56:30,054 p=71005 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:56:30,058 p=71005 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 17:56:31,097 p=71005 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 17:56:32,026 p=71005 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 17:56:32,039 p=71005 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 17:56:32,451 p=71005 u=snrj n=ansible INFO| fatal: [20.73.47.46]: FAILED! => {"changed": false, "msg": "Unsupported parameters for (get_url) module: creates. Supported parameters include: attributes, backup, checksum, ciphers, client_cert, client_key, decompress, dest, force, force_basic_auth, group, headers, http_agent, mode, owner, selevel, serole, setype, seuser, timeout, tmp_dest, unredirected_headers, unsafe_writes, url, url_password, url_username, use_gssapi, use_netrc, use_proxy, validate_certs (attr, password, username)."}
+2025-02-24 17:56:32,452 p=71005 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 17:56:32,452 p=71005 u=snrj n=ansible INFO| 20.73.47.46                : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-24 17:57:10,872 p=71116 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 17:57:11,239 p=71116 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 17:57:11,249 p=71116 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 17:57:12,528 p=71116 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 17:57:12,528 p=71116 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:12,534 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 17:57:13,510 p=71116 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 17:57:14,515 p=71116 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 17:57:14,527 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-24 17:57:15,027 p=71116 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:15,042 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 17:57:15,054 p=71116 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 17:57:15,061 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-24 17:57:15,492 p=71116 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:15,513 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-24 17:57:15,529 p=71116 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 17:57:15,538 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 17:57:16,781 p=71116 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 17:57:16,790 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 17:57:17,664 p=71116 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:17,674 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-24 17:57:18,033 p=71116 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:18,043 p=71116 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-24 17:57:18,056 p=71116 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 17:57:18,072 p=71116 u=snrj n=ansible INFO| RUNNING HANDLER [prometheus : Restart Prometheus] ***********************************************************************************************************
+2025-02-24 17:57:18,686 p=71116 u=snrj n=ansible INFO| changed: [20.73.47.46]
+2025-02-24 17:57:18,688 p=71116 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 17:57:18,688 p=71116 u=snrj n=ansible INFO| 20.73.47.46                : ok=8    changed=2    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2025-02-24 17:57:25,163 p=71173 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 17:57:25,574 p=71173 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 17:57:25,584 p=71173 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 17:57:26,875 p=71173 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 17:57:26,875 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:26,879 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 17:57:27,852 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 17:57:28,851 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 17:57:28,864 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-24 17:57:29,323 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:29,337 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 17:57:29,350 p=71173 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 17:57:29,356 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-24 17:57:29,642 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:29,652 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-24 17:57:29,665 p=71173 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 17:57:29,674 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 17:57:30,526 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:30,536 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 17:57:31,348 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:31,358 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-24 17:57:31,689 p=71173 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 17:57:31,699 p=71173 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-24 17:57:31,712 p=71173 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 17:57:31,719 p=71173 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 17:57:31,720 p=71173 u=snrj n=ansible INFO| 20.73.47.46                : ok=7    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2025-02-24 18:01:40,133 p=72363 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:01:40,561 p=72363 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:02:26,958 p=72453 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:02:27,370 p=72453 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:03:22,103 p=72628 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:03:22,508 p=72628 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:03:26,929 p=72639 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:03:27,332 p=72639 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:03:58,415 p=72686 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:03:58,802 p=72686 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:04:21,735 p=72728 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:04:22,135 p=72728 u=snrj n=ansible INFO| [DEPRECATION WARNING]: community.general.yaml has been deprecated. The plugin has been superseded by the the option `result_format=yaml` in callback plugin 
+ansible.builtin.default from ansible-core 2.13 onwards. This feature will be removed from community.general in version 13.0.0. Deprecation warnings can be 
+disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:04:22,166 p=72728 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 18:04:22,178 p=72728 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:04:24,380 p=72728 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:04:24,380 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:04:24,387 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 18:04:25,384 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 18:04:26,376 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 18:04:26,394 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-24 18:04:26,991 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:04:27,006 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 18:04:27,022 p=72728 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:04:27,028 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-24 18:04:27,367 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:04:27,382 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-24 18:04:27,401 p=72728 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:04:27,411 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 18:04:28,297 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:04:28,310 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 18:04:29,109 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:04:29,123 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-24 18:04:29,449 p=72728 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:04:29,461 p=72728 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-24 18:04:29,479 p=72728 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:04:29,487 p=72728 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:04:29,487 p=72728 u=snrj n=ansible INFO| 20.73.47.46                : ok=7    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2025-02-24 18:07:03,341 p=73525 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:07:03,763 p=73525 u=snrj n=ansible INFO| [DEPRECATION WARNING]: community.general.yaml has been deprecated. The plugin has been superseded by the the option `result_format=yaml` in callback plugin 
+ansible.builtin.default from ansible-core 2.13 onwards. This feature will be removed from community.general in version 13.0.0. Deprecation warnings can be 
+disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:07:03,784 p=73525 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 18:07:03,794 p=73525 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:07:06,069 p=73525 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:07:06,069 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:06,076 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 18:07:07,056 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 18:07:08,001 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 18:07:08,012 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-24 18:07:08,477 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:08,488 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 18:07:08,501 p=73525 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:07:08,508 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-24 18:07:08,800 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:08,812 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-24 18:07:08,825 p=73525 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:07:08,833 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 18:07:09,727 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:09,737 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 18:07:10,581 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:10,591 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-24 18:07:10,921 p=73525 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:10,930 p=73525 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-24 18:07:10,943 p=73525 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:07:10,951 p=73525 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:07:10,951 p=73525 u=snrj n=ansible INFO| 20.73.47.46                : ok=7    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2025-02-24 18:07:29,519 p=73594 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:07:32,756 p=73594 u=snrj n=ansible INFO| [DEPRECATION WARNING]: community.general.yaml has been deprecated. The plugin has been superseded by the the option `result_format=yaml` in callback plugin 
+ansible.builtin.default from ansible-core 2.13 onwards. This feature will be removed from community.general in version 13.0.0. Deprecation warnings can be 
+disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:07:32,873 p=73594 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-24 18:07:32,957 p=73594 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:07:34,947 p=73594 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.73.47.46 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:07:34,947 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:34,954 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-24 18:07:36,010 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=wget)
+2025-02-24 18:07:36,950 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46] => (item=tar)
+2025-02-24 18:07:36,962 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-24 18:07:37,455 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:37,466 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-24 18:07:37,479 p=73594 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:07:37,486 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-24 18:07:37,771 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:37,790 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-24 18:07:37,805 p=73594 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:07:37,822 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-24 18:07:38,768 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:38,778 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-24 18:07:39,579 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:39,590 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-24 18:07:39,947 p=73594 u=snrj n=ansible INFO| ok: [20.73.47.46]
+2025-02-24 18:07:39,956 p=73594 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-24 18:07:39,970 p=73594 u=snrj n=ansible INFO| skipping: [20.73.47.46]
+2025-02-24 18:07:39,978 p=73594 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:07:39,978 p=73594 u=snrj n=ansible INFO| 20.73.47.46                : ok=7    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2025-02-24 18:07:59,196 p=73678 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:07:59,574 p=73678 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:28:56,404 p=76048 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:28:59,979 p=76048 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:29:08,236 p=76069 u=snrj n=ansible INFO| [DEPRECATION WARNING]: [defaults]collections_paths option. Reason: does not fit var naming standard, use the singular form collections_path instead 
+Alternatives: none. This feature will be removed in version 2.19. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-02-24 18:29:08,627 p=76069 u=snrj n=ansible ERROR| ERROR! Invalid callback for stdout specified: rich
+2025-02-24 18:29:35,420 p=76135 u=snrj n=ansible INFO| PLAY [Setup Flask App with OpenTelemetry] *******************************************************************************************************************
+2025-02-24 18:29:35,475 p=76135 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-24 18:29:41,359 p=76135 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 168.63.20.95 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-24 18:29:41,360 p=76135 u=snrj n=ansible INFO| ok: [168.63.20.95]
+2025-02-24 18:29:41,366 p=76135 u=snrj n=ansible INFO| TASK [flask-app : Update apt package index] *****************************************************************************************************************
+2025-02-24 18:30:02,103 p=76135 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:30:02,115 p=76135 u=snrj n=ansible INFO| TASK [flask-app : Ensure the 'universe' repository is enabled] **********************************************************************************************
+2025-02-24 18:30:13,994 p=76135 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:30:14,011 p=76135 u=snrj n=ansible INFO| TASK [flask-app : Install python3-pip] **********************************************************************************************************************

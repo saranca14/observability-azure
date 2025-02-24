@@ -3,10 +3,11 @@
   hosts: otel_collector_vm
   become: yes
   roles:
-    # - common
     # - otel_collector
     - prometheus
-    - grafana
+    # - grafana
 
   vars_files:
     - ../roles/prometheus/vars/vars.yml
+    - ../roles/otel_collector/vars/vars.yml
+    - ../roles/grafana/vars/vars.yml

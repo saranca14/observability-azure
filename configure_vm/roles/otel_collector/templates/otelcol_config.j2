@@ -1,0 +1,27 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: {{ otlp_grpc_endpoint }}
+      http:
+        endpoint: {{ otlp_http_endpoint }}
+
+processors:
+  batch:
+
+exporters:
+  prometheus:
+    endpoint: {{ prometheus_target_url }}  # Prometheus exporter endpoint
+
+extensions:
+  health_check:
+  pprof:
+  zpages:
+
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [prometheus]

@@ -1,0 +1,44 @@
+---
+- name: Check status of OpenTelemetry Collector service
+  hosts: otel_collector_vm
+  become: true
+  tasks:
+    - name: Get otelcol service status
+      ansible.builtin.systemd:
+        name: "otelcol"
+      register: otelcol_service_status
+      ignore_errors: true
+
+    - name: Display otelcol service status
+      debug:
+        msg: "otelcol service is {{ otelcol_service_status.status.ActiveState }}"
+
+    # - name: Debug if otelcol service is inactive
+    #   debug:
+    #     msg: "otelcol is not running"
+    #   when: otelcol_service_status.status.ActiveState != "active"
+
+    # - name: Print otelcol service status command
+    #   command: sudo systemctl is-active otelcol
+    #   register: result
+    #   ignore_errors: true
+    #   changed_when: false
+
+    # - name: Display otelcol service status command output
+    #   debug:
+    #     msg: "{{ result.stdout }}"
+
+    - name: Get Prometheus service status
+      ansible.builtin.systemd:
+        name: "prometheus"
+      register: prometheus_service_status
+      ignore_errors: true
+
+    - name: Display prometheus service status
+      debug:
+        msg: "prometheus service is {{ prometheus_service_status.status.ActiveState }}"
+
+    # - name: Debug if prometheus service is inactive
+    #   debug:
+    #     msg: "prometheus is not running"
+    #   when: prometheus_service_status.status.ActiveState != "active"

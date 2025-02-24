@@ -1,0 +1,36 @@
+---
+    - name: Install pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install locust using pip
+      pip:
+        name: locust
+        executable: pip3
+
+    - name: Create locustfile directory
+      file:
+        path: /home/azureadmin/locustfiles
+        state: directory
+        owner: azureadmin
+        group: azureadmin
+
+    - name: Copy locust files for traffic generation
+      copy:
+        src: "files/"
+        dest: /home/azureadmin/locustfiles/
+        owner: azureadmin
+        group: azureadmin
+
+    - name: Install required Python dependencies for locustfile
+      pip:
+        requirements: /home/azureadmin/locustfiles/requirements.txt
+        executable: pip3
+        state: present
+
+    - name: Run locust
+      shell: locust -f /home/azureadmin/locustfiles/locust.py --host=http://localhost:8008
+      async: 600
+      poll: 0
+      # ignore_errors: yes

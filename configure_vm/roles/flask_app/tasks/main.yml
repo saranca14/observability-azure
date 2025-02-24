@@ -1,0 +1,75 @@
+---
+
+- name: Update apt package index
+  apt:
+    update_cache: yes
+
+- name: Ensure the 'universe' repository is enabled
+  apt_repository:
+        repo: "deb http://archive.ubuntu.com/ubuntu/ {{ ansible_lsb.codename }} universe"
+        state: present
+
+- name: Install python3-pip
+  apt:
+      name: python3-pip
+      state: present
+
+- name: Install required Python packages
+  pip:
+    name:
+      - fastapi
+      - uvicorn
+      - azure-monitor-opentelemetry
+    state: present
+
+- name: Set APPLICATION_INSIGHTS_CONNECTION_STRING in .bashrc
+  lineinfile:
+    path: /home/azureadmin/.bashrc
+    line: "export APPLICATION_INSIGHTS_CONNECTION_STRING='{{ APPLICATION_INSIGHTS_CONNECTION_STRING }}'"
+    create: yes
+    state: present
+  become: yes
+  become_user: azureadmin
+
+
+- name: Copy the sample FastAPI application
+  copy:
+    src: "files/http_fastapi.py"  # Ensure the file is in the "files" directory or modify the path accordingly
+    dest: "/home/{{ ansible_user }}/http_fastapi.py"
+
+# - name: Start FastAPI application with uvicorn
+#   shell: |
+#          nohup uvicorn http_fastapi:app --host 0.0.0.0 --port 8008 --reload
+#   become: yes
+#   become_user: azureadmin
+#   args:
+#     executable: /bin/bash
+
+- name: Create FastAPI service
+  copy:
+    dest: /etc/systemd/system/fastapi.service
+    content: |
+      [Unit]
+      Description=FastAPI Service
+      After=network.target
+
+      [Service]
+      User=azureadmin
+      WorkingDirectory=/home/azureadmin
+      Environment="APPLICATION_INSIGHTS_CONNECTION_STRING={{ APPLICATION_INSIGHTS_CONNECTION_STRING }}"
+      ExecStart=uvicorn http_fastapi:app --host 0.0.0.0 --port 8008 --reload
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Reload systemd daemon
+  ansible.builtin.command: sudo systemctl daemon-reload
+  become: yes
+
+- name: Restart FastAPI service
+  ansible.builtin.service:
+    name: fastapi
+    state: restarted
+  become: yes
+

@@ -1,0 +1,14 @@
+# Terraform
+/create_infra/.terraform/
+create_infra/*.tfstate
+create_infra/*.tfstate.backup
+create_infra/terraform.tfvars
+create_infra/.terraform.lock.hcl
+
+# Ansible
+/configure_vm/*.retry
+/configure_vm/.ansible/
+
+*.tfstate
+*.tfstate.*
+

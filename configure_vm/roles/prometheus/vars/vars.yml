@@ -1,0 +1,4 @@
+otlp_grpc_endpoint: "0.0.0.0:4317"
+otlp_http_endpoint: "0.0.0.0:4318"
+prometheus_scrape_interval: "10s"
+prometheus_target_url: "localhost:8008"

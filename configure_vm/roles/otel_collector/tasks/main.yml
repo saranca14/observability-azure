@@ -1,0 +1,54 @@
+---
+# - name: Update apt repository
+#   apt:
+#     update_cache: yes
+
+# - name: Install wget
+#   apt:
+#     name: wget
+#     state: present
+
+# - name: Download OpenTelemetry Collector .deb package
+#   get_url:
+#     url: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.120.0/otelcol_0.120.0_linux_amd64.deb"
+#     dest: /opt/otelcol_0.120.0_linux_amd64.deb
+
+# - name: Install OpenTelemetry Collector .deb package
+#   command: sudo dpkg -i /opt/otelcol_0.120.0_linux_amd64.deb
+#   become: true
+
+# Configuration of OTEL COLLECTOR config file:
+- name: Template OpenTelemetry Collector config
+  template:
+    src: otelcol_config.j2
+    dest: /etc/otelcol/config.yaml
+  notify:
+    - Restart otelcol service
+
+- name: Get otelcol service status
+  ansible.builtin.systemd:
+    name: "otelcol"
+  register: otelcol_service_status
+
+- name: Debug if service is inactive
+  debug:
+    msg: "otelcol is not running"
+  when: otelcol_service_status.status.ActiveState != "active"
+
+- name: Start otelcol service if not running
+  ansible.builtin.systemd:
+    name: "otelcol"
+    state: started
+  when: otelcol_service_status.status.ActiveState != "active"
+  become: true
+
+
+- name: Print otelcol service status
+  command: sudo systemctl is-active otelcol
+  register: result
+  ignore_errors: true
+  changed_when: false
+
+- name: Display otelcol service status
+  debug:
+    msg: "{{ result.stdout }}"

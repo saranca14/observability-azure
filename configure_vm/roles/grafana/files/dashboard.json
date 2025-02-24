@@ -1,0 +1,25 @@
+{
+    "id": 1,
+    "title": "Prometheus Overview",
+    "uid": "prometheus-overview",
+    "type": "dash-db",
+    "tags": ["prometheus"],
+    "timezone": "browser",
+    "schemaVersion": 18,
+    "version": 1,
+    "links": [],
+    "panels": [
+        {
+            "type": "graph",
+            "title": "Prometheus CPU Usage",
+            "targets": [
+                {
+                    "expr": "rate(process_cpu_seconds_total[5m])",
+                    "interval": "",
+                    "legendFormat": "{{instance}}",
+                    "refId": "A"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+---
+  - name: Restart otelcol service
+    systemd:
+      name: otelcol
+      state: restarted
+      enabled: yes

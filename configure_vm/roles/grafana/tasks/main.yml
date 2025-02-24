@@ -1,0 +1,35 @@
+---
+# Install Grafana package
+- name: Install Grafana
+  apt:
+    name: grafana
+    state: present
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+# Ensure Grafana service is running and enabled
+- name: Start Grafana service
+  service:
+    name: grafana-server
+    state: started
+    enabled: yes
+
+# Configure Grafana data source (Prometheus in this case)
+- name: Configure Prometheus as Grafana datasource
+  grafana_datasource:
+    name: Prometheus
+    type: prometheus
+    url: "http://localhost:9090"
+    access: proxy
+    is_default: yes
+    state: present
+  when: ansible_os_family == 'Debian'
+
+# Optional: Add dashboard provisioning (if you have a dashboard JSON)
+- name: Copy Prometheus dashboard file
+  copy:
+    src: prometheus-dashboard.json
+    dest: /etc/grafana/provisioning/dashboards/prometheus-dashboard.json
+    mode: '0644'
+  when: ansible_os_family == 'Debian'
+

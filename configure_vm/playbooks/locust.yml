@@ -1,0 +1,7 @@
+---
+- name: Setup Locust Traffic Generator
+  hosts: all
+  become: yes
+
+  roles:
+    - locust

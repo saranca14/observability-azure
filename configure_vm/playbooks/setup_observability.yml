@@ -1,0 +1,12 @@
+---
+- name: Configure OpenTelemetry Collector and Prometheus
+  hosts: otel_collector_vm
+  become: yes
+  roles:
+    # - common
+    # - otel_collector
+    - prometheus
+    - grafana
+
+  vars_files:
+    - ../roles/prometheus/vars/vars.yml

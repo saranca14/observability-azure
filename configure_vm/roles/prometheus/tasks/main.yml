@@ -1,0 +1,32 @@
+---
+- name: Install Prometheus dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - wget
+    - tar
+
+- name: Download Prometheus
+  get_url:
+    url: "https://github.com/prometheus/prometheus/releases/download/v2.42.0/prometheus-2.42.0.linux-amd64.tar.gz"
+    dest: /opt/prometheus-2.42.0.linux-amd64.tar.gz
+
+- name: Extract Prometheus tarball
+  command: tar -xvf /opt/prometheus-2.42.0.linux-amd64.tar.gz -C /opt/
+
+- name: Template Prometheus config
+  template:
+    src: prometheus_config.j2
+    dest: /opt/prometheus-2.42.0.linux-amd64/prometheus.yml
+
+- name: Create Prometheus systemd service
+  template:
+    src: prometheus_service.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Enable and start Prometheus service
+  systemd:
+    name: prometheus
+    state: started
+    enabled: yes

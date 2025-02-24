@@ -1,0 +1,4 @@
+---
+# defaults/main.yml
+grafana_admin_password: 'adminpassword'
+grafana_prometheus_url: 'http://localhost:9090'

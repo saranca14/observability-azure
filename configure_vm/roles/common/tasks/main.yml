@@ -1,0 +1,10 @@
+---
+    - name: Check if Python 3 exists
+      command: python3 --version
+      register: python_version
+      ignore_errors: true
+
+    - name: Print Python 3 version if exists
+      debug:
+        msg: "Python 3 version: {{ python_version.stdout }}"
+      when: python_version.rc == 0

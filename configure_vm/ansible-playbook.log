@@ -3709,3 +3709,21 @@ information.
 2025-02-24 18:30:02,115 p=76135 u=snrj n=ansible INFO| TASK [flask-app : Ensure the 'universe' repository is enabled] **********************************************************************************************
 2025-02-24 18:30:13,994 p=76135 u=snrj n=ansible INFO| changed: [168.63.20.95]
 2025-02-24 18:30:14,011 p=76135 u=snrj n=ansible INFO| TASK [flask-app : Install python3-pip] **********************************************************************************************************************
+2025-02-24 18:30:48,416 p=76135 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:30:48,429 p=76135 u=snrj n=ansible INFO| TASK [flask-app : Install required Python packages] *********************************************************************************************************
+2025-02-24 18:30:59,913 p=76135 u=snrj n=ansible INFO| changed: [168.63.20.95]
+2025-02-24 18:30:59,925 p=76135 u=snrj n=ansible INFO| TASK [flask-app : Set APPLICATION_INSIGHTS_CONNECTION_STRING in .bashrc] ************************************************************************************
+2025-02-24 18:30:59,946 p=76135 u=snrj n=ansible INFO| fatal: [168.63.20.95]: FAILED! => 
+  msg: |-
+    The task includes an option with an undefined variable.. 'APPLICATION_INSIGHTS_CONNECTION_STRING' is undefined
+  
+    The error appears to be in '/Users/snrj/Desktop/terraform-azure-demo/configure_vm/roles/flask-app/tasks/main.yml': line 25, column 3, but may
+    be elsewhere in the file depending on the exact syntax problem.
+  
+    The offending line appears to be:
+  
+  
+    - name: Set APPLICATION_INSIGHTS_CONNECTION_STRING in .bashrc
+      ^ here
+2025-02-24 18:30:59,947 p=76135 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-24 18:30:59,947 p=76135 u=snrj n=ansible INFO| 168.63.20.95               : ok=5    changed=4    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   

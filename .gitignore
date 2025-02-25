@@ -11,5 +11,3 @@ create_infra/.terraform.lock.hcl
 
 *.tfstate
 *.tfstate.*
-
-*.txt*

@@ -15,8 +15,10 @@ spec:
         app: vote
     spec:
       containers:
-        - image: saranrnair/election-vote:v1
+        - image: saranrnair/election-vote:v2
           name: vote
           ports:
             - containerPort: 80
               name: vote
+      imagePullSecrets:
+        - name: dockerhub

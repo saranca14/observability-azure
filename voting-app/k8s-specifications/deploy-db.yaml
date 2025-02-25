@@ -15,7 +15,7 @@ spec:
         app: db
     spec:
       containers:
-      - image: postgres:15-alpine
+      - image: amd64/postgres
         name: postgres
         env:
         - name: POSTGRES_USER
@@ -30,4 +30,4 @@ spec:
           name: db-data
       volumes:
       - name: db-data
-        emptyDir: {} 
+        emptyDir: {}

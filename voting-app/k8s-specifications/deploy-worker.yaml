@@ -14,6 +14,8 @@ spec:
       labels:
         app: worker
     spec:
+      imagePullSecrets:
+        - name: dockerhub
       containers:
-        - image: saranrnair/election-worker:v1
+        - image: saranrnair/election-worker:v2
           name: worker

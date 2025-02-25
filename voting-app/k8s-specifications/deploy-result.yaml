@@ -15,8 +15,10 @@ spec:
         app: result
     spec:
       containers:
-        - image: saranrnair/election-result:v1
+        - image: saranrnair/election-result:v2
           name: result
           ports:
             - containerPort: 80
               name: result
+      imagePullSecrets:
+        - name: dockerhub

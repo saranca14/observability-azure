@@ -1,0 +1,33 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  logging:
+    verbosity: detailed
+  # Add other exporters like Jaeger, Prometheus, etc., depending on your use case
+  jaeger:
+    endpoint: "<JAeger-Endpoint>"
+  # You can add more exporters for different services
+
+processors:
+  batch:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [logging, jaeger]
+      processors: [batch]
+    metrics:
+      receivers: [otlp]
+      exporters: [logging]
+      processors: [batch]
+    logs:
+      receivers: [otlp]
+      exporters: [logging]
+      processors: [batch]

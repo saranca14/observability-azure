@@ -14,5 +14,5 @@ resource "local_file" "application_insights_connection_string" {
   content = <<EOT
 APPLICATION_INSIGHTS_CONNECTION_STRING: '${split(";", azurerm_application_insights.default.connection_string)[0]}'
 EOT
-  filename = "${path.module}/../configure_vm/roles/flask_app/vars/vars.yml"
+  filename = "${path.module}/../configure_vm/roles/flask-app/vars/vars.yml"
 }

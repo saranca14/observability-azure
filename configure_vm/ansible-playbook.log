@@ -6318,3 +6318,699 @@ information.
 2025-02-24 19:19:12,804 p=82316 u=snrj n=ansible INFO| ok: [168.63.20.95]
 2025-02-24 19:19:12,809 p=82316 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
 2025-02-24 19:19:12,809 p=82316 u=snrj n=ansible INFO| 168.63.20.95               : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-25 20:25:34,508 p=41579 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-25 20:25:34,519 p=41579 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-25 20:25:39,429 p=41579 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 52.174.110.68 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-25 20:25:39,429 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:25:39,436 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Update apt repository] ***************************************************************************************************************
+2025-02-25 20:25:57,299 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:25:57,315 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Install wget] ************************************************************************************************************************
+2025-02-25 20:25:58,570 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:25:58,583 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Ensure the 'universe' repository is enabled] *****************************************************************************************
+2025-02-25 20:26:12,241 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:26:12,255 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Install python3-pip] *****************************************************************************************************************
+2025-02-25 20:26:55,308 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:26:55,324 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Install required Python packages] ****************************************************************************************************
+2025-02-25 20:27:06,961 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:06,974 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Download OpenTelemetry Collector .deb package] ***************************************************************************************
+2025-02-25 20:27:08,397 p=41579 u=snrj n=ansible WARNING| [WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when running as another user. To
+avoid this, create the remote_tmp dir with the correct permissions manually
+
+2025-02-25 20:27:08,398 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:08,420 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Install OpenTelemetry Collector .deb package] ****************************************************************************************
+2025-02-25 20:27:13,584 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:13,608 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Template OpenTelemetry Collector config] *********************************************************************************************
+2025-02-25 20:27:15,472 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:15,489 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Get otelcol service status] **********************************************************************************************************
+2025-02-25 20:27:16,264 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:27:16,287 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Debug if service is inactive] ********************************************************************************************************
+2025-02-25 20:27:16,305 p=41579 u=snrj n=ansible INFO| skipping: [52.174.110.68]
+2025-02-25 20:27:16,312 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Start otelcol service if not running] ************************************************************************************************
+2025-02-25 20:27:16,323 p=41579 u=snrj n=ansible INFO| skipping: [52.174.110.68]
+2025-02-25 20:27:16,328 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Print otelcol service status] ********************************************************************************************************
+2025-02-25 20:27:16,686 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:27:16,700 p=41579 u=snrj n=ansible INFO| TASK [otel_collector : Display otelcol service status] ******************************************************************************************************
+2025-02-25 20:27:16,722 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68] => 
+  msg: active
+2025-02-25 20:27:16,733 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-25 20:27:18,122 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68] => (item=wget)
+2025-02-25 20:27:19,386 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68] => (item=tar)
+2025-02-25 20:27:19,403 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-25 20:27:19,727 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:27:19,743 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-25 20:27:21,536 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:21,548 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-25 20:27:21,885 p=41579 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:27:21,901 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-25 20:27:24,449 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:24,461 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-25 20:27:25,851 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:25,867 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-25 20:27:27,262 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:27,277 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-25 20:27:27,652 p=41579 u=snrj n=ansible INFO| fatal: [52.174.110.68]: FAILED! => changed=false 
+  cmd:
+  - systemctl
+  - is-active
+  - prometheus
+  delta: '0:00:00.013450'
+  end: '2025-02-25 19:27:27.719147'
+  msg: non-zero return code
+  rc: 3
+  start: '2025-02-25 19:27:27.705697'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: inactive
+  stdout_lines: <omitted>
+2025-02-25 20:27:27,653 p=41579 u=snrj n=ansible INFO| ...ignoring
+2025-02-25 20:27:27,666 p=41579 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-25 20:27:28,688 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:28,709 p=41579 u=snrj n=ansible INFO| RUNNING HANDLER [otel_collector : Restart otelcol service] **************************************************************************************************
+2025-02-25 20:27:29,307 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:29,319 p=41579 u=snrj n=ansible INFO| RUNNING HANDLER [prometheus : Restart Prometheus] ***********************************************************************************************************
+2025-02-25 20:27:41,105 p=41579 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:27:41,107 p=41579 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-25 20:27:41,107 p=41579 u=snrj n=ansible INFO| 52.174.110.68              : ok=23   changed=14   unreachable=0    failed=0    skipped=2    rescued=0    ignored=1   
+2025-02-25 20:33:28,929 p=42057 u=snrj n=ansible WARNING| [WARNING]: While constructing a mapping from /Users/snrj/Desktop/observability-azure/configure_vm/playbooks/pip-install.yml, line 2, column 3, found a
+duplicate dict key (hosts). Using last defined value only.
+
+2025-02-25 20:33:28,930 p=42057 u=snrj n=ansible WARNING| [WARNING]: While constructing a mapping from /Users/snrj/Desktop/observability-azure/configure_vm/playbooks/pip-install.yml, line 2, column 3, found a
+duplicate dict key (tasks). Using last defined value only.
+
+2025-02-25 20:33:29,554 p=42057 u=snrj n=ansible INFO| PLAY [Check status of OpenTelemetry Collector service] ******************************************************************************************************
+2025-02-25 20:33:29,630 p=42057 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-25 20:33:30,515 p=42057 u=snrj n=ansible INFO| fatal: [localhost]: FAILED! => changed=false 
+  ansible_facts: {}
+  failed_modules:
+    ansible.legacy.setup:
+      failed: true
+      module_stderr: |-
+        sudo: a password is required
+      module_stdout: ''
+      msg: |-
+        MODULE FAILURE: No start of json char found
+        See stdout/stderr for the exact error
+      rc: 1
+  msg: |-
+    The following modules failed to execute: ansible.legacy.setup
+2025-02-25 20:33:30,515 p=42057 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-25 20:33:30,515 p=42057 u=snrj n=ansible INFO| localhost                  : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-25 20:34:07,378 p=42115 u=snrj n=ansible INFO| PLAY [Check status of OpenTelemetry Collector service] ******************************************************************************************************
+2025-02-25 20:34:07,386 p=42115 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-25 20:34:09,883 p=42115 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 52.174.110.68 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-25 20:34:09,883 p=42115 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:34:09,900 p=42115 u=snrj n=ansible INFO| TASK [Ensure pip is installed] ******************************************************************************************************************************
+2025-02-25 20:34:11,275 p=42115 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:34:11,282 p=42115 u=snrj n=ansible INFO| TASK [Install required pip packages] ************************************************************************************************************************
+2025-02-25 20:34:17,712 p=42115 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:34:17,722 p=42115 u=snrj n=ansible INFO| TASK [List all installed pip packages] **********************************************************************************************************************
+2025-02-25 20:34:18,834 p=42115 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:34:18,846 p=42115 u=snrj n=ansible INFO| TASK [Print pip packages] ***********************************************************************************************************************************
+2025-02-25 20:34:18,871 p=42115 u=snrj n=ansible INFO| ok: [52.174.110.68] => 
+  pip_packages.stdout: |-
+    Package                                Version
+    -------------------------------------- ----------------
+    annotated-types                        0.7.0
+    anyio                                  4.8.0
+    asgiref                                3.8.1
+    attrs                                  21.2.0
+    Automat                                20.2.0
+    azure-core                             1.32.0
+    azure-core-tracing-opentelemetry       1.0.0b11
+    azure-monitor-opentelemetry            1.6.5
+    azure-monitor-opentelemetry-exporter   1.0.0b33
+    Babel                                  2.8.0
+    bcrypt                                 3.2.0
+    blinker                                1.9.0
+    certifi                                2020.6.20
+    chardet                                4.0.0
+    click                                  8.1.8
+    cloud-init                             24.4
+    colorama                               0.4.4
+    command-not-found                      0.3
+    configobj                              5.0.6
+    constantly                             15.1.0
+    cryptography                           3.4.8
+    dbus-python                            1.2.18
+    Deprecated                             1.2.18
+    distro                                 1.7.0
+    distro-info                            1.1+ubuntu0.2
+    exceptiongroup                         1.2.2
+    fastapi                                0.115.8
+    fixedint                               0.1.6
+    Flask                                  3.1.0
+    h11                                    0.14.0
+    httplib2                               0.20.2
+    hyperlink                              21.0.0
+    idna                                   3.3
+    importlib_metadata                     8.5.0
+    incremental                            21.3.0
+    isodate                                0.7.2
+    itsdangerous                           2.2.0
+    jeepney                                0.7.1
+    Jinja2                                 3.1.5
+    jsonpatch                              1.32
+    jsonpointer                            2.0
+    jsonschema                             3.2.0
+    keyring                                23.5.0
+    launchpadlib                           1.10.16
+    lazr.restfulclient                     0.14.4
+    lazr.uri                               1.0.6
+    MarkupSafe                             3.0.2
+    more-itertools                         8.10.0
+    msrest                                 0.7.1
+    netifaces                              0.11.0
+    numpy                                  2.2.3
+    oauthlib                               3.2.0
+    opentelemetry-api                      1.30.0
+    opentelemetry-instrumentation          0.51b0
+    opentelemetry-instrumentation-asgi     0.51b0
+    opentelemetry-instrumentation-dbapi    0.51b0
+    opentelemetry-instrumentation-django   0.51b0
+    opentelemetry-instrumentation-fastapi  0.51b0
+    opentelemetry-instrumentation-flask    0.51b0
+    opentelemetry-instrumentation-psycopg2 0.51b0
+    opentelemetry-instrumentation-requests 0.51b0
+    opentelemetry-instrumentation-urllib   0.51b0
+    opentelemetry-instrumentation-urllib3  0.51b0
+    opentelemetry-instrumentation-wsgi     0.51b0
+    opentelemetry-resource-detector-azure  0.1.5
+    opentelemetry-sdk                      1.30.0
+    opentelemetry-semantic-conventions     0.51b0
+    opentelemetry-util-http                0.51b0
+    packaging                              21.3
+    pexpect                                4.8.0
+    pip                                    22.0.2
+    psutil                                 5.9.8
+    ptyprocess                             0.7.0
+    pyasn1                                 0.4.8
+    pyasn1-modules                         0.2.1
+    pydantic                               2.10.6
+    pydantic_core                          2.27.2
+    PyGObject                              3.42.1
+    PyHamcrest                             2.0.2
+    PyJWT                                  2.3.0
+    pyOpenSSL                              21.0.0
+    pyparsing                              2.4.7
+    pyparted                               3.11.7
+    pyrsistent                             0.18.1
+    pyserial                               3.5
+    python-apt                             2.4.0+ubuntu4
+    python-debian                          0.1.43+ubuntu1.1
+    python-magic                           0.4.24
+    pytz                                   2022.1
+    PyYAML                                 5.4.1
+    requests                               2.25.1
+    requests-oauthlib                      2.0.0
+    SecretStorage                          3.3.1
+    service-identity                       18.1.0
+    setuptools                             59.6.0
+    six                                    1.16.0
+    sniffio                                1.3.1
+    sos                                    4.7.2
+    ssh-import-id                          5.11
+    starlette                              0.45.3
+    systemd-python                         234
+    Twisted                                22.1.0
+    typing_extensions                      4.12.2
+    ubuntu-pro-client                      8001
+    ufw                                    0.36.1
+    unattended-upgrades                    0.1
+    urllib3                                1.26.5
+    uvicorn                                0.34.0
+    wadllib                                1.3.6
+    WALinuxAgent                           2.2.46
+    Werkzeug                               3.1.3
+    wheel                                  0.37.1
+    wrapt                                  1.17.2
+    zipp                                   3.21.0
+    zope.interface                         5.4.0
+2025-02-25 20:34:18,872 p=42115 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-25 20:34:18,872 p=42115 u=snrj n=ansible INFO| 52.174.110.68              : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-25 20:46:58,514 p=42836 u=snrj n=ansible INFO| PLAY [Configure OpenTelemetry Collector and Prometheus] *****************************************************************************************************
+2025-02-25 20:46:58,615 p=42836 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-25 20:47:02,675 p=42836 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 52.174.110.68 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-25 20:47:02,675 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:02,682 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Update apt repository] ***************************************************************************************************************
+2025-02-25 20:47:07,336 p=42836 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:47:07,346 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Install wget] ************************************************************************************************************************
+2025-02-25 20:47:08,767 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:08,778 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Ensure the 'universe' repository is enabled] *****************************************************************************************
+2025-02-25 20:47:09,490 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:09,500 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Install python3-pip] *****************************************************************************************************************
+2025-02-25 20:47:10,814 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:10,824 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Install required Python packages] ****************************************************************************************************
+2025-02-25 20:47:12,763 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:12,774 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Download OpenTelemetry Collector .deb package] ***************************************************************************************
+2025-02-25 20:47:13,990 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:14,012 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Install OpenTelemetry Collector .deb package] ****************************************************************************************
+2025-02-25 20:47:19,053 p=42836 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:47:19,073 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Template OpenTelemetry Collector config] *********************************************************************************************
+2025-02-25 20:47:20,233 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:20,244 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Get otelcol service status] **********************************************************************************************************
+2025-02-25 20:47:21,061 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:21,082 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Debug if service is inactive] ********************************************************************************************************
+2025-02-25 20:47:21,097 p=42836 u=snrj n=ansible INFO| skipping: [52.174.110.68]
+2025-02-25 20:47:21,105 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Start otelcol service if not running] ************************************************************************************************
+2025-02-25 20:47:21,116 p=42836 u=snrj n=ansible INFO| skipping: [52.174.110.68]
+2025-02-25 20:47:21,121 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Print otelcol service status] ********************************************************************************************************
+2025-02-25 20:47:21,630 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:21,640 p=42836 u=snrj n=ansible INFO| TASK [otel_collector : Display otelcol service status] ******************************************************************************************************
+2025-02-25 20:47:21,657 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68] => 
+  msg: active
+2025-02-25 20:47:21,668 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Install Prometheus dependencies] *********************************************************************************************************
+2025-02-25 20:47:23,207 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68] => (item=wget)
+2025-02-25 20:47:24,550 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68] => (item=tar)
+2025-02-25 20:47:24,562 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus tarball already exists] **********************************************************************************************
+2025-02-25 20:47:25,287 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:25,298 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Download Prometheus if not already downloaded] *******************************************************************************************
+2025-02-25 20:47:25,311 p=42836 u=snrj n=ansible INFO| skipping: [52.174.110.68]
+2025-02-25 20:47:25,318 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Check if Prometheus is already extracted] ************************************************************************************************
+2025-02-25 20:47:25,670 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:25,680 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Extract Prometheus tarball if not extracted] *********************************************************************************************
+2025-02-25 20:47:25,693 p=42836 u=snrj n=ansible INFO| skipping: [52.174.110.68]
+2025-02-25 20:47:25,701 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Template Prometheus config] **************************************************************************************************************
+2025-02-25 20:47:27,274 p=42836 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:47:27,283 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Create Prometheus systemd service] *******************************************************************************************************
+2025-02-25 20:47:28,484 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:28,494 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Check Prometheus service status] *********************************************************************************************************
+2025-02-25 20:47:28,839 p=42836 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:28,851 p=42836 u=snrj n=ansible INFO| TASK [prometheus : Start Prometheus if not running] *********************************************************************************************************
+2025-02-25 20:47:28,865 p=42836 u=snrj n=ansible INFO| skipping: [52.174.110.68]
+2025-02-25 20:47:28,881 p=42836 u=snrj n=ansible INFO| RUNNING HANDLER [prometheus : Restart Prometheus] ***********************************************************************************************************
+2025-02-25 20:47:29,578 p=42836 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 20:47:29,579 p=42836 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-25 20:47:29,579 p=42836 u=snrj n=ansible INFO| 52.174.110.68              : ok=19   changed=4    unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+2025-02-25 20:47:38,535 p=42923 u=snrj n=ansible INFO| PLAY [Check status of OpenTelemetry Collector service] ******************************************************************************************************
+2025-02-25 20:47:38,544 p=42923 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-25 20:47:40,065 p=42923 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 52.174.110.68 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-25 20:47:40,065 p=42923 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:40,071 p=42923 u=snrj n=ansible INFO| TASK [Get otelcol service status] ***************************************************************************************************************************
+2025-02-25 20:47:40,828 p=42923 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:40,836 p=42923 u=snrj n=ansible INFO| TASK [Display otelcol service status] ***********************************************************************************************************************
+2025-02-25 20:47:40,853 p=42923 u=snrj n=ansible INFO| ok: [52.174.110.68] => 
+  msg: otelcol service is active
+2025-02-25 20:47:40,858 p=42923 u=snrj n=ansible INFO| TASK [Get Prometheus service status] ************************************************************************************************************************
+2025-02-25 20:47:41,668 p=42923 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 20:47:41,676 p=42923 u=snrj n=ansible INFO| TASK [Display prometheus service status] ********************************************************************************************************************
+2025-02-25 20:47:41,694 p=42923 u=snrj n=ansible INFO| ok: [52.174.110.68] => 
+  msg: prometheus service is active
+2025-02-25 20:47:41,695 p=42923 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-25 20:47:41,695 p=42923 u=snrj n=ansible INFO| 52.174.110.68              : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-25 21:10:51,442 p=43995 u=snrj n=ansible INFO| PLAY [Install pip packages] *********************************************************************************************************************************
+2025-02-25 21:10:51,451 p=43995 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-25 21:10:54,116 p=43995 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 52.174.110.68 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for more
+information.
+
+2025-02-25 21:10:54,116 p=43995 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 21:10:54,135 p=43995 u=snrj n=ansible INFO| TASK [Ensure pip is installed] ******************************************************************************************************************************
+2025-02-25 21:10:56,994 p=43995 u=snrj n=ansible INFO| ok: [52.174.110.68]
+2025-02-25 21:10:57,001 p=43995 u=snrj n=ansible INFO| TASK [Install required pip packages] ************************************************************************************************************************
+2025-02-25 21:10:59,903 p=43995 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 21:10:59,913 p=43995 u=snrj n=ansible INFO| TASK [List all installed pip packages] **********************************************************************************************************************
+2025-02-25 21:11:01,232 p=43995 u=snrj n=ansible INFO| changed: [52.174.110.68]
+2025-02-25 21:11:01,244 p=43995 u=snrj n=ansible INFO| TASK [Print pip packages] ***********************************************************************************************************************************
+2025-02-25 21:11:01,263 p=43995 u=snrj n=ansible INFO| ok: [52.174.110.68] => 
+  pip_packages.stdout: |-
+    Package                                Version
+    -------------------------------------- ----------------
+    annotated-types                        0.7.0
+    anyio                                  4.8.0
+    asgiref                                3.8.1
+    attrs                                  21.2.0
+    Automat                                20.2.0
+    azure-core                             1.32.0
+    azure-core-tracing-opentelemetry       1.0.0b11
+    azure-monitor-opentelemetry            1.6.5
+    azure-monitor-opentelemetry-exporter   1.0.0b33
+    Babel                                  2.8.0
+    bcrypt                                 3.2.0
+    blinker                                1.9.0
+    certifi                                2020.6.20
+    chardet                                4.0.0
+    click                                  8.1.8
+    cloud-init                             24.4
+    colorama                               0.4.4
+    command-not-found                      0.3
+    configobj                              5.0.6
+    constantly                             15.1.0
+    cryptography                           3.4.8
+    dbus-python                            1.2.18
+    Deprecated                             1.2.18
+    distro                                 1.7.0
+    distro-info                            1.1+ubuntu0.2
+    exceptiongroup                         1.2.2
+    fastapi                                0.115.8
+    fixedint                               0.1.6
+    Flask                                  3.1.0
+    h11                                    0.14.0
+    httplib2                               0.20.2
+    hyperlink                              21.0.0
+    idna                                   3.3
+    importlib_metadata                     8.5.0
+    incremental                            21.3.0
+    isodate                                0.7.2
+    itsdangerous                           2.2.0
+    jeepney                                0.7.1
+    Jinja2                                 3.1.5
+    jsonpatch                              1.32
+    jsonpointer                            2.0
+    jsonschema                             3.2.0
+    keyring                                23.5.0
+    launchpadlib                           1.10.16
+    lazr.restfulclient                     0.14.4
+    lazr.uri                               1.0.6
+    MarkupSafe                             3.0.2
+    more-itertools                         8.10.0
+    msrest                                 0.7.1
+    netifaces                              0.11.0
+    numpy                                  2.2.3
+    oauthlib                               3.2.0
+    opentelemetry-api                      1.30.0
+    opentelemetry-distro                   0.51b0
+    opentelemetry-instrumentation          0.51b0
+    opentelemetry-instrumentation-asgi     0.51b0
+    opentelemetry-instrumentation-dbapi    0.51b0
+    opentelemetry-instrumentation-django   0.51b0
+    opentelemetry-instrumentation-fastapi  0.51b0
+    opentelemetry-instrumentation-flask    0.51b0
+    opentelemetry-instrumentation-psycopg2 0.51b0
+    opentelemetry-instrumentation-requests 0.51b0
+    opentelemetry-instrumentation-urllib   0.51b0
+    opentelemetry-instrumentation-urllib3  0.51b0
+    opentelemetry-instrumentation-wsgi     0.51b0
+    opentelemetry-resource-detector-azure  0.1.5
+    opentelemetry-sdk                      1.30.0
+    opentelemetry-semantic-conventions     0.51b0
+    opentelemetry-util-http                0.51b0
+    packaging                              21.3
+    pexpect                                4.8.0
+    pip                                    22.0.2
+    psutil                                 5.9.8
+    ptyprocess                             0.7.0
+    pyasn1                                 0.4.8
+    pyasn1-modules                         0.2.1
+    pydantic                               2.10.6
+    pydantic_core                          2.27.2
+    PyGObject                              3.42.1
+    PyHamcrest                             2.0.2
+    PyJWT                                  2.3.0
+    pyOpenSSL                              21.0.0
+    pyparsing                              2.4.7
+    pyparted                               3.11.7
+    pyrsistent                             0.18.1
+    pyserial                               3.5
+    python-apt                             2.4.0+ubuntu4
+    python-debian                          0.1.43+ubuntu1.1
+    python-magic                           0.4.24
+    pytz                                   2022.1
+    PyYAML                                 5.4.1
+    requests                               2.25.1
+    requests-oauthlib                      2.0.0
+    SecretStorage                          3.3.1
+    service-identity                       18.1.0
+    setuptools                             59.6.0
+    six                                    1.16.0
+    sniffio                                1.3.1
+    sos                                    4.7.2
+    ssh-import-id                          5.11
+    starlette                              0.45.3
+    systemd-python                         234
+    Twisted                                22.1.0
+    typing_extensions                      4.12.2
+    ubuntu-pro-client                      8001
+    ufw                                    0.36.1
+    unattended-upgrades                    0.1
+    urllib3                                1.26.5
+    uvicorn                                0.34.0
+    wadllib                                1.3.6
+    WALinuxAgent                           2.2.46
+    Werkzeug                               3.1.3
+    wheel                                  0.37.1
+    wrapt                                  1.17.2
+    zipp                                   3.21.0
+    zope.interface                         5.4.0
+2025-02-25 21:11:01,263 p=43995 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-25 21:11:01,264 p=43995 u=snrj n=ansible INFO| 52.174.110.68              : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-26 08:20:37,764 p=1921 u=snrj n=ansible INFO| PLAY [Install pip packages] *********************************************************************************************************************************
+2025-02-26 08:20:37,837 p=1921 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-26 08:20:44,028 p=1921 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.160.115.226 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another
+Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for
+more information.
+
+2025-02-26 08:20:44,028 p=1921 u=snrj n=ansible INFO| ok: [20.160.115.226]
+2025-02-26 08:20:44,044 p=1921 u=snrj n=ansible INFO| TASK [Ensure pip is installed] ******************************************************************************************************************************
+2025-02-26 08:20:48,375 p=1921 u=snrj n=ansible INFO| fatal: [20.160.115.226]: FAILED! => changed=false 
+  msg: No package matching 'python3-pip' is available
+2025-02-26 08:20:48,376 p=1921 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-26 08:20:48,376 p=1921 u=snrj n=ansible INFO| 20.160.115.226             : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-02-26 08:24:38,673 p=2275 u=snrj n=ansible INFO| PLAY [Install pip packages] *********************************************************************************************************************************
+2025-02-26 08:24:38,683 p=2275 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-26 08:24:41,256 p=2275 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.160.115.226 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another
+Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for
+more information.
+
+2025-02-26 08:24:41,256 p=2275 u=snrj n=ansible INFO| ok: [20.160.115.226]
+2025-02-26 08:24:41,262 p=2275 u=snrj n=ansible INFO| TASK [Update apt package index] *****************************************************************************************************************************
+2025-02-26 08:24:55,330 p=2275 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:24:55,339 p=2275 u=snrj n=ansible INFO| TASK [Ensure the 'universe' repository is enabled] **********************************************************************************************************
+2025-02-26 08:25:05,778 p=2275 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:25:05,787 p=2275 u=snrj n=ansible INFO| TASK [Install python3-pip] **********************************************************************************************************************************
+2025-02-26 08:25:32,441 p=2275 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:25:32,452 p=2275 u=snrj n=ansible INFO| TASK [Install required pip packages] ************************************************************************************************************************
+2025-02-26 08:25:42,033 p=2275 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:25:42,051 p=2275 u=snrj n=ansible INFO| TASK [List all installed pip packages] **********************************************************************************************************************
+2025-02-26 08:25:43,156 p=2275 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:25:43,176 p=2275 u=snrj n=ansible INFO| TASK [Print pip packages] ***********************************************************************************************************************************
+2025-02-26 08:25:43,196 p=2275 u=snrj n=ansible INFO| ok: [20.160.115.226] => 
+  pip_packages.stdout: |-
+    Package             Version
+    ------------------- ----------------
+    annotated-types     0.7.0
+    anyio               4.8.0
+    attrs               21.2.0
+    Automat             20.2.0
+    Babel               2.8.0
+    bcrypt              3.2.0
+    blinker             1.9.0
+    certifi             2020.6.20
+    chardet             4.0.0
+    click               8.1.8
+    cloud-init          24.4
+    colorama            0.4.4
+    command-not-found   0.3
+    configobj           5.0.6
+    constantly          15.1.0
+    cryptography        3.4.8
+    dbus-python         1.2.18
+    distro              1.7.0
+    distro-info         1.1+ubuntu0.2
+    exceptiongroup      1.2.2
+    fastapi             0.115.8
+    Flask               3.1.0
+    h11                 0.14.0
+    httplib2            0.20.2
+    hyperlink           21.0.0
+    idna                3.3
+    importlib-metadata  4.6.4
+    incremental         21.3.0
+    itsdangerous        2.2.0
+    jeepney             0.7.1
+    Jinja2              3.1.5
+    jsonpatch           1.32
+    jsonpointer         2.0
+    jsonschema          3.2.0
+    keyring             23.5.0
+    launchpadlib        1.10.16
+    lazr.restfulclient  0.14.4
+    lazr.uri            1.0.6
+    MarkupSafe          3.0.2
+    more-itertools      8.10.0
+    netifaces           0.11.0
+    numpy               2.2.3
+    oauthlib            3.2.0
+    packaging           21.3
+    pexpect             4.8.0
+    pip                 22.0.2
+    ptyprocess          0.7.0
+    pyasn1              0.4.8
+    pyasn1-modules      0.2.1
+    pydantic            2.10.6
+    pydantic_core       2.27.2
+    PyGObject           3.42.1
+    PyHamcrest          2.0.2
+    PyJWT               2.3.0
+    pyOpenSSL           21.0.0
+    pyparsing           2.4.7
+    pyparted            3.11.7
+    pyrsistent          0.18.1
+    pyserial            3.5
+    python-apt          2.4.0+ubuntu4
+    python-debian       0.1.43+ubuntu1.1
+    python-magic        0.4.24
+    pytz                2022.1
+    PyYAML              5.4.1
+    requests            2.25.1
+    SecretStorage       3.3.1
+    service-identity    18.1.0
+    setuptools          59.6.0
+    six                 1.16.0
+    sniffio             1.3.1
+    sos                 4.7.2
+    ssh-import-id       5.11
+    starlette           0.45.3
+    systemd-python      234
+    Twisted             22.1.0
+    typing_extensions   4.12.2
+    ubuntu-pro-client   8001
+    ufw                 0.36.1
+    unattended-upgrades 0.1
+    urllib3             1.26.5
+    uvicorn             0.34.0
+    wadllib             1.3.6
+    WALinuxAgent        2.2.46
+    Werkzeug            3.1.3
+    wheel               0.37.1
+    zipp                1.0.0
+    zope.interface      5.4.0
+2025-02-26 08:25:43,196 p=2275 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-26 08:25:43,197 p=2275 u=snrj n=ansible INFO| 20.160.115.226             : ok=7    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-26 08:25:59,731 p=2360 u=snrj n=ansible INFO| PLAY [Install pip packages] *********************************************************************************************************************************
+2025-02-26 08:25:59,740 p=2360 u=snrj n=ansible INFO| TASK [Gathering Facts] **************************************************************************************************************************************
+2025-02-26 08:26:01,181 p=2360 u=snrj n=ansible WARNING| [WARNING]: Platform linux on host 20.160.115.226 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another
+Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for
+more information.
+
+2025-02-26 08:26:01,181 p=2360 u=snrj n=ansible INFO| ok: [20.160.115.226]
+2025-02-26 08:26:01,186 p=2360 u=snrj n=ansible INFO| TASK [Update apt package index] *****************************************************************************************************************************
+2025-02-26 08:26:03,430 p=2360 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:26:03,439 p=2360 u=snrj n=ansible INFO| TASK [Ensure the 'universe' repository is enabled] **********************************************************************************************************
+2025-02-26 08:26:04,110 p=2360 u=snrj n=ansible INFO| ok: [20.160.115.226]
+2025-02-26 08:26:04,119 p=2360 u=snrj n=ansible INFO| TASK [Install python3-pip] **********************************************************************************************************************************
+2025-02-26 08:26:05,176 p=2360 u=snrj n=ansible INFO| ok: [20.160.115.226]
+2025-02-26 08:26:05,184 p=2360 u=snrj n=ansible INFO| TASK [Install required pip packages] ************************************************************************************************************************
+2025-02-26 08:26:10,807 p=2360 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:26:10,816 p=2360 u=snrj n=ansible INFO| TASK [List all installed pip packages] **********************************************************************************************************************
+2025-02-26 08:26:11,834 p=2360 u=snrj n=ansible INFO| changed: [20.160.115.226]
+2025-02-26 08:26:11,843 p=2360 u=snrj n=ansible INFO| TASK [Print pip packages] ***********************************************************************************************************************************
+2025-02-26 08:26:11,862 p=2360 u=snrj n=ansible INFO| ok: [20.160.115.226] => 
+  pip_packages.stdout: |-
+    Package                                  Version
+    ---------------------------------------- ----------------
+    annotated-types                          0.7.0
+    anyio                                    4.8.0
+    attrs                                    21.2.0
+    Automat                                  20.2.0
+    Babel                                    2.8.0
+    bcrypt                                   3.2.0
+    blinker                                  1.9.0
+    certifi                                  2020.6.20
+    chardet                                  4.0.0
+    click                                    8.1.8
+    cloud-init                               24.4
+    colorama                                 0.4.4
+    command-not-found                        0.3
+    configobj                                5.0.6
+    constantly                               15.1.0
+    cryptography                             3.4.8
+    dbus-python                              1.2.18
+    Deprecated                               1.2.18
+    distro                                   1.7.0
+    distro-info                              1.1+ubuntu0.2
+    exceptiongroup                           1.2.2
+    fastapi                                  0.115.8
+    Flask                                    3.1.0
+    googleapis-common-protos                 1.68.0
+    grpcio                                   1.70.0
+    h11                                      0.14.0
+    httplib2                                 0.20.2
+    hyperlink                                21.0.0
+    idna                                     3.3
+    importlib_metadata                       8.5.0
+    incremental                              21.3.0
+    itsdangerous                             2.2.0
+    jeepney                                  0.7.1
+    Jinja2                                   3.1.5
+    jsonpatch                                1.32
+    jsonpointer                              2.0
+    jsonschema                               3.2.0
+    keyring                                  23.5.0
+    launchpadlib                             1.10.16
+    lazr.restfulclient                       0.14.4
+    lazr.uri                                 1.0.6
+    MarkupSafe                               3.0.2
+    more-itertools                           8.10.0
+    netifaces                                0.11.0
+    numpy                                    2.2.3
+    oauthlib                                 3.2.0
+    opentelemetry-api                        1.30.0
+    opentelemetry-distro                     0.51b0
+    opentelemetry-exporter-otlp              1.30.0
+    opentelemetry-exporter-otlp-proto-common 1.30.0
+    opentelemetry-exporter-otlp-proto-grpc   1.30.0
+    opentelemetry-exporter-otlp-proto-http   1.30.0
+    opentelemetry-instrumentation            0.51b0
+    opentelemetry-proto                      1.30.0
+    opentelemetry-sdk                        1.30.0
+    opentelemetry-semantic-conventions       0.51b0
+    packaging                                21.3
+    pexpect                                  4.8.0
+    pip                                      22.0.2
+    protobuf                                 5.29.3
+    ptyprocess                               0.7.0
+    pyasn1                                   0.4.8
+    pyasn1-modules                           0.2.1
+    pydantic                                 2.10.6
+    pydantic_core                            2.27.2
+    PyGObject                                3.42.1
+    PyHamcrest                               2.0.2
+    PyJWT                                    2.3.0
+    pyOpenSSL                                21.0.0
+    pyparsing                                2.4.7
+    pyparted                                 3.11.7
+    pyrsistent                               0.18.1
+    pyserial                                 3.5
+    python-apt                               2.4.0+ubuntu4
+    python-debian                            0.1.43+ubuntu1.1
+    python-magic                             0.4.24
+    pytz                                     2022.1
+    PyYAML                                   5.4.1
+    requests                                 2.25.1
+    SecretStorage                            3.3.1
+    service-identity                         18.1.0
+    setuptools                               59.6.0
+    six                                      1.16.0
+    sniffio                                  1.3.1
+    sos                                      4.7.2
+    ssh-import-id                            5.11
+    starlette                                0.45.3
+    systemd-python                           234
+    Twisted                                  22.1.0
+    typing_extensions                        4.12.2
+    ubuntu-pro-client                        8001
+    ufw                                      0.36.1
+    unattended-upgrades                      0.1
+    urllib3                                  1.26.5
+    uvicorn                                  0.34.0
+    wadllib                                  1.3.6
+    WALinuxAgent                             2.2.46
+    Werkzeug                                 3.1.3
+    wheel                                    0.37.1
+    wrapt                                    1.17.2
+    zipp                                     3.21.0
+    zope.interface                           5.4.0
+2025-02-26 08:26:11,863 p=2360 u=snrj n=ansible INFO| PLAY RECAP **************************************************************************************************************************************************
+2025-02-26 08:26:11,863 p=2360 u=snrj n=ansible INFO| 20.160.115.226             : ok=7    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

@@ -1,3 +1,11 @@
+resource "azurerm_log_analytics_workspace" "aks_monitoring" {
+  name                = "votingapp-log-analytics"
+  location            = data.azurerm_resource_group.existing_rg.location
+  resource_group_name = data.azurerm_resource_group.existing_rg.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "votingapp-aks"
   location            = data.azurerm_resource_group.existing_rg.location
@@ -15,12 +23,15 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   network_profile {
-    network_plugin = "azure"
+    network_plugin    = "azure"
     load_balancer_sku = "standard"
   }
+
+    oms_agent {
+      log_analytics_workspace_id  = azurerm_log_analytics_workspace.aks_monitoring.id
+    }
 }
 
-output "kube_config" {
-  value = azurerm_kubernetes_cluster.aks.kube_config_raw
-  sensitive = true
+output "log_analytics_workspace_id" {
+  value = azurerm_log_analytics_workspace.aks_monitoring.id
 }

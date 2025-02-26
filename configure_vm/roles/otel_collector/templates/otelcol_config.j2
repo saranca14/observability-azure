@@ -11,7 +11,7 @@ processors:
 
 exporters:
   prometheus:
-    endpoint: {{ prometheus_target_url }}  # Prometheus exporter endpoint
+    endpoint: {{ otlp_prometheus_exporter_url }}  # Prometheus exporter endpoint
 
 extensions:
   health_check:
@@ -25,3 +25,4 @@ service:
       receivers: [otlp]
       processors: [batch]
       exporters: [prometheus]
+

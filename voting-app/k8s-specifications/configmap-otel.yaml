@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+  namespace: default
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+
+    processors:
+      batch:
+
+    exporters:
+      azuremonitor:
+        instrumentation_key: "<APPLICATION_INSIGHTS_INSTRUMENTATION_KEY>"
+
+      logging:
+        loglevel: debug
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [azuremonitor, logging]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [azuremonitor, logging]
+        logs:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [azuremonitor, logging]

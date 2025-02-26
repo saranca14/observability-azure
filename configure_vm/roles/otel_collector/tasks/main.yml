@@ -1,21 +1,40 @@
 ---
-# - name: Update apt repository
-#   apt:
-#     update_cache: yes
+- name: Update apt repository
+  apt:
+    update_cache: yes
 
-# - name: Install wget
-#   apt:
-#     name: wget
-#     state: present
+- name: Install wget
+  apt:
+    name: wget
+    state: present
 
-# - name: Download OpenTelemetry Collector .deb package
-#   get_url:
-#     url: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.120.0/otelcol_0.120.0_linux_amd64.deb"
-#     dest: /opt/otelcol_0.120.0_linux_amd64.deb
+- name: Ensure the 'universe' repository is enabled
+  apt_repository:
+        repo: "deb http://archive.ubuntu.com/ubuntu/ {{ ansible_lsb.codename }} universe"
+        state: present
 
-# - name: Install OpenTelemetry Collector .deb package
-#   command: sudo dpkg -i /opt/otelcol_0.120.0_linux_amd64.deb
-#   become: true
+- name: Install python3-pip
+  apt:
+      name: python3-pip
+      state: present
+
+- name: Install required Python packages
+  pip:
+    name:
+      - fastapi
+      - flask
+      - uvicorn
+      - azure-monitor-opentelemetry
+    state: present
+
+- name: Download OpenTelemetry Collector .deb package
+  get_url:
+    url: "https://github.com/open-telemetry/opentelemetry-collector-releases/releases/download/v0.120.0/otelcol_0.120.0_linux_amd64.deb"
+    dest: /opt/otelcol_0.120.0_linux_amd64.deb
+
+- name: Install OpenTelemetry Collector .deb package
+  command: sudo dpkg -i /opt/otelcol_0.120.0_linux_amd64.deb
+  become: true
 
 # Configuration of OTEL COLLECTOR config file:
 - name: Template OpenTelemetry Collector config

@@ -3,7 +3,7 @@
   hosts: otel_collector_vm
   become: yes
   roles:
-    # - otel_collector
+    - otel_collector
     - prometheus
     # - grafana
 

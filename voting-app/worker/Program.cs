@@ -22,7 +22,10 @@ namespace Worker
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("voting-app"))
                 .AddSource("WorkerService")
-                .AddConsoleExporter()
+                .AddOtlpExporter(options =>
+                {
+                    options.Endpoint = new Uri("otel-collector.default.svc.cluster.local:4317");
+                })
                 .Build();
 
             var activitySource = new ActivitySource("WorkerService");

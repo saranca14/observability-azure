@@ -5,7 +5,6 @@ import socket
 import random
 import json
 import logging
-
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.redis import RedisInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
@@ -14,14 +13,25 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.trace import set_tracer_provider
 from opentelemetry.sdk.resources import Resource
+import atexit
 
 # Define OpenTelemetry Tracer
 resource = Resource.create({"service.name": "voting-app"})
 trace_provider = TracerProvider(resource=resource)
-span_exporter = OTLPSpanExporter(endpoint="http://otel-collector.default.svc.cluster.local:4317")
+span_exporter = OTLPSpanExporter(endpoint="otel-collector.default.svc.cluster.local:4317", insecure=True)
 span_processor = BatchSpanProcessor(span_exporter)
 trace_provider.add_span_processor(span_processor)
 set_tracer_provider(trace_provider)
+
+# Configure logging for OpenTelemetry
+logging.basicConfig(level=logging.INFO)
+
+# Ensure proper shutdown
+def shutdown_tracer():
+    span_processor.shutdown()
+    trace_provider.shutdown()
+
+atexit.register(shutdown_tracer)
 
 app = Flask(__name__)
 FlaskInstrumentor().instrument_app(app)

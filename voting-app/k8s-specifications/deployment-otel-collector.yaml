@@ -16,17 +16,15 @@ spec:
       containers:
         - name: otel-collector
           image: otel/opentelemetry-collector-contrib:latest
-          command:
-            - "/otelcol-contrib"
-            - "--config=/etc/otel/config.yaml"
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/otel
-              readOnly: true
+              mountPath: /etc/otel/config.yaml
+              subPath: otel-collector-config.yaml
       volumes:
         - name: config-volume
           configMap:
             name: otel-collector-config
+
 ---
 apiVersion: v1
 kind: Service

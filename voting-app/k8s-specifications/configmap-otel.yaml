@@ -7,16 +7,18 @@ data:
   otel-collector-config.yaml: |
     receivers:
       otlp:
-        protocols:
-          grpc:
-          http:
+        protocol: grpc:
+        host: 0.0.0.0
+        port: 4317
+      kubeletstats:
+        insecure_skip_verify: true
 
     processors:
       batch:
 
     exporters:
       azuremonitor:
-        instrumentation_key: "<APPLICATION_INSIGHTS_INSTRUMENTATION_KEY>"
+        instrumentation_key: "InstrumentationKey=5c0cba60-882e-4d31-8d60-134e754e8870;IngestionEndpoint=https://ingestion.azuremonitor.com/"
 
       logging:
         loglevel: debug

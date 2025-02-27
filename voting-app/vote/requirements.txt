@@ -1,6 +1,7 @@
 Flask
 Redis
 gunicorn
+grpcio
 opentelemetry-distro
 opentelemetry-exporter-otlp
 opentelemetry-api

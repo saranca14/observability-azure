@@ -1,28 +1,48 @@
-# because of dotnet, we always build on amd64, and target platforms in cli
-# dotnet doesn't support QEMU for building or running. 
-# (errors common in arm/v7 32bit) https://github.com/dotnet/dotnet-docker/issues/1537
-# https://hub.docker.com/_/microsoft-dotnet
-# hadolint ignore=DL3029
-# to build for a different platform than your host, use --platform=<platform>
-# for example, if you were on Intel (amd64) and wanted to build for ARM, you would use:
-# docker buildx build --platform "linux/arm64/v8" .
+# Base stage: Uses the official .NET SDK image
+FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/dotnet/sdk:7.0 AS base
 
-# build compiles the program for the builder's local platform
-FROM --platform=${BUILDPLATFORM} mcr.microsoft.com/dotnet/sdk:7.0 AS build
-ARG TARGETPLATFORM
-ARG TARGETARCH
-ARG BUILDPLATFORM
-RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
+# Add curl for healthcheck and debugging (similar to Python image)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR /source
+# Set the working directory
+WORKDIR /usr/local/app
+
+# Copy the project file and restore dependencies
 COPY *.csproj .
-RUN dotnet restore -a $TARGETARCH
+RUN dotnet restore
 
+# Development stage
+FROM base AS dev
+RUN apt-get install -y nano
+ENV DOTNET_ENV=Development
+CMD ["dotnet", "watch", "run"]
+
+# Production build stage
+FROM base AS build
 COPY . .
-RUN dotnet publish -c release -o /app -a $TARGETARCH --self-contained false --no-restore
+RUN dotnet publish -c Release -o /app --self-contained false --no-restore
 
-# app image
-FROM mcr.microsoft.com/dotnet/runtime:7.0
+# Final production stage
+FROM mcr.microsoft.com/dotnet/runtime:7.0 AS final
+
+# Set the working directory
 WORKDIR /app
+
+# Copy the built application
 COPY --from=build /app .
+
+# Expose port 80
+EXPOSE 80
+
+# Set OpenTelemetry environment variables
+ENV OTEL_SERVICE_NAME=voting-app \
+    OTEL_SERVICE_INSTANCE_ID=worker-service \
+    OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector.default.svc.cluster.local:4318 \
+    OTEL_EXPORTER_OTLP_PROTOCOL=grpc \
+    OTEL_EXPORTER_OTLP_INSECURE=true \
+    OTEL_LOG_LEVEL=debug
+
+# Run the application
 ENTRYPOINT ["dotnet", "Worker.dll"]

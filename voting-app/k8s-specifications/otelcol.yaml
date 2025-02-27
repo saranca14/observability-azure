@@ -18,8 +18,8 @@ spec:
           image: otel/opentelemetry-collector-contrib:latest
           volumeMounts:
             - name: config-volume
-              mountPath: /etc/otel/config.yaml
-              subPath: otel-collector-config.yaml
+              mountPath: /etc/otelcol-contrib/
+
       volumes:
         - name: config-volume
           configMap:

@@ -19,3 +19,4 @@ spec:
       containers:
         - image: saranrnair/election-worker:v2
           name: worker
+

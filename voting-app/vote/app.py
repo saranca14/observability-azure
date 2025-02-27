@@ -5,23 +5,39 @@ import socket
 import random
 import json
 import logging
-from opentelemetry.instrumentation.flask import FlaskInstrumentor
-from opentelemetry.instrumentation.redis import RedisInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
+import atexit
+
+from opentelemetry import trace, metrics
+from opentelemetry.trace import set_tracer_provider
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.trace import set_tracer_provider
 from opentelemetry.sdk.resources import Resource
-import atexit
+
+from opentelemetry.sdk.metrics import MeterProvider
+from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.instrumentation.redis import RedisInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
 # Define OpenTelemetry Tracer
-resource = Resource.create({"service.name": "voting-app"})
-trace_provider = TracerProvider(resource=resource)
-span_exporter = OTLPSpanExporter(endpoint="otel-collector.default.svc.cluster.local:4317", insecure=True)
+resource = Resource.create({
+    "service.name": "voting-app",  # Shared application name
+    "service.instance.id": "vote-service",  # Unique per microservice
+})
+
+tracer_provider = TracerProvider(resource=resource)
+span_exporter = OTLPSpanExporter(endpoint="otel-collector.default.svc.cluster.local:4317")
 span_processor = BatchSpanProcessor(span_exporter)
-trace_provider.add_span_processor(span_processor)
-set_tracer_provider(trace_provider)
+tracer_provider.add_span_processor(span_processor)
+trace.set_tracer_provider(tracer_provider)
+
+# Define OpenTelemetry Metrics
+metric_reader = PeriodicExportingMetricReader(OTLPMetricExporter(endpoint="otel-collector.default.svc.cluster.local:4317"))
+meter_provider = MeterProvider(resource=resource, metric_readers=[metric_reader])
+metrics.set_meter_provider(meter_provider)
 
 # Configure logging for OpenTelemetry
 logging.basicConfig(level=logging.INFO)
@@ -29,7 +45,7 @@ logging.basicConfig(level=logging.INFO)
 # Ensure proper shutdown
 def shutdown_tracer():
     span_processor.shutdown()
-    trace_provider.shutdown()
+    tracer_provider.shutdown()
 
 atexit.register(shutdown_tracer)
 
@@ -67,7 +83,6 @@ def hello():
     ))
     resp.set_cookie('voter_id', voter_id)
     return resp
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)

@@ -58,18 +58,24 @@ namespace Worker
                     string json = redis.ListLeftPopAsync("votes").Result;
                     if (json != null)
                     {
-                        using var activity = activitySource.StartActivity("ProcessingVote");
-                        var vote = JsonConvert.DeserializeAnonymousType(json, definition);
-                        Console.WriteLine($"Processing vote for '{vote.vote}' by '{vote.voter_id}'");
+                        // Manually extract the trace context from Redis
+                        var traceContext = ExtractTraceContextFromRedis(json);
 
-                        if (!pgsql.State.Equals(System.Data.ConnectionState.Open))
+                        // Start a new activity with the extracted trace context
+                        using (var activity = activitySource.StartActivity("ProcessingVote", ActivityKind.Consumer, traceContext))
                         {
-                            Console.WriteLine("Reconnecting DB");
-                            pgsql = OpenDbConnection("Server=db;Username=postgres;Password=postgres;");
-                        }
-                        else
-                        {
-                            UpdateVote(pgsql, vote.voter_id, vote.vote);
+                            var vote = JsonConvert.DeserializeAnonymousType(json, definition);
+                            Console.WriteLine($"Processing vote for '{vote.vote}' by '{vote.voter_id}'");
+
+                            if (!pgsql.State.Equals(System.Data.ConnectionState.Open))
+                            {
+                                Console.WriteLine("Reconnecting DB");
+                                pgsql = OpenDbConnection("Server=db;Username=postgres;Password=postgres;");
+                            }
+                            else
+                            {
+                                UpdateVote(pgsql, vote.voter_id, vote.vote);
+                            }
                         }
                     }
                     else
@@ -83,6 +89,17 @@ namespace Worker
                 Console.Error.WriteLine(ex.ToString());
                 return 1;
             }
+        }
+
+        // Helper method to manually extract trace context from Redis message
+        private static ActivityContext ExtractTraceContextFromRedis(string redisMessage)
+        {
+            var headers = new Dictionary<string, string>();
+            headers["traceparent"] = redisMessage; // Assuming that the trace context is stored in the message
+
+            var propagator = Propagators.DefaultTextMapPropagator;
+            var context = propagator.Extract(default, headers, (carrier, key) => carrier.ContainsKey(key) ? carrier[key] : null);
+            return context;
         }
 
         private static NpgsqlConnection OpenDbConnection(string connectionString)

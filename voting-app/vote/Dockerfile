@@ -32,6 +32,7 @@ EXPOSE 80
 
 # Set OpenTelemetry environment variables
 ENV OTEL_SERVICE_NAME=voting-app \
+    OTEL_SERVICE_INSTANCE_ID=voting-service \
     OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector.default.svc.cluster.local:4318 \
     OTEL_EXPORTER_OTLP_PROTOCOL=grpc \
     OTEL_EXPORTER_OTLP_INSECURE=true \

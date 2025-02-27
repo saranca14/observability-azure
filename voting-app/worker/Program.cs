@@ -11,20 +11,25 @@ using Npgsql;
 using OpenTelemetry;
 using OpenTelemetry.Trace;
 using OpenTelemetry.Resources;
+using OpenTelemetry.Exporter;
 using StackExchange.Redis;
 
 namespace Worker
 {
     public class Program
     {
+        private static readonly string OtlpEndpoint = 
+            Environment.GetEnvironmentVariable("OTLP_ENDPOINT") ?? "http://otel-collector.default.svc.cluster.local:4317";
+
         public static int Main(string[] args)
         {
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
                 .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("voting-app"))
                 .AddSource("WorkerService")
-                .AddOtlpExporter(options =>
+                .AddOtlpExporter(otlpOptions =>
                 {
-                    options.Endpoint = new Uri("otel-collector.default.svc.cluster.local:4317");
+                    otlpOptions.Endpoint = new Uri(OtlpEndpoint);
+                    otlpOptions.Protocol = OtlpExportProtocol.Grpc;
                 })
                 .Build();
 

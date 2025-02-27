@@ -17,6 +17,5 @@ spec:
       imagePullSecrets:
         - name: dockerhub
       containers:
-        - image: saranrnair/election-worker:v5
+        - image: saranrnair/election-worker:v16
           name: worker
-

@@ -12,9 +12,18 @@ data:
             endpoint: 0.0.0.0:4317
           http:
             endpoint: 0.0.0.0:4318
+
+    processors:
+      batch: # Add the batch processor
+        send_batch_size: 10000
+        timeout: 10s
+
     exporters:
       debug:
         verbosity: detailed
+
+      prometheus:
+        endpoint: 0.0.0.0:9464
 
       zipkin/nontls:
         endpoint: "http://zipkin.default.svc.cluster.local:9411/api/v2/spans"
@@ -22,16 +31,28 @@ data:
         default_service_name: voting-app
 
       azuremonitor:
-        connection_string: "InstrumentationKey=5c0cba60-882e-4d31-8d60-134e754e8870;IngestionEndpoint=https://ingestion.azuremonitor.com/"
+        connection_string: "InstrumentationKey=<your_key>;IngestionEndpoint=https://ingestion.azuremonitor.com/"
+
+    extensions: # Add the extensions section
+      file_storage:
+        directory: /var/lib/otelcol
+        # Optional settings:
+        # timeout: 10s
+        # compaction:
+        #   on_startup: true
 
     service:
+      extensions: [file_storage] # Enable the file_storage extension
       pipelines:
         traces:
           receivers: [otlp]
+          processors: [batch]
           exporters: [zipkin/nontls, debug]
-        metrics:
-          receivers: [otlp]
-          exporters: [azuremonitor, debug]
-        logs:
-          receivers: [otlp]
-          exporters: [debug]
+        # metrics:
+        #   receivers: [otlp]
+        #   processors: [batch] # Add batch processor here
+        #   exporters: [prometheus, debug]
+        # logs:
+        #   receivers: [otlp]
+        #   processors: [batch] # Add batch processor
+        #   exporters: [debug]

@@ -9,22 +9,35 @@ using System.Threading;
 using Newtonsoft.Json;
 using Npgsql;
 using OpenTelemetry;
+using OpenTelemetry.Context.Propagation;
 using OpenTelemetry.Trace;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Exporter;
 using StackExchange.Redis;
+using OpenTelemetry.Extensions.Propagators;
+
 
 namespace Worker
 {
     public class Program
     {
-        private static readonly string OtlpEndpoint = 
+        private static readonly string OtlpEndpoint =
             Environment.GetEnvironmentVariable("OTLP_ENDPOINT") ?? "http://otel-collector.default.svc.cluster.local:4317";
 
         public static int Main(string[] args)
         {
+            // *** ADDED: Composite Propagator ***
+            var propagator = new CompositeTextMapPropagator(new TextMapPropagator[]
+            {
+                new TraceContextPropagator(),
+                new OpenTelemetry.Context.Propagation.B3Propagator()
+            });
+
+            Sdk.SetDefaultTextMapPropagator(propagator);
+
+
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
-                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("voting-app"))
+                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("voting-app-worker")) // *** CHANGED: Unique service name
                 .AddSource("WorkerService")
                 .AddOtlpExporter(otlpOptions =>
                 {
@@ -44,7 +57,8 @@ namespace Worker
                 var keepAliveCommand = pgsql.CreateCommand();
                 keepAliveCommand.CommandText = "SELECT 1";
 
-                var definition = new { vote = "", voter_id = "" };
+                // *** CHANGED: Include traceparent in anonymous type ***
+                var definition = new { vote = "", voter_id = "", traceparent = "" };
                 while (true)
                 {
                     Thread.Sleep(100);
@@ -58,14 +72,16 @@ namespace Worker
                     string json = redis.ListLeftPopAsync("votes").Result;
                     if (json != null)
                     {
-                        // Manually extract the trace context from Redis
-                        var traceContext = ExtractTraceContextFromRedis(json);
+                        // *** CHANGED: Deserialize to include traceparent ***
+                        var voteData = JsonConvert.DeserializeAnonymousType(json, definition);
+
+                        // *** CHANGED: Correct context extraction ***
+                        ActivityContext parentContext = ExtractActivityContext(voteData.traceparent);
 
                         // Start a new activity with the extracted trace context
-                        using (var activity = activitySource.StartActivity("ProcessingVote", ActivityKind.Consumer, traceContext))
+                        using (var activity = activitySource.StartActivity("ProcessingVote", ActivityKind.Consumer, parentContext))
                         {
-                            var vote = JsonConvert.DeserializeAnonymousType(json, definition);
-                            Console.WriteLine($"Processing vote for '{vote.vote}' by '{vote.voter_id}'");
+                            Console.WriteLine($"Processing vote for '{voteData.vote}' by '{voteData.voter_id}'");
 
                             if (!pgsql.State.Equals(System.Data.ConnectionState.Open))
                             {
@@ -74,7 +90,7 @@ namespace Worker
                             }
                             else
                             {
-                                UpdateVote(pgsql, vote.voter_id, vote.vote);
+                                UpdateVote(pgsql, voteData.voter_id, voteData.vote);
                             }
                         }
                     }
@@ -91,16 +107,24 @@ namespace Worker
             }
         }
 
-        // Helper method to manually extract trace context from Redis message
-        private static ActivityContext ExtractTraceContextFromRedis(string redisMessage)
+        // *** CHANGED: Correct context extraction ***
+        private static ActivityContext ExtractActivityContext(string traceparent)
         {
-            var headers = new Dictionary<string, string>();
-            headers["traceparent"] = redisMessage; // Assuming that the trace context is stored in the message
+            if (string.IsNullOrEmpty(traceparent))
+            {
+                return default;
+            }
 
-            var propagator = Propagators.DefaultTextMapPropagator;
-            var context = propagator.Extract(default, headers, (carrier, key) => carrier.ContainsKey(key) ? carrier[key] : null);
-            return context;
+            var carrier = new Dictionary<string, string> { { "traceparent", traceparent } };
+            var propagator = Propagators.DefaultTextMapPropagator; // Use the default
+            PropagationContext parentContext = propagator.Extract(default, carrier, (c, key) =>
+            {
+                return c.TryGetValue(key, out var value) ? new[] { value } : Enumerable.Empty<string>();
+            });
+
+            return parentContext.ActivityContext;
         }
+
 
         private static NpgsqlConnection OpenDbConnection(string connectionString)
         {
@@ -146,7 +170,7 @@ namespace Worker
             {
                 try
                 {
-                    Console.Error.WriteLine("Connecting to redis");
+                    Console.WriteLine("Connecting to redis");
                     return ConnectionMultiplexer.Connect(ipAddress);
                 }
                 catch (RedisConnectionException)

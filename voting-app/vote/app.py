@@ -8,7 +8,7 @@ import logging
 import atexit
 
 from opentelemetry import trace, metrics
-from opentelemetry.trace import set_tracer_provider
+from opentelemetry.trace import set_tracer_provider, Status, StatusCode
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
@@ -21,6 +21,13 @@ from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExp
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.redis import RedisInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
+
+# Context Propagation  -- ***ADDED***
+from opentelemetry.propagate import inject
+from opentelemetry.propagators.composite import CompositePropagator
+from opentelemetry.propagators.b3 import B3MultiFormat
+from opentelemetry.trace.propagation.tracecontext import TraceContextTextMapPropagator
+
 
 # Define OpenTelemetry Tracer
 resource = Resource.create({
@@ -49,6 +56,10 @@ def shutdown_tracer():
 
 atexit.register(shutdown_tracer)
 
+# ***ADDED: Composite Propagator***
+propagator = CompositePropagator([TraceContextTextMapPropagator(), B3MultiFormat()])
+
+
 app = Flask(__name__)
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
@@ -56,7 +67,7 @@ RedisInstrumentor().instrument()
 
 def get_redis():
     if not hasattr(g, 'redis'):
-        g.redis = Redis(host="redis", db=0, socket_timeout=5)
+        g.redis = Redis(host="redis", db=0, socket_timeout=5, decode_responses=True) #***CHANGED: decode_responses=True***
     return g.redis
 
 @app.route("/", methods=['POST', 'GET'])
@@ -71,7 +82,13 @@ def hello():
         redis = get_redis()
         vote = request.form['vote']
         app.logger.info('Received vote for %s', vote)
-        data = json.dumps({'voter_id': voter_id, 'vote': vote})
+
+        # *** ADDED: Inject context ***
+        carrier = {}
+        inject(carrier)
+
+        # *** ADDED: Include 'traceparent' in JSON ***
+        data = json.dumps({'voter_id': voter_id, 'vote': vote, 'traceparent': carrier.get('traceparent')})
         redis.rpush('votes', data)
 
     resp = make_response(render_template(

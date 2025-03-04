@@ -12,7 +12,7 @@ from opentelemetry.trace import set_tracer_provider, Status, StatusCode
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.resources import Resource
+from opentelemetry.sdk.resources import Resource, SERVICE_NAME, SERVICE_INSTANCE_ID
 
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
@@ -22,7 +22,7 @@ from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from opentelemetry.instrumentation.redis import RedisInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
-# Context Propagation  -- ***ADDED***
+# Context Propagation
 from opentelemetry.propagate import inject
 from opentelemetry.propagators.composite import CompositePropagator
 from opentelemetry.propagators.b3 import B3MultiFormat
@@ -31,8 +31,9 @@ from opentelemetry.trace.propagation.tracecontext import TraceContextTextMapProp
 
 # Define OpenTelemetry Tracer
 resource = Resource.create({
-    "service.name": "voting-app",  # Shared application name
-    "service.instance.id": "vote-service",  # Unique per microservice
+    SERVICE_NAME: "vote-service",  # Unique name for THIS microservice (the voting frontend)
+    SERVICE_INSTANCE_ID: f"vote-service-{socket.gethostname()}",  # Unique instance ID using hostname
+    "application.name": "voting-app", # Consistent application name
 })
 
 tracer_provider = TracerProvider(resource=resource)
@@ -46,8 +47,8 @@ metric_reader = PeriodicExportingMetricReader(OTLPMetricExporter(endpoint="otel-
 meter_provider = MeterProvider(resource=resource, metric_readers=[metric_reader])
 metrics.set_meter_provider(meter_provider)
 
-# Configure logging for OpenTelemetry
-logging.basicConfig(level=logging.INFO)
+# Configure logging for OpenTelemetry - generally, don't need to do this if you are using a framework's logging
+# logging.basicConfig(level=logging.INFO)
 
 # Ensure proper shutdown
 def shutdown_tracer():
@@ -56,9 +57,9 @@ def shutdown_tracer():
 
 atexit.register(shutdown_tracer)
 
-# ***ADDED: Composite Propagator***
-propagator = CompositePropagator([TraceContextTextMapPropagator(), B3MultiFormat()])
 
+# Use a composite propagator that includes TraceContext (for general compatibility) and B3 (for Zipkin)
+propagator = CompositePropagator([TraceContextTextMapPropagator(), B3MultiFormat()])
 
 app = Flask(__name__)
 FlaskInstrumentor().instrument_app(app)
@@ -67,7 +68,7 @@ RedisInstrumentor().instrument()
 
 def get_redis():
     if not hasattr(g, 'redis'):
-        g.redis = Redis(host="redis", db=0, socket_timeout=5, decode_responses=True) #***CHANGED: decode_responses=True***
+        g.redis = Redis(host="redis", db=0, socket_timeout=5, decode_responses=True) #decode_response=True for string
     return g.redis
 
 @app.route("/", methods=['POST', 'GET'])
@@ -81,14 +82,15 @@ def hello():
     if request.method == 'POST':
         redis = get_redis()
         vote = request.form['vote']
-        app.logger.info('Received vote for %s', vote)
+        app.logger.info('Received vote for %s', vote) # Use Flask's logger
 
-        # *** ADDED: Inject context ***
+        # Create a carrier dictionary to hold the context
         carrier = {}
+        # Inject the current context into the carrier
         inject(carrier)
 
-        # *** ADDED: Include 'traceparent' in JSON ***
-        data = json.dumps({'voter_id': voter_id, 'vote': vote, 'traceparent': carrier.get('traceparent')})
+        # Add the carrier to the data being sent to Redis
+        data = json.dumps({'voter_id': voter_id, 'vote': vote, 'traceparent': carrier.get('traceparent')}) #Add the trace
         redis.rpush('votes', data)
 
     resp = make_response(render_template(

@@ -26,18 +26,26 @@ namespace Worker
 
         public static int Main(string[] args)
         {
-            // *** ADDED: Composite Propagator ***
+            // Use a composite propagator that includes TraceContext (for general compatibility) and B3 (for Zipkin)
             var propagator = new CompositeTextMapPropagator(new TextMapPropagator[]
             {
                 new TraceContextPropagator(),
                 new OpenTelemetry.Context.Propagation.B3Propagator()
             });
-
             Sdk.SetDefaultTextMapPropagator(propagator);
 
+            var serviceName = "result-service"; // Unique name for THIS microservice
+            var applicationName = "voting-app"; // Consistent application name
+            var serviceVersion = "1.0.0";
+            var serviceInstanceId = $"{serviceName}-{Guid.NewGuid()}"; // Create unique instance ID
 
             using var tracerProvider = Sdk.CreateTracerProviderBuilder()
-                .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("voting-app-worker")) // *** CHANGED: Unique service name
+                .SetResourceBuilder(
+                    ResourceBuilder.CreateDefault()
+                        .AddService(serviceName: serviceName, serviceVersion: serviceVersion, serviceInstanceId: serviceInstanceId)
+                        .AddAttributes(new KeyValuePair<string, object>[] {
+                            new("application.name", applicationName)
+                        }))
                 .AddSource("WorkerService")
                 .AddOtlpExporter(otlpOptions =>
                 {
@@ -57,7 +65,6 @@ namespace Worker
                 var keepAliveCommand = pgsql.CreateCommand();
                 keepAliveCommand.CommandText = "SELECT 1";
 
-                // *** CHANGED: Include traceparent in anonymous type ***
                 var definition = new { vote = "", voter_id = "", traceparent = "" };
                 while (true)
                 {
@@ -72,15 +79,15 @@ namespace Worker
                     string json = redis.ListLeftPopAsync("votes").Result;
                     if (json != null)
                     {
-                        // *** CHANGED: Deserialize to include traceparent ***
                         var voteData = JsonConvert.DeserializeAnonymousType(json, definition);
+                        //Console.WriteLine($"Extracted Traceparent from redis: {voteData.traceparent}"); //Good practice to log
 
-                        // *** CHANGED: Correct context extraction ***
                         ActivityContext parentContext = ExtractActivityContext(voteData.traceparent);
 
-                        // Start a new activity with the extracted trace context
                         using (var activity = activitySource.StartActivity("ProcessingVote", ActivityKind.Consumer, parentContext))
                         {
+                            // Add these logs to confirm:
+                            //Console.WriteLine($"ProcessingVote activity started. TraceId: {Activity.Current?.TraceId}, SpanId: {Activity.Current?.SpanId}");
                             Console.WriteLine($"Processing vote for '{voteData.vote}' by '{voteData.voter_id}'");
 
                             if (!pgsql.State.Equals(System.Data.ConnectionState.Open))
@@ -107,7 +114,6 @@ namespace Worker
             }
         }
 
-        // *** CHANGED: Correct context extraction ***
         private static ActivityContext ExtractActivityContext(string traceparent)
         {
             if (string.IsNullOrEmpty(traceparent))
@@ -116,7 +122,7 @@ namespace Worker
             }
 
             var carrier = new Dictionary<string, string> { { "traceparent", traceparent } };
-            var propagator = Propagators.DefaultTextMapPropagator; // Use the default
+            var propagator = Propagators.DefaultTextMapPropagator;
             PropagationContext parentContext = propagator.Extract(default, carrier, (c, key) =>
             {
                 return c.TryGetValue(key, out var value) ? new[] { value } : Enumerable.Empty<string>();
@@ -170,7 +176,7 @@ namespace Worker
             {
                 try
                 {
-                    Console.WriteLine("Connecting to redis");
+                    Console.Error.WriteLine("Connecting to redis");
                     return ConnectionMultiplexer.Connect(ipAddress);
                 }
                 catch (RedisConnectionException)

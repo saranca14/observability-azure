@@ -11,3 +11,4 @@ opentelemetry-sdk
 opentelemetry-instrumentation-flask
 opentelemetry-instrumentation-redis
 opentelemetry-instrumentation-requests
+opentelemetry-propagator-b3

@@ -18,23 +18,50 @@ spec:
           image: otel/opentelemetry-collector-contrib:latest
           command:
             - "/otelcol-contrib"
-            - "--config=/etc/otelcol-contrib/config.yaml" # Corrected command
+            - "--config=/etc/otelcol-contrib/config.yaml" 
           volumeMounts:
             - name: config-volume
               mountPath: /etc/otelcol-contrib/
-            - name: otel-collector-storage-vol  # Add this volumeMount
-              mountPath: /var/lib/otelcol      # Standard path for file_storage
-          ports: #It is a good practice to add ports here
+            - name: otel-collector-storage-vol 
+              mountPath: /var/lib/otelcol 
+          ports: 
             - containerPort: 4317
               name: grpc
             - containerPort: 4318
               name: http
             - containerPort: 9464
               name: prometheus
+          env:
+          - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                name: appinsights-secret
+                key: connection-string
       volumes:
         - name: config-volume
           configMap:
             name: otel-collector-config
-        - name: otel-collector-storage-vol  # Add this volume
+        - name: otel-collector-storage-vol
           persistentVolumeClaim:
-            claimName: otel-collector-storage # Name of the PVC
+            claimName: otel-collector-storage
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector
+  namespace: default
+spec:
+  ports:
+    - name: grpc
+      port: 4317
+      targetPort: 4317
+    - name: http
+      port: 4318
+      targetPort: 4318
+    - name: prometheus
+      port: 9464
+      targetPort: 9464
+      protocol: TCP
+  selector:
+    app: otel-collector

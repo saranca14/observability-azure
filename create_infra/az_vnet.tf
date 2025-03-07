@@ -1,4 +1,3 @@
-# Create virtual network
 resource "azurerm_virtual_network" "my_terraform_network" {
   name                = "myVnet"
   address_space       = ["10.0.0.0/16"]
@@ -6,21 +5,12 @@ resource "azurerm_virtual_network" "my_terraform_network" {
   resource_group_name = data.azurerm_resource_group.existing_rg.name
 }
 
-# Create subnet
 resource "azurerm_subnet" "my_terraform_subnet" {
   name                 = "mySubnet"
   resource_group_name  = data.azurerm_resource_group.existing_rg.name
   virtual_network_name = azurerm_virtual_network.my_terraform_network.name
   address_prefixes     = ["10.0.1.0/24"]
 }
-
-# Create public IPs
-# resource "azurerm_public_ip" "my_terraform_public_ip" {
-#   name                = "myPublicIP"
-#   location            = data.azurerm_resource_group.existing_rg.location
-#   resource_group_name = data.azurerm_resource_group.existing_rg.name
-#   allocation_method   = "Dynamic"
-# }
 
 resource "azurerm_public_ip" "my_terraform_public_static_ip" {
   name                = "myElasticIP"
@@ -30,8 +20,6 @@ resource "azurerm_public_ip" "my_terraform_public_static_ip" {
   sku                 = "Standard" 
 }
 
-
-# Create Network Security Group and rule
 resource "azurerm_network_security_group" "my_terraform_nsg" {
   name                = "myNetworkSecurityGroup"
   location            = data.azurerm_resource_group.existing_rg.location
@@ -49,7 +37,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     destination_address_prefix = "*"
   }
   
-  # Open Prometheus port (default: 9090)
   security_rule {
     name                       = "Prometheus"
     priority                   = 1002
@@ -61,8 +48,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-  # Open Grafana port (default: 3000)
   security_rule {
     name                       = "Grafana"
     priority                   = 1003
@@ -74,8 +59,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-  # Open OpenTelemetry Collector port (default: 8888 for Prometheus exporter)
   security_rule {
     name                       = "OtelCollector"
     priority                   = 1004
@@ -87,8 +70,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-    # Open Flask app port 8008
   security_rule {
     name                       = "flaskApp"
     priority                   = 1005
@@ -100,8 +81,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-    # Open Locust port 8089
   security_rule {
     name                       = "locust"
     priority                   = 1006
@@ -113,9 +92,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-
-    # Open jaeger port 8089
   security_rule {
     name                       = "jaeger"
     priority                   = 1007
@@ -130,7 +106,6 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
 
 }
 
-# Create network interface
 resource "azurerm_network_interface" "my_terraform_nic" {
   name                = "myNIC"
   location            = data.azurerm_resource_group.existing_rg.location
@@ -144,14 +119,11 @@ resource "azurerm_network_interface" "my_terraform_nic" {
   }
 }
 
-# Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "example" {
   network_interface_id      = azurerm_network_interface.my_terraform_nic.id
   network_security_group_id = azurerm_network_security_group.my_terraform_nsg.id
 }
 
-
-# Create storage account for boot diagnostics
 resource "azurerm_storage_account" "my_storage_account" {
   name                     = "gftbenchotel2025"
   location                 = data.azurerm_resource_group.existing_rg.location

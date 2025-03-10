@@ -28,6 +28,9 @@ data:
       azuremonitor:
         connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
 
+      loki:
+        endpoint: "http://loki.default.svc.cluster.local:3100/loki/api/v1/push"
+
     extensions:
       file_storage:
         directory: /var/lib/otelcol
@@ -44,4 +47,4 @@ data:
           exporters: [prometheus, azuremonitor, debug]
         logs:
           receivers: [otlp]
-          exporters: [azuremonitor, debug]
+          exporters: [loki, azuremonitor, debug]

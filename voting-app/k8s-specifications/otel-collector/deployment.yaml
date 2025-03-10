@@ -44,24 +44,3 @@ spec:
         - name: otel-collector-storage-vol
           persistentVolumeClaim:
             claimName: otel-collector-storage
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: otel-collector
-  namespace: default
-spec:
-  ports:
-    - name: grpc
-      port: 4317
-      targetPort: 4317
-    - name: http
-      port: 4318
-      targetPort: 4318
-    - name: prometheus
-      port: 9464
-      targetPort: 9464
-      protocol: TCP
-  selector:
-    app: otel-collector

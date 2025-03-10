@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Awesome E-Commerce Store</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      .product {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+      }
+      .product h2 {
+        color: #333;
+      }
+      .product p {
+        color: #666;
+      }
+      .product button {
+        background-color: #4caf50;
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .product button:hover {
+        background-color: #45a049;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to Our Store!</h1>
+    <div id="products">
+      {% for product in products %}
+      <div class="product">
+        <h2>{{ product.name }}</h2>
+        <p>Price: ${{ product.price }}</p>
+        <form action="/order" method="post">
+          <input type="hidden" name="product_id" value="{{ product.id }}" />
+          <button type="submit">Order Now</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div id="message"></div>
+
+    <script>
+      // Could add JavaScript here for AJAX order placement (for a smoother UX),
+      // but keeping it simple with form submissions for this example.
+    </script>
+  </body>
+</html>

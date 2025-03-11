@@ -2,11 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: loki-storage
-  namespace: default
+  namespace: e-commerce
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi  # Adjust as needed
-  storageClassName: default # Or your specific storage class
+      storage: 10Gi
+  storageClassName: default

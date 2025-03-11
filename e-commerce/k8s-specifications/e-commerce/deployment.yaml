@@ -1,9 +1,8 @@
-# --- deployments.yaml ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-service
-  # namespace: default  # Default namespace is implicit
+  namespace: e-commerce  # Correct namespace
 spec:
   replicas: 1
   selector:
@@ -16,22 +15,22 @@ spec:
     spec:
       containers:
         - name: frontend-service
-          image: saranrnair/frontend-service:v2 # Updated image reference
+          image: saranrnair/frontend-service:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
             - name: ORDERS_SERVICE_URL
-              value: "http://orders-service.default.svc.cluster.local:5000"
+              value: "http://orders-service.e-commerce.svc.cluster.local:5000"  # Corrected URL
             - name: PRODUCTS_SERVICE_URL
-              value: "http://products-service.default.svc.cluster.local:5001"
+              value: "http://products-service.e-commerce.svc.cluster.local:5001"  # Corrected URL
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: orders-service
-  # namespace: default
+  namespace: e-commerce  # Correct namespace
 spec:
   replicas: 1
   selector:
@@ -44,24 +43,24 @@ spec:
     spec:
       containers:
         - name: orders-service
-          image: saranrnair/orders-service:v2 # Updated image reference
+          image: saranrnair/orders-service:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
             - name: PRODUCTS_SERVICE_URL
-              value: "http://products-service.default.svc.cluster.local:5001"
+              value: "http://products-service.e-commerce.svc.cluster.local:5001"  # Corrected URL
             - name: RECOMMENDATIONS_SERVICE_URL
-              value: "http://recommendations-service.default.svc.cluster.local:5002"
+              value: "http://recommendations-service.e-commerce.svc.cluster.local:5002"  # Corrected URL
             - name: PAYMENT_SERVICE_URL
-              value: "http://payment-service.default.svc.cluster.local:5003"
+              value: "http://payment-service.e-commerce.svc.cluster.local:5003"  # Corrected URL
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: products-service
-  # namespace: default
+  namespace: e-commerce
 spec:
   replicas: 1
   selector:
@@ -74,7 +73,7 @@ spec:
     spec:
       containers:
         - name: products-service
-          image: saranrnair/products-service:v2 # Updated image reference
+          image: saranrnair/products-service:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 5001
@@ -84,7 +83,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: recommendations-service
-  # namespace: default
+  namespace: e-commerce
 spec:
   replicas: 1
   selector:
@@ -97,7 +96,7 @@ spec:
     spec:
       containers:
         - name: recommendations-service
-          image: saranrnair/recommendations-service:v2 # Updated image reference
+          image: saranrnair/recommendations-service:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 5002
@@ -107,7 +106,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: payment-service
-  # namespace: default
+  namespace: e-commerce
 spec:
   replicas: 1
   selector:
@@ -120,7 +119,7 @@ spec:
     spec:
       containers:
         - name: payment-service
-          image: saranrnair/payment-service:v2 # Updated image reference
+          image: saranrnair/payment-service:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 5003

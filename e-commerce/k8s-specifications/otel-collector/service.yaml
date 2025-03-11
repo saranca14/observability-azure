@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: otel-collector
-  namespace: default
+  namespace: e-commerce
 spec:
   ports:
     - name: grpc

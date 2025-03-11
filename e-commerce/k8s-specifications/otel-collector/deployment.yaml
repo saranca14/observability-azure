@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: otel-collector
-  namespace: default
+  namespace: e-commerce
 spec:
   replicas: 1
   selector:
@@ -18,13 +18,13 @@ spec:
           image: otel/opentelemetry-collector-contrib:latest
           command:
             - "/otelcol-contrib"
-            - "--config=/etc/otelcol-contrib/config.yaml" 
+            - "--config=/etc/otelcol-contrib/config.yaml"
           volumeMounts:
             - name: config-volume
               mountPath: /etc/otelcol-contrib/
-            - name: otel-collector-storage-vol 
-              mountPath: /var/lib/otelcol 
-          ports: 
+            - name: otel-collector-storage-vol
+              mountPath: /var/lib/otelcol
+          ports:
             - containerPort: 4317
               name: grpc
             - containerPort: 4318

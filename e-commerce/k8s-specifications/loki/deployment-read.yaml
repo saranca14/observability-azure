@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: loki-read
-  namespace: default
+  namespace: e-commerce
   labels:
     app: loki
     component: read
@@ -18,7 +18,7 @@ spec:
         app: loki
         component: read
     spec:
-      securityContext:  # Add the securityContext
+      securityContext:
         runAsUser: 10001
         fsGroup: 10001
       containers:

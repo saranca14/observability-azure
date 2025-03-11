@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zipkin
-  namespace: default
+  namespace: e-commerce
 spec:
   type: LoadBalancer
   ports:

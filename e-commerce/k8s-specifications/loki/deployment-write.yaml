@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: loki-write
-  namespace: default
+  namespace: e-commerce
   labels:
     app: loki
     component: write
@@ -18,7 +18,7 @@ spec:
         app: loki
         component: write
     spec:
-      securityContext:  # Add the securityContext
+      securityContext:
         runAsUser: 10001
         fsGroup: 10001
       containers:

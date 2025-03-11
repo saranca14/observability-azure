@@ -5,7 +5,7 @@ RUN opentelemetry-bootstrap --action=install
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
-COPY templates/ templates/
+
 ENV OTEL_SERVICE_NAME="payment-service"
 ENV OTEL_EXPORTER_OTLP_ENDPOINT="otel-collector.default.svc.cluster.local:4317"
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"

@@ -2,6 +2,16 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import os
 
+print("---- Environment Variable Check ----")
+endpoint = os.environ.get("OTEL_EXPORTER_OTLP_ENDPOINT")
+protocol = os.environ.get("OTEL_EXPORTER_OTLP_PROTOCOL")
+service_name = os.environ.get("OTEL_SERVICE_NAME")
+
+print(f"OTEL_EXPORTER_OTLP_ENDPOINT: {endpoint}")
+print(f"OTEL_EXPORTER_OTLP_PROTOCOL: {protocol}")
+print(f"OTEL_SERVICE_NAME: {service_name}")
+print("-----------------------------------")
+
 app = Flask(__name__)
 
 ORDERS_SERVICE_URL = os.environ.get("ORDERS_SERVICE_URL", "http://localhost:5000")

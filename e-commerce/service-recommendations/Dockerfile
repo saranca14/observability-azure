@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
 
 ENV OTEL_SERVICE_NAME="recommendations-service"
-ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector.default.svc.cluster.local:4317"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT="otel-collector.e-commerce.svc.cluster.local:4317"
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 ENV OTEL_TRACES_EXPORTER="otlp"
 ENV OTEL_METRICS_EXPORTER="otlp"

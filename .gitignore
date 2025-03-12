@@ -1,13 +1,59 @@
-# Terraform
-/infrastructure/.terraform/
-infrastructure/*.tfstate
-infrastructure/*.tfstate.backup
-infrastructure/terraform.tfvars
-infrastructure/.terraform.lock.hcl
-
-# Ansible
-/configure_vm/*.retry
-/configure_vm/.ansible/
-
+# Ignore Terraform state files and cache
 *.tfstate
-*.tfstate.*.terraform/
+*.tfstate.backup
+.terraform/
+
+# Ignore Python dependencies and virtual environments
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+venv/
+.env
+.envrc
+
+# Ignore Docker-related files
+**/Dockerfile
+*.tar
+
+# Ignore Node.js dependencies
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Ignore Ansible logs
+ansible-playbook.log
+
+# Ignore compiled C# binaries and project files
+*.exe
+*.dll
+*.pdb
+*.csproj
+*.sln
+*.user
+
+# Ignore Kubernetes and deployment artifacts
+*.kube
+*.out
+*.log
+k8s-deployments/observability/**/*.yaml
+k8s-deployments/shopping-app/**/*.yaml
+k8s-deployments/voting-app/**/*.yaml
+
+# Ignore IDE and editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Ignore temporary and miscellaneous files
+*.log
+*.tmp
+*.cache
+*.DS_Store
+*.iml
+
+# Ignore inventory files that may contain sensitive information
+inventory

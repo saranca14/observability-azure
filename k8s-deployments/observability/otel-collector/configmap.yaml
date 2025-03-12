@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+  namespace: obs
+data:
+  config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+    exporters:
+      debug:
+        verbosity: detailed
+
+      prometheus:
+        endpoint: 0.0.0.0:9464
+
+      zipkin/nontls:
+        endpoint: "http://zipkin.obs.svc.cluster.local:9411/api/v2/spans"
+        format: proto
+        default_service_name: voting-app
+
+      azuremonitor:
+        connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
+
+      loki:
+        endpoint: "http://loki.obs.svc.cluster.local:3100/loki/api/v1/push"
+
+    extensions:
+      file_storage:
+        directory: /var/lib/otelcol
+
+
+    service:
+      extensions: [file_storage]
+      pipelines:
+        traces:
+          receivers: [otlp]
+          exporters: [zipkin/nontls, azuremonitor, debug]
+        metrics:
+          receivers: [otlp]
+          exporters: [prometheus, azuremonitor, debug]
+        logs:
+          receivers: [otlp]
+          exporters: [loki, azuremonitor, debug]

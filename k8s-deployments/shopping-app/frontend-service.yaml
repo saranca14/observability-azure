@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-service
+  namespace: e-commerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-service
+  template:
+    metadata:
+      labels:
+        app: frontend-service
+    spec:
+      containers:
+        - name: frontend-service
+          image: saranrnair/frontend-service:v2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ORDERS_SERVICE_URL
+              value: "http://orders-service.e-commerce.svc.cluster.local:5000"
+            - name: PRODUCTS_SERVICE_URL
+              value: "http://products-service.e-commerce.svc.cluster.local:5001"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: e-commerce
+spec:
+  selector:
+    app: frontend-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

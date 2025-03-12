@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-service
+  namespace: e-commerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-service
+  template:
+    metadata:
+      labels:
+        app: orders-service
+    spec:
+      containers:
+        - name: orders-service
+          image: saranrnair/orders-service:v2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PRODUCTS_SERVICE_URL
+              value: "http://products-service.e-commerce.svc.cluster.local:5001"
+            - name: RECOMMENDATIONS_SERVICE_URL
+              value: "http://recommendations-service.e-commerce.svc.cluster.local:5002"
+            - name: PAYMENT_SERVICE_URL
+              value: "http://payment-service.e-commerce.svc.cluster.local:5003"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-service
+  namespace: e-commerce
+spec:
+  selector:
+    app: orders-service
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

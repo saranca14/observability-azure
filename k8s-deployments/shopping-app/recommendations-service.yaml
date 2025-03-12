@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendations-service
+  namespace: e-commerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendations-service
+  template:
+    metadata:
+      labels:
+        app: recommendations-service
+    spec:
+      containers:
+        - name: recommendations-service
+          image: saranrnair/recommendations-service:v2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5002
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendations-service
+  namespace: e-commerce  # Correct namespace
+spec:
+  selector:
+    app: recommendations-service
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: obs
+  labels:
+    app: grafana
+data:
+  datasources.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: Zipkin
+        type: zipkin
+        url: http://zipkin.obs.svc.cluster.local:9411
+        access: proxy
+        isDefault: false
+        version: 1
+        editable: true
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus.obs.svc.cluster.local:9090
+        access: proxy
+        isDefault: false
+        version: 1
+        editable: true
+      - name: Loki
+        type: loki
+        url: http://loki.obs.svc.cluster.local:3100
+        access: proxy
+        isDefault: false
+        version: 1
+        editable: true

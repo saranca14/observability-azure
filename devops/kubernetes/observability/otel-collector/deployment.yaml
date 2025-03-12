@@ -35,7 +35,7 @@ spec:
           - name: APPLICATIONINSIGHTS_CONNECTION_STRING
             valueFrom:
               secretKeyRef:
-                name: appinsights-secret
+                name: appinsights-secret-shopping-app
                 key: connection-string
       volumes:
         - name: config-volume

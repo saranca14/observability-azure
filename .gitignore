@@ -57,3 +57,4 @@ k8s-deployments/voting-app/**/*.yaml
 
 # Ignore inventory files that may contain sensitive information
 inventory
+grafjson.json

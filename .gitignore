@@ -10,4 +10,4 @@ infrastructure/.terraform.lock.hcl
 /configure_vm/.ansible/
 
 *.tfstate
-*.tfstate.*
+*.tfstate.*.terraform/

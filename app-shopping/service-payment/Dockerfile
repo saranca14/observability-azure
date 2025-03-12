@@ -14,7 +14,7 @@ COPY app.py .
 RUN opentelemetry-bootstrap -a install
 
 ENV OTEL_SERVICE_NAME="payment-service"
-ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector.e-commerce.svc.cluster.local:4317"
+ENV OTEL_EXPORTER_OTLP_ENDPOINT="http://otel-collector.obs.svc.cluster.local:4317"
 ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 ENV OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED="true"
 ENV OTEL_RESOURCE_ATTRIBUTES="deployment.environment=production,service.instance.id=$(hostname),application.name=e-commerce"

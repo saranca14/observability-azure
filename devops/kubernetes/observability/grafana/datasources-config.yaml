@@ -30,3 +30,10 @@ data:
         isDefault: false
         version: 1
         editable: true
+      - name: Tempo
+        type: tempo
+        url: http://tempo.obs.svc.cluster.local:3200
+        access: proxy
+        isDefault: false
+        version: 1
+        editable: true

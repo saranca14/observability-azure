@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: frontend-service
   namespace: shopping-app
+  labels:
+    service: shopping-app
 spec:
   replicas: 1
   selector:

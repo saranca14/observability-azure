@@ -12,5 +12,5 @@ stringData:
   connection-string: "${local.app_insights_map[each.value]}"
 EOT
 
-  filename = "${path.module}/../../k8s-deployments/common/appinsights-secret-${each.value}.yaml"
+  filename = "${path.module}/../../kubernetes/common/appinsights-secret-${each.value}.yaml"
 }

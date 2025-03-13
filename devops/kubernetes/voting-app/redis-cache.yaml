@@ -3,7 +3,9 @@ kind: Deployment
 metadata:
   labels:
     app: redis
+    service: voting-app
   name: redis
+  namespace: voting-app
 spec:
   replicas: 1
   selector:
@@ -34,6 +36,7 @@ metadata:
   labels:
     app: redis
   name: redis
+  namespace: voting-app
 spec:
   type: ClusterIP
   ports:

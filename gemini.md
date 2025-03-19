@@ -82,6 +82,7 @@ Observability Components:
 ```bash
 git clone <your-repository-url>
 cd <your-repository-directory>
+```
 
 4.2. Install Dependencies
 
@@ -94,5 +95,5 @@ cd ../orders-service
 pip install -r requirements.txt
 # ... repeat for products-service, recommendations-service, payment-service ...
 cd ..
-
+```
 

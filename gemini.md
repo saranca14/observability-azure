@@ -1,6 +1,11 @@
-# E-Commerce Microservices with OpenTelemetry
+# OpenTelemetry Demo: E-Commerce and Voting Applications
 
-This repository contains a demo e-commerce application built with multiple microservices, instrumented with OpenTelemetry for observability, and designed for deployment to Kubernetes (specifically, Azure Kubernetes Service - AKS).
+This repository contains a demonstration of using OpenTelemetry for observability in a distributed microservices environment.  It includes two applications:
+
+*   **`shopping-app`:** A simplified e-commerce application with multiple microservices (frontend, orders, products, recommendations, payment).  This application uses **automatic** OpenTelemetry instrumentation.
+*   **`voting-app`:** A simple voting application (result, vote, worker, seed-data). This application uses **manual** OpenTelemetry instrumentation.
+
+Both applications are designed for deployment to Kubernetes (specifically Azure Kubernetes Service - AKS) and are instrumented to send traces, metrics, and logs to an OpenTelemetry Collector.  The collector then exports this data to various backends (Zipkin, Prometheus, Grafana, Loki, and optionally Azure Monitor).
 
 ## Table of Contents
 
@@ -12,68 +17,84 @@ This repository contains a demo e-commerce application built with multiple micro
     *   [Install Dependencies](#install-dependencies)
     *   [Build Docker Images](#build-docker-images)
     *   [Push Docker Images](#push-docker-images)
+    *   [Choose a Deployment Method](#choose-a-deployment-method)
+        *   [Kubernetes (using `kubectl`)](#kubernetes-using-kubectl)
+        *   [Terraform (Optional)](#terraform-optional)
+        *   [Ansible (Optional)](#ansible-optional)
     *   [Create Kubernetes Namespace](#create-kubernetes-namespace)
     *   [Create Secrets (Optional but Recommended)](#create-secrets-optional-but-recommended)
-    *   [Deploy to Kubernetes](#deploy-to-kubernetes)
+    *   [Deploy to Kubernetes (kubectl)](#deploy-to-kubernetes-kubectl)
+    *   [Deploy using Terraform (Optional)](#deploy-using-terraform-optional)
+    *   [Deploy using Ansible (Optional)](#deploy-using-ansible-optional)
 5.  [Verification and Testing](#verification-and-testing)
-    *   [Check Pod Status](#check-pod-status)
-    *   [Check Service Status](#check-service-status)
-    *   [Access the Frontend](#access-the-frontend)
-    *   [Place a Test Order](#place-a-test-order)
-    *   [Access Zipkin](#access-zipkin)
-    *   [Access Prometheus](#access-prometheus)
-    *   [Access Grafana](#access-grafana)
 6.  [Observability Details](#observability-details)
-    *   [OpenTelemetry Configuration](#opentelemetry-configuration)
-    *   [Collector Configuration](#collector-configuration)
-    *   [Viewing Traces](#viewing-traces)
-    *   [Viewing Metrics](#viewing-metrics)
-    *   [Viewing Logs](#viewing-logs)
 7.  [Troubleshooting](#troubleshooting)
 8.  [Cleaning Up](#cleaning-up)
 9.  [Directory Structure](#directory-structure)
 10. [Contributing](#contributing)
 11. [Observability Concepts](#observability-concepts)
-    * [What is Observability?](#what-is-observability)
-    * [OpenTelemetry (OTel)](#opentelemetry-otel)
-    * [The OpenTelemetry Collector](#the-opentelemetry-collector)
-    * [Observability Backends](#observability-backends)
-    * [Demo Application and its setup](#demo-application-and-its-setup)
-    * [Use Cases of OpenTelemetry](#use-cases-of-opentelemetry)
+
 ## 1. Project Overview
 
-This project demonstrates a basic e-commerce application built using a microservices architecture.  It showcases how to instrument applications with OpenTelemetry to collect traces, metrics, and logs, and how to use popular open-source tools (Zipkin, Prometheus, Grafana, Loki) for observability.  The application is designed for deployment to Kubernetes.
+This project aims to provide a practical, hands-on demonstration of OpenTelemetry in a realistic microservices environment. It highlights the differences between automatic and manual instrumentation and showcases how to use a variety of observability backends.  The project structure also shows how to manage infrastructure and deployment using tools like Kubernetes, Terraform, and Ansible.
 
 ## 2. Architecture
 
-The application consists of the following microservices:
+**Application Components:**
 
-*   **`frontend-service`:** A Python Flask application that serves the web UI.  Users interact with this service to browse products and place orders.
-*   **`orders-service`:** A Python Flask application that handles order placement. It interacts with the `products-service`, `recommendations-service`, and `payment-service`.
-*   **`products-service`:** A Python Flask application that provides product information.
-*   **`recommendations-service`:** A Python Flask application that generates product recommendations.
-*   **`payment-service`:** A Python Flask application that simulates payment processing.
-*   **`voting-app`:**  A separate application (not part of the core e-commerce flow) used to demonstrate routing telemetry to Azure Monitor.  (You'll need to create this if you want to test the Azure Monitor integration).
+*   **`shopping-app` (E-commerce - Auto-instrumented):**
+    *   `frontend`:  Flask web application serving the UI.
+    *   `orders`: Flask service for handling order placement.
+    *   `payment`: Flask service simulating payment processing.
+    *   `products`: Flask service providing product data.
+    *   `recommendations`: Flask service for product recommendations.
 
-Observability Components:
+*   **`voting-app` (Voting - Manually instrumented):**
+    *   `vote`: Flask application for casting votes.
+    *   `result`: Node.js application to display voting results.
+    *   `worker`: .NET worker service to process votes (likely interacts with a database).
+    *   `seed-data`:  Scripts/tools for populating initial data.
+    *   `postgresdb`: Database for storing votes.
+    *  `redis-cache`: Cache
 
-*   **OpenTelemetry Collector:**  A central component that receives, processes, and exports telemetry data.
-*   **Zipkin:**  A distributed tracing system used to visualize traces from the e-commerce application.
-*   **Prometheus:**  A time-series database used to store and query metrics.
-*   **Grafana:**  A visualization tool used to create dashboards for metrics (from Prometheus) and traces (from Zipkin).
-*   **Loki:** Log aggregation system.
-*   **Azure Monitor:** (Optional) Microsoft's cloud-based monitoring service.  Used for the `voting-app` telemetry.
+**Observability Components:**
+
+*   **OpenTelemetry Collector:** Receives, processes, and exports telemetry data.
+*   **Zipkin:** Distributed tracing system (for `shopping-app` traces).
+*   **Prometheus:** Time-series database for metrics (from all services).
+*   **Grafana:** Visualization tool for metrics, traces, and logs.
+*   **Loki:** Log aggregation system (for `shopping-app` logs).
+*   **Azure Monitor:** (Optional) Cloud monitoring (for `voting-app` telemetry).
+* **Jaeger:** all-in-one
+
+**Data Flow:**
+
+1.  User interacts with the `shopping-app` `frontend` or the `voting-app` `vote` service.
+2.  Application services (auto or manually instrumented) generate telemetry data (traces, metrics, logs).
+3.  This data is sent to the OpenTelemetry Collector via the OTLP protocol.
+4.  The OpenTelemetry Collector processes the data (batching, filtering).
+5.  The Collector exports:
+    *   `shopping-app` traces to Zipkin.
+    *   All metrics to Prometheus.
+    *  `shopping-app` logs to Loki.
+    *   `voting-app` traces, metrics, and logs to Azure Monitor.
+    *   All data to a `debug` exporter (for troubleshooting - remove in production).
+6.  Grafana visualizes data from Prometheus, Zipkin and Loki.
 
 ## 3. Prerequisites
 
-*   **An Azure Subscription:** You'll need an Azure subscription to use AKS.
-*   **Azure CLI:** Install and configure the Azure CLI (`az`).  You'll need to be logged in (`az login`).
-*   **kubectl:** Install `kubectl`, the Kubernetes command-line tool.
-*   **Docker:** Install Docker Desktop or another Docker engine.
-*   **Python 3.9+:** Required for building and running the application services.
-*   **A Container Registry:** You'll need a container registry to store your Docker images.  Docker Hub is a good option for testing, but for production, consider Azure Container Registry (ACR) or another private registry.
-* **(Optional) Helm:** If deploying Grafana/Prometheus/Loki via Helm, you'll need Helm installed.
-* **(Optional) Application Insights:** To use Azure monitor, create Application Insights.
+*   **Azure Subscription:** For AKS.
+*   **Azure CLI:**  Installed and configured (`az login`).
+*   **kubectl:** Kubernetes command-line tool.
+*   **Docker:** Docker Desktop or another Docker engine.
+*   **Python 3.9+:** For the `shopping-app` and `voting-app` (vote service)
+* **Node.js and npm:** For `voting-app` (result service).
+* **.NET SDK:** For `voting-app` (worker service)
+*   **A Container Registry:** Docker Hub, Azure Container Registry (ACR), etc.
+*   **(Optional) Terraform:** If using Terraform for infrastructure provisioning.
+*   **(Optional) Ansible:** If using Ansible for configuration management.
+*   **(Optional) Helm:** If using Helm charts for Grafana/Prometheus/Loki/etc.
+* **(Optional) Application Insights:** To use Azure monitor.
 
 ## 4. Setup and Installation
 
@@ -86,14 +107,52 @@ cd <your-repository-directory>
 
 4.2. Install Dependencies
 
-Each Python service has a requirements.txt file.  Install the dependencies for each service:
+shopping-app:
 
 ```bash
-cd frontend-service
+cd application/shopping-app/frontend
 pip install -r requirements.txt
-cd ../orders-service
+cd ../orders
 pip install -r requirements.txt
-# ... repeat for products-service, recommendations-service, payment-service ...
-cd ..
+cd ../payment
+pip install -r requirements.txt
+cd ../products
+pip install -r requirements.txt
+cd ../recommendations
+pip install -r requirements.txt
+cd ../../../  # Go back to the project root
 ```
 
+voting-app:
+
+```bash
+cd application/voting-app/vote
+ pip install -r requirements.txt
+ cd ../result
+ npm install
+ cd ../worker
+ # dotnet restore if needed
+ cd ../../../ # Go back to project root
+ ```
+
+ 4.3. Build Docker Images
+
+```bash
+# shopping-app
+cd application/shopping-app
+docker build -t <your-registry>/frontend-service:v2 frontend/
+docker build -t <your-registry>/orders-service:v2 orders/
+docker build -t <your-registry>/payment-service:v2 payment/
+docker build -t <your-registry>/products-service:v2 products/
+docker build -t <your-registry>/recommendations-service:v2 recommendations/
+
+# voting-app
+cd ../voting-app
+docker build -t <your-registry>/voting-app-vote:v2 vote/
+docker build -t <your-registry>/voting-app-result:v2 result/
+docker build -t <your-registry>/voting-app-worker:v2 worker/
+# Build seed-data if it has a Dockerfile
+# docker build -t <your-registry>/voting-app-seed:v2 seed-data
+
+cd ../..  # Go back to project root
+```

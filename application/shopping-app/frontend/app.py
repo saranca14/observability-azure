@@ -2,16 +2,6 @@ from flask import Flask, render_template, request, jsonify
 import requests
 import os
 
-print("---- Environment Variable Check ----")
-endpoint = os.environ.get("OTEL_EXPORTER_OTLP_ENDPOINT")
-protocol = os.environ.get("OTEL_EXPORTER_OTLP_PROTOCOL")
-service_name = os.environ.get("OTEL_SERVICE_NAME")
-
-print(f"OTEL_EXPORTER_OTLP_ENDPOINT: {endpoint}")
-print(f"OTEL_EXPORTER_OTLP_PROTOCOL: {protocol}")
-print(f"OTEL_SERVICE_NAME: {service_name}")
-print("-----------------------------------")
-
 app = Flask(__name__)
 
 ORDERS_SERVICE_URL = os.environ.get("ORDERS_SERVICE_URL", "http://localhost:5000")
@@ -31,18 +21,22 @@ def index():
 
 @app.route('/order', methods=['POST'])
 def place_order():
-    product_id = request.form.get('product_id')
-    if not product_id:
-        return jsonify({'error': 'Missing product_id'}), 400
+    # Log the incoming request body for debugging purposes
+    print("Received POST /order with body:", request.get_data())
 
     try:
-        order_response = requests.post(f"{ORDERS_SERVICE_URL}/order", json={'product_id': int(product_id)})
-        order_response.raise_for_status()
-        order_result = order_response.json()
-        return jsonify(order_result), 200
-    except requests.exceptions.RequestException as e:
-         return jsonify({'error': f'Error placing order: {e}'}), 500
+        data = request.json
+    except Exception as e:
+        return jsonify({"error": f"Failed to parse JSON: {str(e)}"}), 400
 
+    product_id = data.get('product_id')
+    quantity = data.get('quantity')
+
+    if not product_id or not quantity:
+        return jsonify({'error': 'Missing product_id or quantity'}), 400
+
+    # Process the order here...
+    return jsonify({"status": "Order placed"}), 200
 
 @app.route('/products')
 def list_products():

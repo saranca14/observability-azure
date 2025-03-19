@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prometheus-storage
+  name: prometheus-data-pvc
   namespace: obs
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce  # Most common access mode
   resources:
     requests:
-      storage: 10Gi
-  storageClassName: default
+      storage: 10Gi  # Adjust the size as needed!  Start small and increase.
+  storageClassName: default # Or specify a specific storage class

@@ -15,21 +15,24 @@ data:
 
     exporters:
       debug:
-        verbosity: detailed
-
+              verbosity: detailed  
       prometheus:
-        endpoint: 0.0.0.0:9464
-
+              endpoint: 0.0.0.0:9464
       zipkin/nontls:
-        endpoint: "http://zipkin.obs.svc.cluster.local:9411/api/v2/spans"
-        format: proto
-        default_service_name: voting-app
-
+              endpoint: "http://zipkin.obs.svc.cluster.local:9411/api/v2/spans"
+              format: proto
       azuremonitor:
-        connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
-
+              connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
+      otlp:
+              endpoint: "tempo.obs.svc.cluster.local:4317"
+              tls:
+                insecure: true
       loki:
-        endpoint: "http://loki.obs.svc.cluster.local:3100/loki/api/v1/push"
+              endpoint: "http://loki.obs.svc.cluster.local:3100/loki/api/v1/push"
+      prometheusremotewrite:
+              endpoint: "http://mimir.obs.svc.cluster.local:9009/api/v1/push"
+              tls:
+                insecure: true
 
     extensions:
       file_storage:
@@ -41,10 +44,10 @@ data:
       pipelines:
         traces:
           receivers: [otlp]
-          exporters: [zipkin/nontls, azuremonitor, debug]
+          exporters: [azuremonitor, zipkin/nontls, otlp,  debug]
         metrics:
           receivers: [otlp]
-          exporters: [prometheus, azuremonitor, debug]
+          exporters: [azuremonitor, prometheus, debug]
         logs:
           receivers: [otlp]
-          exporters: [loki, azuremonitor, debug]
+          exporters: [azuremonitor, loki, debug]

@@ -45,7 +45,7 @@ data:
               endpoint: "tempo.obs.svc.cluster.local:4317"
               tls:
                 insecure: true
-      loki:
+      otlphttp/loki:
               endpoint: "http://loki.obs.svc.cluster.local:3100/loki/api/v1/push"
       prometheusremotewrite:
               endpoint: "http://mimir.obs.svc.cluster.local:9009/api/v1/push"
@@ -67,7 +67,7 @@ data:
           exporters: [prometheus, azuremonitor, prometheusremotewrite, debug]
         logs:
           receivers: [otlp]
-          exporters: [loki, azuremonitor, debug]
+          exporters: [otlphttp/loki, azuremonitor, debug]
         traces:
           receivers: [otlp]
           processors: [k8sattributes]

@@ -13,28 +13,35 @@ spec:
       labels:
         app: prometheus
     spec:
-      securityContext:
-        runAsUser: 0   
+      serviceAccountName: prometheus-sa
+      securityContext: # Add this section
+        fsGroup: 65534  # Use the dedicated service account
       containers:
       - name: prometheus
-        image: prom/prometheus:latest
+        image: prom/prometheus:latest  # Or a specific version
         args:
           - "--config.file=/etc/prometheus/prometheus.yml"
           - "--storage.tsdb.path=/prometheus"
-          - "--web.console.libraries=/usr/share/prometheus/console_libraries"
-          - "--web.console.templates=/usr/share/prometheus/consoles"
+          - "--web.enable-lifecycle"
         ports:
         - containerPort: 9090
-          name: web
+          name: http
         volumeMounts:
-        - name: prometheus-config-vol
-          mountPath: /etc/prometheus
-        - name: prometheus-storage-vol
-          mountPath: /prometheus
+        - name: prometheus-config-volume
+          mountPath: /etc/prometheus/
+        - name: prometheus-storage-volume
+          mountPath: /prometheus/
+        resources: # Add resource requests and limits!
+          requests:
+            memory: "2Gi"  # Adjust as needed
+            cpu: "500m"    # Adjust as needed
+          limits:
+              memory: "4Gi"
+              cpu: "1000m"
       volumes:
-      - name: prometheus-config-vol
+      - name: prometheus-config-volume
         configMap:
           name: prometheus-config
-      - name: prometheus-storage-vol
-        persistentVolumeClaim:
-          claimName: prometheus-storage
+      - name: prometheus-storage-volume
+        persistentVolumeClaim:  # Use a PVC for persistent storage!
+          claimName: prometheus-data-pvc  # You need to create this PVC separately

@@ -6,6 +6,8 @@ resource "azurerm_log_analytics_workspace" "observability" {
   retention_in_days   = 30
 }
 
+
+# Create AKS Cluster
 resource "azurerm_kubernetes_cluster" "observability" {
   name                = "observability-aks"
   location            = data.azurerm_resource_group.existing_rg.location
@@ -19,7 +21,7 @@ resource "azurerm_kubernetes_cluster" "observability" {
   }
 
   identity {
-    type = "SystemAssigned"
+    type = "SystemAssigned"  # Enable managed identity for AKS
   }
 
   network_profile {
@@ -36,7 +38,13 @@ resource "azurerm_kubernetes_cluster" "observability" {
       default_node_pool[0].upgrade_settings
     ]
   }
+}
 
+# Assign the AcrPull role to AKS Managed Identity for the ACR
+resource "azurerm_role_assignment" "aks_acr_pull" {
+  principal_id   = azurerm_kubernetes_cluster.observability.identity[0].principal_id
+  role_definition_name = "AcrPull"  # Assign the AcrPull role
+  scope           = azurerm_container_registry.gftotelshoppingapp.id
 }
 
 output "log_analytics_workspace_id" {

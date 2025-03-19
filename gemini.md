@@ -135,8 +135,6 @@ cd ../voting-app
 docker build -t <your-dockerhub-username>/voting-app-vote:v2 vote/
 docker build -t <your-dockerhub-username>/voting-app-result:v2 result/
 docker build -t <your-dockerhub-username>/voting-app-worker:v2 worker/
-# Build seed-data if it has a Dockerfile
-# docker build -t <your-dockerhub-username>/voting-app-seed:v2 seed-data/
 
 cd ../..  # Go back to project root
 ```

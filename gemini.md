@@ -38,6 +38,8 @@ Both applications are designed for deployment to Kubernetes (specifically Azure 
 
 This project aims to provide a practical, hands-on demonstration of OpenTelemetry in a realistic microservices environment. It highlights the differences between automatic and manual instrumentation and showcases how to use a variety of observability backends.  The project structure also shows how to manage infrastructure and deployment using tools like Kubernetes, Terraform, and Ansible.
 
+![alt text](image.png)
+
 ## 2. Architecture
 
 **Application Components:**

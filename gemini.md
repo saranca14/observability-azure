@@ -105,54 +105,48 @@ git clone <your-repository-url>
 cd <your-repository-directory>
 ```
 
-4.2. Install Dependencies
+### 4.2. Docker Hub Credentials and Login
 
-shopping-app:
+Before building and pushing the Docker images, you need to log in to Docker Hub using your credentials.
+
+Create a Docker Hub Account (if you don't have one): Go to https://hub.docker.com/ and create a free account.
+
+Docker Login: Open a terminal and run the following command, replacing <your-dockerhub-username> with your actual Docker Hub username:
 
 ```bash
-cd application/shopping-app/frontend
-pip install -r requirements.txt
-cd ../orders
-pip install -r requirements.txt
-cd ../payment
-pip install -r requirements.txt
-cd ../products
-pip install -r requirements.txt
-cd ../recommendations
-pip install -r requirements.txt
-cd ../../../  # Go back to the project root
+docker login -u <your-dockerhub-username>
 ```
 
-voting-app:
+### 4.3. Build Docker Images (with your Docker Hub username)
 
-```bash
-cd application/voting-app/vote
- pip install -r requirements.txt
- cd ../result
- npm install
- cd ../worker
- # dotnet restore if needed
- cd ../../../ # Go back to project root
- ```
-
- 4.3. Build Docker Images
+Now, build the Docker images for each service.  Important: Replace <your-dockerhub-username> with your actual Docker Hub username in all of the following docker build commands.  This ensures the images are tagged correctly for your Docker Hub repository.
 
 ```bash
 # shopping-app
 cd application/shopping-app
-docker build -t <your-registry>/frontend-service:v2 frontend/
-docker build -t <your-registry>/orders-service:v2 orders/
-docker build -t <your-registry>/payment-service:v2 payment/
-docker build -t <your-registry>/products-service:v2 products/
-docker build -t <your-registry>/recommendations-service:v2 recommendations/
+docker build -t <your-dockerhub-username>/frontend-service:v2 frontend/
+docker build -t <your-dockerhub-username>/orders-service:v2 orders/
+docker build -t <your-dockerhub-username>/payment-service:v2 payment/
+docker build -t <your-dockerhub-username>/products-service:v2 products/
+docker build -t <your-dockerhub-username>/recommendations-service:v2 recommendations/
 
 # voting-app
 cd ../voting-app
-docker build -t <your-registry>/voting-app-vote:v2 vote/
-docker build -t <your-registry>/voting-app-result:v2 result/
-docker build -t <your-registry>/voting-app-worker:v2 worker/
+docker build -t <your-dockerhub-username>/voting-app-vote:v2 vote/
+docker build -t <your-dockerhub-username>/voting-app-result:v2 result/
+docker build -t <your-dockerhub-username>/voting-app-worker:v2 worker/
 # Build seed-data if it has a Dockerfile
-# docker build -t <your-registry>/voting-app-seed:v2 seed-data
+# docker build -t <your-dockerhub-username>/voting-app-seed:v2 seed-data/
 
 cd ../..  # Go back to project root
 ```
+
+
+### 4.5. Deploying applications
+
+
+Kubernetes (using kubectl) (Recommended for this demo): This is the most direct method and is suitable for learning and development. We'll provide detailed instructions for this method.
+
+For simplicity and clarity, the following steps assume you are using kubectl directly.
+
+

@@ -1,7 +1,7 @@
 ---
 - name: Install and Configure Jaeger
   hosts: otel_collector_vm
-  become: yes
+  become: true
   roles:
      - jaeger
   vars_files:

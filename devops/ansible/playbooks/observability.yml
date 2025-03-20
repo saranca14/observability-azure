@@ -1,7 +1,7 @@
 ---
 - name: Configure OpenTelemetry Collector and Prometheus
   hosts: otel_collector_vm
-  become: yes
+  become: true
   roles:
     - otel_collector
     - prometheus

@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tempo
+  namespace: obs
+  labels:
+    app: tempo
+spec:
+  ports:
+  - name: http
+    port: 3200       
+    targetPort: http  
+  - name: grpc-otlp
+    port: 4317
+    targetPort: grpc-otlp
+  - name: http-otlp
+    port: 4318
+    targetPort: http-otlp
+  - name: jaeger-grpc
+    port: 14250
+    targetPort: jaeger-grpc
+  - name: jaeger-binary
+    port: 6832
+    targetPort: jaeger-binary
+  - name: jaeger-compact
+    port: 6831
+    targetPort: jaeger-compact
+  - name: jaeger-http
+    port: 14268
+    targetPort: jaeger-http
+  - name: zipkin
+    port: 9411
+    targetPort: zipkin
+  selector:
+    app: tempo
+  type: ClusterIP

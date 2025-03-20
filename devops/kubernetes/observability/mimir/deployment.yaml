@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mimir
+  namespace: obs
+  labels:
+    app: mimir
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mimir
+  template:
+    metadata:
+      labels:
+        app: mimir
+    spec:
+      securityContext:
+        runAsUser: 10001
+        fsGroup: 10001
+      containers:
+      - name: mimir
+        image: grafana/mimir:2.10.0
+        args:
+        - -config.file=/etc/mimir/mimir.yaml
+        workingDir: /var/mimir
+        ports:
+        - containerPort: 9009
+          name: http
+        - containerPort: 9095
+          name: grpc
+        volumeMounts:
+        - name: mimir-config-vol
+          mountPath: /etc/mimir
+        - name: mimir-storage
+          mountPath: /var/mimir
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 45
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: http
+          initialDelaySeconds: 45
+          timeoutSeconds: 1
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+      volumes:
+      - name: mimir-config-vol
+        configMap:
+          name: mimir-config
+      - name: mimir-storage
+        persistentVolumeClaim:
+          claimName: mimir-storage

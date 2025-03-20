@@ -1,0 +1,46 @@
+# receivers:
+#       otlp:
+#         protocols:
+#           grpc:
+#             endpoint: 0.0.0.0:4317
+#           http:
+#             endpoint: 0.0.0.0:4318
+
+# exporters:
+#       debug:
+#               verbosity: detailed  
+#       prometheus:
+#               endpoint: 0.0.0.0:9464
+#       zipkin/nontls:
+#               endpoint: "http://zipkin.obs.svc.cluster.local:9411/api/v2/spans"
+#               format: proto
+#       azuremonitor:
+#               connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
+#       otlp:
+#               endpoint: "tempo.obs.svc.cluster.local:4317"
+#               tls:
+#                 insecure: true
+#       loki:
+#               endpoint: "http://loki.obs.svc.cluster.local:3100/loki/api/v1/push"
+#       prometheusremotewrite:
+#               endpoint: "http://mimir.obs.svc.cluster.local:9009/api/v1/push"
+#               tls:
+#                 insecure: true
+
+# extensions:
+#       file_storage:
+#         directory: /var/lib/otelcol
+
+
+# service:
+#       extensions: [file_storage]
+#       pipelines:
+#         traces:
+#           receivers: [otlp]
+#           exporters: [azuremonitor, zipkin/nontls, otlp,  debug]
+#         metrics:
+#           receivers: [otlp]
+#           exporters: [azuremonitor, prometheus, debug]
+#         logs:
+#           receivers: [otlp]
+#           exporters: [azuremonitor, loki, debug]

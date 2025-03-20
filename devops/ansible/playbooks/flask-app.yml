@@ -1,7 +1,7 @@
 ---
 - name: Setup Flask App with OpenTelemetry
   hosts: all
-  become: yes
+  become: true
   vars_files:
     - ../roles/flask-app/vars/app_vars.yml
     - ../roles/flask-app/vars/vars.yml

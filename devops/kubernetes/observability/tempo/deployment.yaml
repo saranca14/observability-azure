@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tempo
+  namespace: obs
+  labels:
+    app: tempo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tempo
+  template:
+    metadata:
+      labels:
+        app: tempo
+    spec:
+      securityContext:
+        runAsUser: 10001
+        fsGroup: 10001
+      containers:
+      - name: tempo
+        image: grafana/tempo:2.2.0  
+        args:
+        - -config.file=/etc/tempo/tempo.yaml
+        ports:
+        - containerPort: 3200  
+          name: http
+        - containerPort: 4317
+          name: grpc-otlp
+        - containerPort: 4318
+          name: http-otlp
+        - containerPort: 14250
+          name: jaeger-grpc
+        - containerPort: 6832
+          name: jaeger-binary
+        - containerPort: 6831
+          name: jaeger-compact
+        - containerPort: 14268
+          name: jaeger-http
+        - containerPort: 9411
+          name: zipkin
+        volumeMounts:
+        - name: tempo-config-vol
+          mountPath: /etc/tempo
+        - name: tempo-storage
+          mountPath: /var/tempo
+        readinessProbe:
+          httpGet:
+            path: /status 
+            port: http
+          initialDelaySeconds: 45
+          timeoutSeconds: 1
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: http
+          initialDelaySeconds: 45
+          timeoutSeconds: 1
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+      volumes:
+      - name: tempo-config-vol
+        configMap:
+          name: tempo-config
+      - name: tempo-storage
+        persistentVolumeClaim:
+          claimName: tempo-storage

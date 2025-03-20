@@ -14,11 +14,11 @@ spec:
         app: prometheus
     spec:
       serviceAccountName: prometheus-sa
-      securityContext: # Add this section
-        fsGroup: 65534  # Use the dedicated service account
+      securityContext:
+        fsGroup: 65534
       containers:
       - name: prometheus
-        image: prom/prometheus:latest  # Or a specific version
+        image: prom/prometheus:latest
         args:
           - "--config.file=/etc/prometheus/prometheus.yml"
           - "--storage.tsdb.path=/prometheus"
@@ -31,10 +31,10 @@ spec:
           mountPath: /etc/prometheus/
         - name: prometheus-storage-volume
           mountPath: /prometheus/
-        resources: # Add resource requests and limits!
+        resources:
           requests:
-            memory: "2Gi"  # Adjust as needed
-            cpu: "500m"    # Adjust as needed
+            memory: "2Gi"
+            cpu: "500m"
           limits:
               memory: "4Gi"
               cpu: "1000m"
@@ -43,5 +43,5 @@ spec:
         configMap:
           name: prometheus-config
       - name: prometheus-storage-volume
-        persistentVolumeClaim:  # Use a PVC for persistent storage!
-          claimName: prometheus-data-pvc  # You need to create this PVC separately
+        persistentVolumeClaim:
+          claimName: prometheus-data-pvc

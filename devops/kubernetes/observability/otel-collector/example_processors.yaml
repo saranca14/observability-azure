@@ -1,0 +1,44 @@
+# processors:
+#   attributes:
+#     actions:
+#       - key: "environment"
+#         value: "production"
+#         action: "insert"
+#       - key: "service.name"
+#         value: "my-service"
+#         action: "upsert"
+#       - key: "old.attribute"
+#         action: "delete"
+
+
+#   batch:
+#     timeout: 5s  # Time to wait before exporting a batch
+#     send_batch_size: 1024  # Maximum batch size (in bytes)
+#     send_batch_max_count: 50  # Maximum number of items in a batch
+
+
+#   memory_limiter:
+#     limit_mib: 500  # Maximum memory usage in MiB
+#     spike_limit_mib: 100  # Allowable memory spike in MiB
+#     action: "drop"  # Drop data when the memory limit is exceeded
+
+
+#   filter:
+#     traces:
+#       include:
+#         match:
+#           attributes:
+#             environment: "production"
+#     metrics:
+#       exclude:
+#         match:
+#           attributes:
+#             service.name: "test-service"
+
+
+
+
+
+
+
+

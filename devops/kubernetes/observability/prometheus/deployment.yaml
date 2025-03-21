@@ -29,6 +29,8 @@ spec:
         volumeMounts:
         - name: prometheus-config-volume
           mountPath: /etc/prometheus/
+        - name: prometheus-alerts-volume
+          mountPath: /etc/prometheus/alerts
         - name: prometheus-storage-volume
           mountPath: /prometheus/
         resources:
@@ -42,6 +44,9 @@ spec:
       - name: prometheus-config-volume
         configMap:
           name: prometheus-config
+      - name: prometheus-alerts-volume
+        configMap:
+          name: prometheus-alerts
       - name: prometheus-storage-volume
         persistentVolumeClaim:
           claimName: prometheus-data-pvc

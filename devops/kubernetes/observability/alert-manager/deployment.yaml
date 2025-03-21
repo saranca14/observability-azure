@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager
+  namespace: obs  # Deploy to the 'obs' namespace
+spec:
+  replicas: 1  # Start with 1 replica; consider 3 for high availability in production
+  selector:
+    matchLabels:
+      app: alertmanager
+  template:
+    metadata:
+      labels:
+        app: alertmanager
+    spec:
+      containers:
+      - name: alertmanager
+        image: prom/alertmanager:latest  # Use the official Alertmanager image
+        args:
+        - "--config.file=/etc/alertmanager/alertmanager.yml"
+        - "--storage.path=/alertmanager" # Default storage path
+        ports:
+        - containerPort: 9093
+          name: web
+        volumeMounts:
+        - name: alertmanager-config
+          mountPath: /etc/alertmanager
+        - name: alertmanager-storage  # Mount a volume for persistent storage
+          mountPath: /alertmanager
+        resources: # Add requests and limits
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+
+      volumes:
+      - name: alertmanager-config
+        configMap:
+          name: alertmanager-config  # Reference the ConfigMap
+
+      - name: alertmanager-storage
+        emptyDir: {}  # Use emptyDir for now; consider PersistentVolumeClaim in production.

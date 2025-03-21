@@ -77,7 +77,7 @@ data:
           exporters: [zipkin/nontls]
         traces/shopping-app:
           receivers: [routing]
-          exporters: [zipkin/nontls, azuremonitor, otlp]
+          exporters: [azuremonitor, otlp]
         traces/debug:
           receivers: [routing]
           exporters: [debug]

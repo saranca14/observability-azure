@@ -18,6 +18,7 @@ data:
         editable: true
       - name: Prometheus
         type: prometheus
+        uid: prometheus-uid
         url: http://prometheus.obs.svc.cluster.local:9090
         access: proxy
         isDefault: false
@@ -25,6 +26,7 @@ data:
         editable: true
       - name: Loki
         type: loki
+        uid: loki-uid
         url: http://loki.obs.svc.cluster.local:3100
         access: proxy
         isDefault: false
@@ -32,8 +34,27 @@ data:
         editable: true
       - name: Tempo
         type: tempo
+        uid: tempo-uid 
         url: http://tempo.obs.svc.cluster.local:3200
         access: proxy
         isDefault: false
         version: 1
         editable: true
+        jsonData:
+          tracesToLogs:
+            datasourceUid: 'loki-uid'
+            spanStartTimeShift: '1h'
+            spanEndTimeShift: '1h'
+            query: '{${__tags}, job="${__span.attributes.service.name}"} |~ "${__span.traceId}"'
+            filterByTraceID: false
+            filterBySpanID: false
+          tracesToMetrics:
+            datasourceUid: 'prometheus-uid'
+            tags: ['service.name']
+            queries:
+              - name: 'Request Rate'
+                query: 'rate(http_requests_total{job="$service"}[5m])'
+              - name: 'Error Rate'
+                query: 'rate(http_requests_total{job="$service", status=~"5.."}[5m])'
+              - name: 'Latency (P95)'
+                query: 'histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job="$service"}[5m])) by (le))'

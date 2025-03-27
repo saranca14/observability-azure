@@ -20,9 +20,9 @@ ENV OTEL_EXPORTER_OTLP_PROTOCOL="grpc"
 ENV OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED="true"
 ENV OTEL_RESOURCE_ATTRIBUTES="deployment.environment=production,service.instance.id=$(hostname),application.name=e-commerce"
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["opentelemetry-instrument", "--traces_exporter=console,otlp", "--metrics_exporter=console,otlp", "--logs_exporter=console,otlp", "python", "app.py"]
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:5000/health || exit 1
+  CMD curl -f http://localhost:8080/health

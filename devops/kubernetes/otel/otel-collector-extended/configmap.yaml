@@ -12,6 +12,7 @@ data:
             endpoint: 0.0.0.0:4317
           http:
             endpoint: 0.0.0.0:4318
+      datadog/connector:
 
     processors:
       k8sattributes:
@@ -33,24 +34,28 @@ data:
 
     exporters:
       debug:
-              verbosity: detailed  
+        verbosity: detailed
       prometheus:
-              endpoint: 0.0.0.0:9464
+        endpoint: 0.0.0.0:9464
       zipkin/nontls:
-              endpoint: "http://zipkin.obs.svc.cluster.local:9411/api/v2/spans"
-              format: proto
+        endpoint: "http://zipkin.obs.svc.cluster.local:9411/api/v2/spans"
+        format: proto
       azuremonitor:
-              connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
+        connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
       otlp:
-              endpoint: "tempo.obs.svc.cluster.local:4317"
-              tls:
-                insecure: true
+        endpoint: "tempo.obs.svc.cluster.local:4317"
+        tls:
+          insecure: true
       otlphttp/loki:
-              endpoint: "http://loki.obs.svc.cluster.local:3100/loki/api/v1/push"
+        endpoint: "http://loki.obs.svc.cluster.local:3100/loki/api/v1/push"
       prometheusremotewrite:
-              endpoint: "http://mimir.obs.svc.cluster.local:9009/api/v1/push"
-              tls:
-                insecure: true
+        endpoint: "http://mimir.obs.svc.cluster.local:9009/api/v1/push"
+        tls:
+          insecure: true
+      datadog/exporter:
+        api:
+          key: "${DD_API_KEY}"
+          site: datadoghq.eu
 
     extensions:
       file_storage:
@@ -62,22 +67,28 @@ data:
           level: debug
       extensions: [file_storage]
       pipelines:
-        metrics:
-          receivers: [otlp]
-          exporters: [prometheus, azuremonitor, prometheusremotewrite, debug]
         logs:
           receivers: [otlp]
           exporters: [otlphttp/loki, azuremonitor, debug]
+          
+        metrics:
+          receivers: [otlp]
+          exporters: [prometheus, azuremonitor, prometheusremotewrite, debug]
+        metrics/datadog:
+          receivers: [datadog/connector]
+          exporters: [datadog/exporter]
+
         traces:
           receivers: [otlp]
           processors: [k8sattributes]
           exporters: [routing]
         traces/voting-app:
           receivers: [routing]
-          exporters: [zipkin/nontls]
+          exporters: [zipkin/nontls, datadog/exporter]
         traces/shopping-app:
           receivers: [routing]
           exporters: [azuremonitor, otlp]
         traces/debug:
           receivers: [routing]
           exporters: [debug]
+

@@ -13,6 +13,9 @@ data:
           http:
             endpoint: 0.0.0.0:4318
 
+    connectors:
+      datadog/connector:
+
     exporters:
       debug:
               verbosity: detailed  
@@ -33,6 +36,10 @@ data:
               endpoint: "http://mimir.obs.svc.cluster.local:9009/api/v1/push"
               tls:
                 insecure: true
+      datadog/exporter:
+              api:
+                key: "${DD_API_KEY}"
+                site: datadoghq.eu
 
     extensions:
       file_storage:
@@ -44,10 +51,13 @@ data:
       pipelines:
         traces:
           receivers: [otlp]
-          exporters: [azuremonitor, zipkin/nontls, otlp,  debug]
+          exporters: [azuremonitor, datadog/connector, datadog/exporter, zipkin/nontls, otlp,  debug]
         metrics:
           receivers: [otlp]
           exporters: [azuremonitor, prometheus, debug]
+        metrics/datadog:
+          receivers: [datadog/connector]
+          exporters: [datadog/exporter]
         logs:
           receivers: [otlp]
           exporters: [azuremonitor, loki, debug]

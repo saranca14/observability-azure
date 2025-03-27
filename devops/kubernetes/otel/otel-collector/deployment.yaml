@@ -37,6 +37,11 @@ spec:
               secretKeyRef:
                 name: appinsights-secret-shopping-app
                 key: connection-string
+          - name: DD_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: datadog-api-key
+                key: api-key
       volumes:
         - name: config-volume
           configMap:

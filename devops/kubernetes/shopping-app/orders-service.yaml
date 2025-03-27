@@ -6,7 +6,7 @@ metadata:
   labels:
     service: shopping-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: orders-service
@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: orders-service
-          image: saranrnair/orders-service:v2
+          image: saranrnair/orders-service:v2@sha256:660cfc46572dee4282827727639200a60f9d5d23bc73f29ac370db1572c36741
+          # image: gftotelshoppingapp.azurecr.io/orders-service:rfv1
           imagePullPolicy: Always
           ports:
             - containerPort: 5000

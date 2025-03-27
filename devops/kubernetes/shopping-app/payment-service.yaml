@@ -6,7 +6,7 @@ metadata:
   labels:
     service: shopping-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: payment-service
@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: payment-service
-          image: saranrnair/payment-service:v2
+          image: saranrnair/payment-service:v2@sha256:4f080a4d4af434deffe512ad9f8d8b722841e67d445196eee64cf9b749892a95
+          # image: gftotelshoppingapp.azurecr.io/payment-service:rfv1
           imagePullPolicy: Always
           ports:
             - containerPort: 5003

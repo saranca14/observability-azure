@@ -79,15 +79,15 @@ data:
           exporters: [datadog/exporter]
 
         traces:
-          receivers: [otlp]
+          receivers: [otlp, datadog/connector]
           processors: [k8sattributes]
           exporters: [routing]
         traces/voting-app:
           receivers: [routing]
-          exporters: [zipkin/nontls, datadog/exporter]
+          exporters: [zipkin/nontls]
         traces/shopping-app:
           receivers: [routing]
-          exporters: [azuremonitor, otlp]
+          exporters: [azuremonitor, datadog/exporter, otlp]
         traces/debug:
           receivers: [routing]
           exporters: [debug]

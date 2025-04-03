@@ -23,7 +23,7 @@ data:
         labels:
           severity: critical
         annotations:
-          summary: "High CPU usage on instance {{ $labels.instance }}"
+          summary: "Low CPU usage on instance {{ $labels.instance }}"
           description: "CPU usage is above 70% for 2 minutes."
 
       - alert: HighMemoryUsage
